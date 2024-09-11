@@ -1,0 +1,419 @@
+{
+  "navbar":{
+    "home": "Inicio",
+    "signInA": "Iniciar sesión",
+    "support":"Soporte",
+    "language":"Idioma",
+    "english":"Inglés",
+    "spanish":"Español",
+    "hindi":"Hindi",
+    "french":"Francés",
+    "chinese":"Chino",
+    "settings":"Ajustes",
+    "signUp":"Registrarse"
+  },
+  "support":{
+    "navbar":{
+      "aboutus":"Sobre Nosotros",
+      "contactus":"Contáctanos",
+      "licese":"Licencia",
+      "manual":"Manual",
+      "pp":"Política de Privacidad"
+    },
+    "page":{
+      "welcome":"Hola. ¿Cómo podemos ayudarte?",
+      "description":"Te recomendamos visitar nuestro manual para una mejor experiencia.",
+      "title1":"Manual",
+      "description1":"Todo lo que tiene que saber para empezar a utilizar el sistema GuateCare.",
+      "title2":"Administración de los datos",
+      "description2":"Veamos como crear y editar los datos capturados por el sistema.",
+      "title3":"¿Problemas? Solucionémoslo.",
+      "description3":"Si tiene algún problema con el sistema, juntos realizaremos algunos pasos para solucionarlo.",
+      "title4":"¿Necesitas más ayuda? Contáctanos.",
+      "description4":"Si tienes alguna pregunta o necesitas ayuda personalizada, no dudes en contactarnos.",
+      "title5":"Comunidad",
+      "description5":"Instituciones, organizaciones y entidades sumadas a esta causa.",
+      "title6":"Sobre nosotros",
+      "subtitle6":"¿Quiénes somos?",
+      "description6":"Somos un equipo multidisciplinario apasionado y dedicado, enfocado en transformar la vida de la niñez guatemalteca y global. Con la unión de tecnología de vanguardia y el conocimiento de especialistas en salud, nuestro compromiso es generar un impacto positivo y duradero en el bienestar infantil.",
+      "title7":"Nuestra historia",
+      "subtitle7":"¿Cómo surgió GuateCare?",
+      "description7":"En el corazón de Guatemala, un equipo multidisciplinario apasionado está revolucionando la lucha contra la desnutrición infantil con un proyecto innovador que combina la última tecnología con experiencia en salud.",
+      "title8":"Galería",
+      "subtitle8":"Revive el proceso",
+      "description8":"Las historias más memorables cobran vida a través de los recuerdos. Explora nuestra galería de imágenes y descubre cada paso emocionante del proceso de creación de GuateCare.",
+      "title9":"Ubicación",
+      "subtitle9":"Encuéntranos",
+      "description9":"¡Únete a nosotros y vive la experiencia de GuateCare como nunca antes! Embárcate en esta aventura única con nuestro equipo y sé parte de algo extraordinario. Tu participación hará que la experiencia sea inolvidable. ¡No te lo pierdas!",
+      "title10":"Donaciones",
+      "subtitle10":"Únete y ayúdanos",
+      "description10":"Tu Donación Marca la Diferencia Con tu apoyo, adquiriremos más equipos de salud para llegar a más comunidades y departamentos que necesitan ayuda urgente. Cada contribución amplía nuestro alcance y mejora vidas. ¡Haz que tu impacto sea grande!"
+    },
+    "others":{
+      "readmore":"Leer más...",
+      "seemore":"Ver más...",
+      "map":"Ir al mapa...",
+      "donate":"Donar..."
+    }
+  },
+  "mapa":{
+    "title":"Ubicación del proyecto",
+    "description":"¡Hola a todos! Nos complace anunciar que el proyecto GuateCare se está llevando a cabo en el Hotel Jared actual Centro de Atención Permanente (CAP) , si desean visualizar el sistema en acción les invitamos a visitar esta ubicación.",
+    "description1":"¡No pierdan la oportunidad de ver de primera mano cómo se está desarrollando este emocionante proyecto! Su visita no solo les permitirá conocer el sistema en funcionamiento, sino también experimentar de cerca los avances y mejoras implementadas en esta importante ubicación.",
+    "locate":"Hotel Jared (Actual CAP)"
+  },
+  "gallery":{
+    "build":"La construcción",
+    "description":"¡Sumérgete en nuestra galería de imágenes y vive cada momento fascinante del proceso de creación de GuateCare! Desde el primer boceto hasta el producto final, te invitamos a explorar cada etapa y ser testigo de la transformación de nuestra visión en realidad. ¡No te pierdas esta experiencia visual única y reveladora!",
+    "autor":"Autor",
+    "materiales":"Materiales",
+    "description2":"Raspberry Pi modelo 4 B, elementos electrónicos, sensores y módulos (extensiones).",
+    "dimensions":"Dimensiones",
+    "description3":"Tamaño de la plataforma: 115 cm x 35cm x 2cm",
+    "subdescription3":"Tamaño de la báscula: 31 cm x  31 cm x 3.2 cm",
+    "finish":"Finalización",
+    "description4":"La presentación del producto estará siendo empaquetado para su presentación por medio de una caja de cartón.",
+    "includes":"Incluye",
+    "description5":"1 Raspberry Pi, 1 sensor de distancia, 1 módulo combinatorio de carga, 1 módulo HX711, cables de conexión de tipo UTP/Dupont (instalados), placa de conexiones, estructura armamble para las mediciones de talla/longitud, 1 plato y 1 báscula digital y un banco de energía.",
+    "considerations":"Consideraciones",
+    "description6":"Para obtener resultados más precisos, asegúrate de colocar el producto sobre una superficie plana. Tómate el tiempo para hacer las mediciones necesarias y recuerda mantener el producto fuera del alcance de los niños para su seguridad. ¡Gracias por tu atención a estos detalles!",
+    "galeria":"La galería",
+    "watch":"Ver imagen"
+  },
+  "donar":{
+    "title": "Apoya nuestra causa",
+    "description": "Tu aporte es valioso para este proyecto. Lo agradecemos desde ya. Registra tus datos para que nos pongamos en contacto y darte así las opciones de ayuda.",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "message":"Mensaje",
+    "contactUs":"¡Enviar datos!",
+    "none":"Por favor, completa todos los campos.",
+    "thanks":"Nos pondremos en contacto contigo pronto.",
+    "error":"Error al enviar el correo."
+  },
+  "manual":{
+    "title":"Bienvenido al manual de GuateCare",
+    "description":"¡Bienvenido al sistema GuateCare! A continuación, encontrará una guía paso a paso diseñada para que cualquier usuario pueda interactuar con nuestro sistema de manera eficiente y segura. Por favor, siga cuidadosamente los pasos para garantizar una experiencia óptima.",
+    "step":"Pasos",
+    "step1":"1. Verificación inicial",
+    "step1dec":"Antes de encender el sistema, asegúrese de que la Raspberry Pi esté encendida y que todos los cables estén correctamente conectados. Verifique que no haya cables dañados. Esto garantiza que el sistema funcione sin interrupciones.",
+    "step2":"2. Encendido del sistema",
+    "step2desc":"Si el sistema no está encendido, conecte la fuente de alimentación o un banco de carga. Espere entre 2 y 4 minutos para que el sistema se inicie completamente y esté listo para usarse.",
+    "step3":"3. Verificación de conectividad",
+    "step3desc":"Asegúrese de tener una conexión a internet estable y que tanto el sistema como su dispositivo estén conectados a la misma red. Esto es crucial para poder interactuar con el sistema sin problemas.",
+    "step4": "4. Inicio de sesión",
+    "step4desc": "Inicie sesión con su cuenta previamente creada o utilizando el servicio de acceso proporcionado. Esto le dará acceso a todas las funcionalidades del sistema.",
+    "step5": "5. Panel principal: registro del bebé",
+    "step5desc": "Una vez que haya iniciado sesión, será dirigido al Panel Principal. Aquí encontrará la opción de registro del bebé, donde podrá almacenar y actualizar la información personal del bebé.",
+    "step6": "6. Navegación entre páginas",
+    "step6desc": "En el menú lateral izquierdo, encontrará diversas secciones que le permitirán navegar por el sistema:",
+    "step7": "7. Monitoreo",
+    "step7desc": "Al seleccionar el ícono de Monitoreo (bebé), podrá medir y visualizar datos capturados por los dispositivos conectados. También tendrá la opción de guardar o descartar las mediciones.",
+    "step8": "8. Alertas",
+    "step8desc": "En la sección de Alertas (ícono de alerta), verá un listado de alertas previas, donde podrá revisar y dar seguimiento a los casos registrados. Podrá editar información, agregar datos médicos adicionales, y emitir nuevas alertas si es necesario.",
+    "step9": "9. Reportes y gráficas",
+    "step9desc": "Acceda a Reportes y Gráficas (ícono de gráficas) para visualizar y exportar toda la información recopilada. Podrá consultar y generar reportes detallados, incluyendo gráficos, en cualquier momento.",
+    "step10": "10. Ajustes del sistema",
+    "step10desc": "En la sección de Ajustes, podrá personalizar su perfil y modificar cualquier información que considere necesaria para optimizar su experiencia.",
+    "support":"Asistencia",
+    "supportdesc":"Si tiene alguna duda o necesita asistencia adicional, no dude en contactarnos. Estamos aquí para ayudarle a obtener la mejor experiencia posible con nuestro sistema.",
+    "found":"Encontrarás:",
+    "highlights":"Registro del bebé",
+    "highlights2":"Monitoreo",
+    "highlights3":"Alertas",
+    "highlights4":"Reportes y gráficas",
+    "highlights5":"Ajustes"
+  },
+  "mainhome":{
+    "work":"¡Bienvenido a GuateCare!",
+    "workdesc": "Ve a \"Inicio\" si deseas visualizar la información actual o inicia sesión para acceder a todas las funcionalidades del sistema.",
+    "button1":"Ir a inicio",
+    "button2":"Saber más sobre la desnutrición",
+    "title":"¿Qué es la desnutrición?",
+    "title2":"Definición",
+    "description":"Es un estado patológico que surge de una ingesta inadecuada de nutrientes o un exceso catabólico, y se manifiesta con alteraciones clínicas, bioquímicas y problemas en las medidas corporales.",
+    "title3":"Tipos",
+    "description2-1":"Desnutrición aguda",
+    "description2-2":"Desnutrición crónica",
+    "description2-3":"Desnutrición mixta",
+    "title4":"Causas",
+    "description3-1":"Pobreza: Falta de acceso a alimentos suficientes y nutritivos.",
+    "description3-2":"Conflictos y emergencias: Situaciones que interrumpen la producción y distribución de alimentos.",
+    "description3-3":"Enfermedades: Condiciones que afectan la capacidad del cuerpo para absorber nutrientes.",
+    "description3-4":"Educación y conocimiento: Falta de información sobre nutrición adecuada.",
+    "title5":"Consecuencias",
+    "description4":"La desnutrición deteriora la salud y la calidad de vida, perpetuando la pobreza y reduciendo la productividad.",
+    "title6":"Prevención",
+    "description5":"Los programas de alimentación escolar mejoran la salud y el rendimiento académico, y la educación en nutrición optimiza la alimentación y la producción local.",
+    "title7":"Impacto",
+    "description6":"La desnutrición infantil frena el desarrollo cognitivo, amplía la desigualdad social y debilita la cohesión comunitaria, perpetuando la pobreza y elevando la delincuencia."
+  },
+  "about":{
+    "title":"Innovación que transforma",
+    "description1":"En Guatemala, un equipo multidisciplinario se ha unido con el propósito de luchar contra la desnutrición infantil mediante tecnología y experiencia en salud.",
+    "description2":"Nuestro proyecto se fundamenta en dos pilares esenciales: tecnología y expertos en salud. Este enfoque dual nos permite intervenir de manera efectiva en la vida de los más pequeños, asegurando que cada niño reciba el apoyo nutricional que necesita para crecer fuerte y saludable.",
+    "mision":"Nuestra misión",
+    "misiondesc":"Combatir la desnutrición infantil en Guatemala con soluciones innovadoras en tecnología y salud.",
+    "team":"Conoce a los expertos que impulsan nuestra visión",
+    "history":"Nuestra historia",
+    "hisotydesc":"Un equipo multidisciplinario, impulsado por la pasión y dedicación, trabaja desde el corazón de Guatemala para transformar la nutrición infantil.",
+    "project":"El proyecto",
+    "projectdesc":"Nuestro proyecto combina tecnología y expertos en salud para ofrecer apoyo nutricional efectivo a los niños, garantizando su crecimiento saludable.",
+    "impact":"Impacto en la sociedad",
+    "impactdesc":"Optimización de procesos que permite intervenciones rápidas y eficaces, mejorando la atención de los niños en comunidades vulnerables.",
+    "rewards":"Reconocimientos",
+    "rewardsdesc":"Primer lugar en la competición nacional de Enactus Guatemala con el equipo Enactus UVG Altiplano.",
+    "future":"Nuestro futuro",
+    "futuredesc":"Expansión a más comunidades en Guatemala y la región, comprometidos con un futuro saludable para las comunidades",
+    "ourteam":"El equipo",
+    "ourteamdesc":"El desarrollador detrás de GuateCare",
+    "developer":"Desarrollador"
+  },
+  "history":{
+    "title":"La historia del proyecto: GuateCare",
+    "description1":"En el corazón de Guatemala, donde la riqueza cultural y la esperanza coexisten con desafíos profundos, un equipo multidisciplinario de visionarios se ha unido con un propósito común: luchar contra la desnutrición infantil. Este equipo, impulsado por una pasión incansable y una dedicación ejemplar, ha diseñado un proyecto revolucionario que combina la última tecnología con la experiencia en salud para abordar uno de los problemas más críticos que enfrentan las comunidades vulnerables.",
+    "project":"Proyecto",
+    "solution":"La solución",
+    "description2": "Imagina un mundo donde la lucha contra la desnutrición infantil no se basa únicamente en buenos deseos, sino en soluciones tecnológicas concretas y eficientes. Nuestro proyecto se fundamenta en dos pilares esenciales: tecnología y expertos en salud. Este enfoque dual nos permite intervenir de manera efectiva en la vida de los más pequeños, asegurando que cada niño reciba el apoyo nutricional que necesita para crecer fuerte y saludable.",
+    "impact":"Impacto",
+    "impact2":"Impacto en la sociedad",
+    "description4": "Nuestro objetivo es transformar la forma en que se aborda la desnutrición infantil. Al automatizar la medición y la recolección de datos, no solo optimizamos los procesos, sino que también proporcionamos a las comunidades herramientas para actuar con rapidez y eficacia. Esta innovación garantiza que los niños reciban la atención adecuada en el momento adecuado, mejorando significativamente sus perspectivas de salud y desarrollo.",
+    "reward":"Reconocimiento",
+    "rf":"Reconocimiento y futuro",
+    "description5":"Estamos orgullosos de compartir que nuestro proyecto ha sido reconocido a nivel nacional como uno de los dos proyectos destacados presentados por Enactus UVG Altiplano. Este reconocimiento, al obtener el primer lugar en la competición nacional, valida la efectividad y el potencial de nuestro enfoque. A medida que avanzamos, nuestra visión es expandir esta solución a más comunidades, no solo en Guatemala, sino en toda la región."
+  }
+  ,
+  "signIn": {
+    "pageTitle": "Iniciar Sesión",
+    "description": "Ingrese su correo electrónico a continuación para iniciar sesión en su cuenta",
+    "emailLabel": "Correo",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "Contraseña",
+    "forgotPasswordLink": "¿Olvido su contraseña?",
+    "submitButton": "Iniciar sesión",
+    "googleButton": "Iniciar sesión con Google",
+    "noAccountText": "¿No tienes una cuenta?",
+    "registerLink": "Registrate"
+  },
+  "signUp": {
+    "pageTitle": "Registrarse",
+    "description": "Ingresa tus datos para crear una cuenta",
+    "fullNameLabel": "Nombre completo",
+    "fullNamePlaceholder": "Max",
+    "lastNameLabel": "Apellidos",
+    "lastNamePlaceholder": "Robinson",
+    "emailLabel": "Correo",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "",
+    "createAccountButton": "Crear cuenta",
+    "googleButton": "Regístrese con Google",
+    "alreadyHaveAccountText": "¿Ya tienes una cuenta?",
+    "signInLink": "Iniciar sesión"
+  },
+  "modetoggle":{
+    "dark": "Oscuro",
+    "light": "Claro",
+    "system":"Sistema"
+  },
+
+  "home":{
+    "card1":{
+    "text1": "Total de casos registrados",
+    "text2": "Posibles casos de desnutrición aguda: ",
+    "text3": "casos"
+    },
+    "card2":{
+    "text1": "Casos actuales",
+    "text2": "Casos del último mes: ",
+    "text3": "casos"
+    },
+    "card3":{
+    "text1": "Peso medio actual",
+    "text2": "Promedio del último mes: ",
+    "text3": "libras"
+    },
+    "card4":{
+    "text1": "Promedio talla/longitud actual",
+    "text2": "Promedio del último mes: ",
+    "text3": "centímetros"
+    },
+    "card5":{
+      "text1": "IMC (Índice de Masa Corporal)",
+      "text2": "Promedio del último mes: ",
+      "text3": "kg/m"
+      },
+    "charts":{
+      "text1":"IMC promedio (índice de masa corporal)",
+      "text2":"Peso para la edad",
+      "text3":"Talla/Longitud para la edad",
+      "text4":"Administración del tiempo",
+      "text5":"min",
+      "text6":"hrs",
+      "text7":"día",
+      "text8":"días",
+      "text9":"Promedio diario",
+      "text10":"Tiempo promedio que se utilizó el sistema por día en la app de GuateCare" 
+    },
+    "data":{
+      "title":"Datos",
+      "description":"Recopilación de los datos captados en tiempo real",
+      "status":"Estado",
+      "id":"Identificador",
+      "create":"Fecha de creación",
+      "follow":"Fecha de seguimiento",
+      "priority":"Prioridad",
+      "dataStatus":{
+        "new":"Nuevo",
+        "inProgress":"En progreso",
+        "inReview":"En revisión",
+        "resolved":"Resuelto"
+      },
+      "dataPriority":{
+        "severe":"Severo",
+        "moderate":"Moderado",
+        "mild":"Leve"
+      }
+    },
+    "days":{
+      "mon":"Lun",
+      "tue":"Mar",
+      "wed":"Mié",
+      "thu":"Jue",
+      "fri":"Vie",
+      "sat":"Sab",
+      "sun":"Dom"
+    },
+    "dates":{
+      "day":"Dia",
+      "week":"Semana",
+      "month":"Mes",
+      "year":"Año"
+    },
+    "filter":{
+      "title":"Filtrar",
+      "filterby":"Filtrar por:",
+      "status":"Estado",
+      "id":"Identificador",
+      "create":"Fecha de creación",
+      "follow":"Fecha de seguimiento",
+      "priority":"Prioridad"
+    },
+    "export":{
+      "title":"Exportar"
+    }
+  },
+  
+  "footer": {
+    "logo": {
+      "alt": "GuateCare",
+      "name": "GuateCare"
+    },
+    "resources": {
+      "title": "Recursos",
+      "links": [
+        {
+          "name": "Flowbite",
+          "url": "https://flowbite.com/"
+        },
+        {
+          "name": "Tailwind CSS",
+          "url": "https://tailwindcss.com/"
+        }
+      ]
+    },
+    "followUs": {
+      "title": "Síguenos",
+      "links": [
+        {
+          "name": "Github",
+          "url": "https://github.com/Owl-in-night?tab=repositories"
+        },
+        {
+          "name": "Discord",
+          "url": "https://discord.gg/RY7N6wgH"
+        }
+      ]
+    },
+    "legal": {
+      "title": "Legal",
+      "links": [
+        {
+          "name": "Política de Privacidad",
+          "url": "/privacy-policy"
+        },
+        {
+          "name": "Términos y Condiciones",
+          "url": "/terms&conditions"
+        }
+      ]
+    },
+    "footerText": "© 2024 GuateCare™. Todos los derechos reservados.",
+    "socialMedia": {
+      "facebook": {
+        "url": "https://www.facebook.com/Owl.in.nigth/?locale=es_LA",
+        "alt": "Página de Facebook"
+      },
+      "discord": {
+        "url": "https://discord.com/channels/@me",
+        "alt": "/Soporte/Comunidad de Discord"
+      },
+      "x": {
+        "url": "https://x.com/owl_in_night",
+        "alt": "Página de X"
+      },
+      "github": {
+        "url": "https://github.com/Owl-in-night",
+        "alt": "Cuenta de GitHub"
+      },
+      "dribbble": {
+        "url": "https://dribbble.com/OwlInNight",
+        "alt": "Cuenta de Dribbble"
+      }
+    },
+    "footerMobile": {
+      "text": "© 2023 GuateCare™. Todos los derechos reservados.",
+      "links": [
+        {
+          "name": "Sobre Nosotros",
+          "url": "#"
+        },
+        {
+          "name": "Política de Privacidad",
+          "url": "#"
+        },
+        {
+          "name": "Licencias",
+          "url": "#"
+        },
+        {
+          "name": "Contacto",
+          "url": "#"
+        }
+      ],
+      "socialMedia": {
+        "facebook": {
+          "url": "https://www.facebook.com/Owl.in.nigth/?locale=es_LA",
+          "alt": "Página de Facebook"
+        },
+        "discord": {
+          "url": "https://discord.com/channels/@me",
+          "alt": "/Soporte/Comunidad de Discord"
+        },
+        "x": {
+          "url": "https://x.com/owl_in_night",
+          "alt": "Página de X"
+        },
+        "github": {
+          "url": "https://github.com/Owl-in-night",
+          "alt": "Cuenta de GitHub"
+        },
+        "dribbble": {
+          "url": "https://dribbble.com/OwlInNight",
+          "alt": "Cuenta de Dribbble"
+        }
+      }
+    }
+  }
+}

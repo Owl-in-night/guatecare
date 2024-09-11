@@ -1,0 +1,383 @@
+{
+  "navbar": {
+    "home": "主页",
+    "signInA": "登录",
+    "support": "支持",
+    "language": "语言",
+    "english": "英语",
+    "spanish": "西班牙语",
+    "hindi": "印地语",
+    "french": "法语",
+    "chinese": "中文",
+    "settings": "设置",
+    "signUp":"注册"
+  },
+  "mainhome": {
+    "work": "欢迎来到GuateCare！",
+    "workdesc": "如果您想查看当前信息，请访问“首页”，或登录以访问系统的所有功能。",
+    "button1": "去首页",
+    "button2": "了解更多关于营养不良的信息",
+    "title": "什么是营养不良？",
+    "title2": "定义",
+    "description": "这是一个病理状态，来源于营养摄入不足或过度的分解代谢，并通过临床、化学和体测异常表现出来。",
+    "title3": "类型",
+    "description2-1": "急性营养不良",
+    "description2-2": "慢性营养不良",
+    "description2-3": "混合型营养不良",
+    "title4": "原因",
+    "description3-1": "贫困：缺乏足够和营养丰富的食物。",
+    "description3-2": "冲突和紧急情况：干扰食品生产和分配的情况。",
+    "description3-3": "疾病：影响身体吸收营养的能力的状况。",
+    "description3-4": "教育和知识：缺乏关于适当营养的信息。",
+    "title5": "后果",
+    "description4": "营养不良损害健康和生活质量，延续贫困并降低生产力。",
+    "title6": "预防",
+    "description5": "学校餐饮计划改善健康和学业表现，营养教育优化饮食和当地生产。",
+    "title7": "影响",
+    "description6": "儿童营养不良阻碍认知发展，扩大社会不平等，并削弱社区凝聚力，延续贫困并增加犯罪率。"
+},
+  "mapa": {
+    "title": "项目位置",
+    "description": "大家好！我们很高兴地宣布，GuateCare 项目正在现有的贾瑞德酒店常驻护理中心（CAP）进行。如果您想看到系统的实际运行，我们邀请您访问这个地点。",
+    "description1": "不要错过亲眼见证这个激动人心的项目进展的机会！您的访问不仅将使您能够看到系统的运行情况，还能近距离体验在这一重要地点实施的进展和改进。",
+    "locate": "贾瑞德酒店（现有 CAP）"
+  },  
+  "gallery": {
+    "build": "建设",
+    "description": "沉浸在我们的图片库中，体验 GuateCare 创建过程中的每一个迷人瞬间！从第一张草图到最终产品，我们邀请您探索每个阶段，见证我们愿景的实现。不要错过这一独特而揭示性的视觉体验！",
+    "autor": "作者",
+    "materiales": "材料",
+    "description2": "Raspberry Pi 4 B 型号，电子元件，传感器和模块（扩展）。",
+    "dimensions": "尺寸",
+    "description3": "平台尺寸：115 cm x 35 cm x 2 cm",
+    "subdescription3": "秤的尺寸：31 cm x 31 cm x 3.2 cm",
+    "finish": "完成",
+    "description4": "产品将被打包在纸箱中以供展示。",
+    "includes": "包含",
+    "description5": "1 Raspberry Pi，1 个距离传感器，1 个称重模块，1 个 HX711 模块，UTP/Dupont 连接电缆（已安装），连接板，可调框架用于尺寸/长度测量，1 个盘子，1 个数字秤和一个电源银行。",
+    "considerations": "注意事项",
+    "description6": "为了获得更准确的结果，请确保将产品放在平坦的表面上。花时间进行必要的测量，并记得将产品放在儿童无法触及的地方以确保安全。感谢您关注这些细节！",
+    "galeria": "图库",
+    "watch": "查看图片"
+  },
+  "about": {
+    "title": "变革性的创新",
+    "description1": "在危地马拉，一个多学科团队聚集在一起，旨在通过技术和健康专业知识来对抗儿童营养不良。",
+    "description2": "我们的项目基于两个基本支柱：技术和健康专家。这种双重方法使我们能够有效地干预小孩的生活，确保每个孩子都能获得成长所需的营养支持。",
+    "mision": "我们的使命",
+    "misiondesc": "通过技术和健康领域的创新解决方案来对抗危地马拉的儿童营养不良。",
+    "team": "认识推动我们愿景的专家",
+    "history": "我们的历史",
+    "hisotydesc": "一个由激情和奉献精神驱动的多学科团队，致力于从危地马拉的中心转变儿童营养。",
+    "project": "项目",
+    "projectdesc": "我们的项目结合了技术和健康专家，为儿童提供有效的营养支持，确保他们的健康成长。",
+    "impact": "对社会的影响",
+    "impactdesc": "优化流程，允许快速而有效的干预，提高对脆弱社区儿童的照顾。",
+    "rewards": "奖项",
+    "rewardsdesc": "在Enactus危地马拉国家比赛中获得第一名，与Enactus UVG Altiplano团队一起。",
+    "future": "我们的未来",
+    "futuredesc": "扩展到更多的危地马拉和地区社区，致力于为社区创造一个健康的未来。",
+    "developer": "开发者",
+    "ourteam": "我们的团队",
+    "ourteamdesc": "GuateCare 的开发者"
+  },
+  "history": {
+    "title": "项目历史：GuateCare",
+    "description1": "在危地马拉的心脏地带，文化的丰富和希望与深刻的挑战共存，一支多学科的远见团队汇聚在一起，共同的目标是：对抗儿童营养不良。这个团队凭借着不懈的热情和卓越的奉献精神，设计了一个革命性的项目，将最新的技术与健康专业知识结合起来，以解决弱势社区面临的最关键问题之一。",
+    "project": "项目",
+    "solution": "解决方案",
+    "description2": "想象一个世界，在这个世界中，对抗儿童营养不良的斗争不仅仅依赖于美好的愿望，而是基于具体和有效的技术解决方案。我们的项目基于两个核心支柱：技术和健康专家。这种双重方法使我们能够有效地介入最年轻的生命，确保每个孩子都能获得他们成长所需的营养支持。",
+    "impact": "影响",
+    "impact2": "对社会的影响",
+    "description4": "我们的目标是改变应对儿童营养不良的方式。通过自动化测量和数据收集，我们不仅优化了过程，还为社区提供了快速和有效行动的工具。这一创新确保孩子们在正确的时间得到适当的护理，从而显著改善他们的健康和发展前景。",
+    "reward": "认可",
+    "rf": "认可与未来",
+    "description5": "我们自豪地分享，我们的项目已在全国范围内被认可为Enactus UVG Altiplano提交的两个突出项目之一。这一认可通过在全国比赛中获得第一名，验证了我们方法的有效性和潜力。随着我们的前进，我们的愿景是将这一解决方案扩展到更多社区，不仅仅是在危地马拉，而是整个地区。"
+  },
+  "donar": {
+    "title": "支持我们的事业",
+    "description": "您的贡献对这个项目非常重要。我们提前表示感谢。请填写您的信息，以便我们与您联系并提供帮助选项。",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "email": "电子邮件",
+    "message": "消息",
+    "contactUs": "发送信息！",
+    "none": "请填写所有字段。",
+    "thanks": "我们会尽快与您联系。",
+    "error": "发送电子邮件时出错。"
+  },
+  "signIn": {
+    "pageTitle": "登录",
+    "description": "请输入您的电子邮件地址以登录您的账户",
+    "emailLabel": "电子邮件",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "密码",
+    "forgotPasswordLink": "忘记密码？",
+    "submitButton": "登录",
+    "googleButton": "使用 Google 登录",
+    "noAccountText": "没有账户？",
+    "registerLink": "注册"
+  },
+  "signUp": {
+    "pageTitle": "注册",
+    "description": "输入您的详细信息以创建一个帐户",
+    "fullNameLabel": "全名",
+    "fullNamePlaceholder": "Max",
+    "lastNameLabel": "姓氏",
+    "lastNamePlaceholder": "Robinson",
+    "emailLabel": "电子邮件",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "密码",
+    "passwordPlaceholder": "",
+    "createAccountButton": "创建帐户",
+    "googleButton": "使用 Google 注册",
+    "alreadyHaveAccountText": "已经有账户？",
+    "signInLink": "登录"
+  },  "support": {
+    "navbar": {
+      "aboutus": "关于我们",
+      "contactus": "联系我们",
+      "licese": "许可证",
+      "manual": "手册",
+      "pp": "隐私政策"
+    },
+    "page": {
+      "welcome": "你好。我们如何帮助你？",
+      "description": "我们建议访问我们的手册以获得更好的体验。",
+      "title1": "手册",
+      "description1": "开始使用GuateCare系统所需了解的一切。",
+      "title2": "数据管理",
+      "description2": "让我们看看如何创建和编辑系统捕获的数据。",
+      "title3": "遇到问题？让我们解决。",
+      "description3": "如果你有任何系统问题，我们将共同解决。",
+      "title4": "需要更多帮助？联系我们。",
+      "description4": "如果你有任何问题或需要个性化帮助，请随时联系我们。",
+      "title5": "社区",
+      "description5": "支持这一事业的机构、组织和实体。",
+      "title6": "关于我们",
+      "subtitle6": "我们是谁？",
+      "description6": "我们是一个充满热情和专注的多学科团队，致力于改变危地马拉及全球儿童的生活。通过前沿技术与健康专家的知识相结合，我们的承诺是对儿童福利产生积极而持久的影响。",
+      "title7": "我们的故事",
+      "subtitle7": "GuateCare是如何诞生的？",
+      "description7": "在危地马拉的心脏地带，一个充满激情的多学科团队正在通过一个创新项目革新对抗儿童营养不良的斗争，该项目将最新技术与健康经验相结合。",
+      "title8": "画廊",
+      "subtitle8": "重温过程",
+      "description8": "最难忘的故事通过回忆重现。探索我们的图像画廊，发现GuateCare创建过程中的每一个激动人心的步骤。",
+      "title9": "位置",
+      "subtitle9": "找到我们",
+      "description9": "加入我们，体验前所未有的GuateCare！与我们的团队一起踏上这次独特的冒险，成为非凡体验的一部分。你的参与将使这次经历难以忘怀。不要错过！",
+      "title10": "捐赠",
+      "subtitle10": "加入我们，帮助我们",
+      "description10": "你的捐赠改变一切 有了你的支持，我们将购置更多的健康设备，以帮助更多急需援助的社区和部门。每一笔捐款都扩展了我们的影响范围，改善了生活。让你的影响力变得更大！"
+    },
+    "others": {
+      "readmore": "阅读更多...",
+      "seemore": "查看更多...",
+      "map": "查看地图...",
+      "donate": "捐赠..."
+    }
+  },
+  "modetoggle": {
+    "dark": "黑暗模式",
+    "light": "亮色模式",
+    "system": "系统默认"
+  },
+  "home": {
+    "card1": {
+      "text1": "注册病例总数",
+      "text2": "可能的急性营养不良病例: ",
+      "text3": "病例"
+    },
+    "card2": {
+      "text1": "当前病例",
+      "text2": "上个月的病例: ",
+      "text3": "病例"
+    },
+    "card3": {
+      "text1": "当前平均体重",
+      "text2": "上个月的平均值: ",
+      "text3": "磅"
+    },
+    "card4": {
+      "text1": "当前平均身高/长度",
+      "text2": "上个月的平均值: ",
+      "text3": "厘米"
+    },
+    "card5": {
+      "text1": "BMI（身体质量指数）",
+      "text2": "上个月的平均值: ",
+      "text3": "kg/m"
+    },
+    "charts": {
+      "text1": "平均BMI（身体质量指数）",
+      "text2": "按年龄的体重",
+      "text3": "按年龄的身高/长度",
+      "text4": "时间管理",
+      "text5": "分钟",
+      "text6": "小时",
+      "text7": "天",
+      "text8": "天",
+      "text9": "每日平均",
+      "text10": "每天下GuateCare应用中系统的平均使用时间"
+    },
+    "data": {
+      "title": "数据",
+      "description": "实时捕获数据的收集",
+      "status": "状态",
+      "id": "标识符",
+      "create": "创建日期",
+      "follow": "跟进日期",
+      "priority": "优先级",
+      "dataStatus": {
+        "new": "新",
+        "inProgress": "进行中",
+        "inReview": "审查中",
+        "resolved": "已解决"
+      },
+      "dataPriority": {
+        "severe": "严重",
+        "moderate": "中等",
+        "mild": "轻微"
+      }
+    },
+    "days": {
+      "mon": "周一",
+      "tue": "周二",
+      "wed": "周三",
+      "thu": "周四",
+      "fri": "周五",
+      "sat": "周六",
+      "sun": "周日"
+    },
+    "dates": {
+    "day": "天",
+    "week": "周",
+    "month": "月",
+    "year": "年"
+    },
+    "filter": {
+      "title": "筛选",
+      "filterby": "筛选条件：",
+      "status": "状态",
+      "id": "标识符",
+      "create": "创建日期",
+      "follow": "跟进日期",
+      "priority": "优先级"
+    },
+    "export":{
+      "title":"导出"
+    }
+  },
+
+  "footer": {
+    "logo": {
+      "alt": "GuateCare",
+      "name": "GuateCare"
+    },
+    "resources": {
+      "title": "资源",
+      "links": [
+        {
+          "name": "Flowbite",
+          "url": "https://flowbite.com/"
+        },
+        {
+          "name": "Tailwind CSS",
+          "url": "https://tailwindcss.com/"
+        }
+      ]
+    },
+    "followUs": {
+      "title": "关注我们",
+      "links": [
+        {
+          "name": "Github",
+          "url": "https://github.com/Owl-in-night?tab=repositories"
+        },
+        {
+          "name": "Discord",
+          "url": "https://discord.gg/RY7N6wgH"
+        }
+      ]
+    },
+    "legal": {
+      "title": "法律",
+      "links": [
+        {
+          "name": "隐私政策",
+          "url": "/privacy-policy"
+        },
+        {
+          "name": "条款和条件",
+          "url": "/terms&conditions"
+        }
+      ]
+    },
+    "footerText": "© 2024 GuateCare™。保留所有权利。",
+    "socialMedia": {
+      "facebook": {
+        "url": "https://www.facebook.com/Owl.in.nigth/?locale=es_LA",
+        "alt": "Facebook 页面"
+      },
+      "discord": {
+        "url": "https://discord.com/channels/@me",
+        "alt": "Discord 社区"
+      },
+      "x": {
+        "url": "https://x.com/owl_in_night",
+        "alt": "X 页面"
+      },
+      "github": {
+        "url": "https://github.com/Owl-in-night",
+        "alt": "GitHub 账户"
+      },
+      "dribbble": {
+        "url": "https://dribbble.com/OwlInNight",
+        "alt": "Dribbble 账户"
+      }
+    },
+    "footerMobile": {
+      "text": "© 2024 GuateCare™。保留所有权利。",
+      "links": [
+        {
+          "name": "关于我们",
+          "url": "#"
+        },
+        {
+          "name": "隐私政策",
+          "url": "#"
+        },
+        {
+          "name": "许可证",
+          "url": "#"
+        },
+        {
+          "name": "联系方式",
+          "url": "#"
+        }
+      ],
+      "socialMedia": {
+        "facebook": {
+          "url": "https://www.facebook.com/Owl.in.nigth/?locale=es_LA",
+          "alt": "Facebook 页面"
+        },
+        "discord": {
+          "url": "https://discord.com/channels/@me",
+          "alt": "Discord 社区"
+        },
+        "x": {
+          "url": "https://x.com/owl_in_night",
+          "alt": "X 页面"
+        },
+        "github": {
+          "url": "https://github.com/Owl-in-night",
+          "alt": "GitHub 账户"
+        },
+        "dribbble": {
+          "url": "https://dribbble.com/OwlInNight",
+          "alt": "Dribbble 账户"
+        }
+      }
+    }
+  }
+}

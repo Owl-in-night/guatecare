@@ -1,0 +1,383 @@
+{
+  "navbar":{
+    "home": "Home",
+    "signInA": "Sign In",
+    "support":"Support",
+    "language":"Language",
+    "english":"English",
+    "spanish":"Spanish",
+    "hindi":"Hindi",
+    "french":"French",
+    "chinese":"Chinese",
+    "settings":"Settings",
+    "signUp":"Sign Up"
+  },
+  "gallery": {
+    "build": "The Build",
+    "description": "Dive into our image gallery and experience every fascinating moment of the GuateCare creation process! From the first sketch to the final product, we invite you to explore each stage and witness the transformation of our vision into reality. Don't miss this unique and revealing visual experience!",
+    "autor": "Author",
+    "materiales": "Materials",
+    "description2": "Raspberry Pi model 4 B, electronic components, sensors, and modules (extensions).",
+    "dimensions": "Dimensions",
+    "description3": "Platform size: 115 cm x 35 cm x 2 cm",
+    "subdescription3": "Scale size: 31 cm x 31 cm x 3.2 cm",
+    "finish": "Finishing",
+    "description4": "The product will be packaged for presentation in a cardboard box.",
+    "includes": "Includes",
+    "description5": "1 Raspberry Pi, 1 distance sensor, 1 load cell module, 1 HX711 module, UTP/Dupont connection cables (installed), connection board, adjustable frame for size/length measurements, 1 plate, 1 digital scale, and a power bank.",
+    "considerations": "Considerations",
+    "description6": "For more accurate results, make sure to place the product on a flat surface. Take the time to make the necessary measurements and keep the product out of reach of children for safety. Thank you for paying attention to these details!",
+    "galeria": "The Gallery",
+    "watch": "View Image"
+  },
+  "mapa": {
+    "title": "Project Location",
+    "description": "Hello everyone! We are pleased to announce that the GuateCare project is being carried out at the current Jared Hotel Permanent Care Center (CAP). If you want to see the system in action, we invite you to visit this location.",
+    "description1": "Don't miss the opportunity to see firsthand how this exciting project is developing! Your visit will not only allow you to see the system in operation but also experience up close the advancements and improvements implemented at this important location.",
+    "locate": "Jared Hotel (Current CAP)"
+  },
+  "donar": {
+    "title": "Support Our Cause",
+    "description": "Your contribution is valuable to this project. We appreciate it in advance. Register your details so we can contact you and provide assistance options.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "message": "Message",
+    "contactUs": "Send Information!",
+    "none": "Please fill out all fields.",
+    "thanks": "We will get in touch with you soon.",
+    "error": "Error sending email."
+  },
+  "mainhome": {
+        "work": "Welcome to GuateCare!",
+        "workdesc": "Go to 'Home' if you want to view the current information or log in to access all system features.",
+        "button1": "Go to home",
+        "button2": "Learn more about malnutrition",
+        "title": "What is malnutrition?",
+        "title2": "Definition",
+        "description": "It is a pathological state that arises from inadequate nutrient intake or excessive catabolism, and is manifested by clinical, biochemical alterations and problems in body measurements.",
+        "title3": "Types",
+        "description2-1": "Acute malnutrition",
+        "description2-2": "Chronic malnutrition",
+        "description2-3": "Mixed malnutrition",
+        "title4": "Causes",
+        "description3-1": "Poverty: Lack of access to sufficient and nutritious food.",
+        "description3-2": "Conflicts and emergencies: Situations that disrupt food production and distribution.",
+        "description3-3": "Diseases: Conditions affecting the body's ability to absorb nutrients.",
+        "description3-4": "Education and knowledge: Lack of information about proper nutrition.",
+        "title5": "Consequences",
+        "description4": "Malnutrition deteriorates health and quality of life, perpetuating poverty and reducing productivity.",
+        "title6": "Prevention",
+        "description5": "School feeding programs improve health and academic performance, and nutrition education optimizes diet and local production.",
+        "title7": "Impact",
+        "description6": "Child malnutrition hampers cognitive development, widens social inequality, and weakens community cohesion, perpetuating poverty and increasing crime."
+    },
+  "about": {
+    "title": "Innovation that Transforms",
+    "description1": "In Guatemala, a multidisciplinary team has come together with the purpose of combating child malnutrition through technology and health expertise.",
+    "description2": "Our project is based on two essential pillars: technology and health experts. This dual approach allows us to effectively intervene in the lives of young children, ensuring that each child receives the nutritional support needed to grow strong and healthy.",
+    "mision": "Our Mission",
+    "misiondesc": "To combat child malnutrition in Guatemala with innovative solutions in technology and health.",
+    "team": "Meet the Experts Driving Our Vision",
+    "history": "Our History",
+    "hisotydesc": "A multidisciplinary team, driven by passion and dedication, works from the heart of Guatemala to transform child nutrition.",
+    "project": "The Project",
+    "projectdesc": "Our project combines technology and health experts to provide effective nutritional support to children, ensuring their healthy growth.",
+    "impact": "Impact on Society",
+    "impactdesc": "Optimization of processes that allows for quick and effective interventions, improving care for children in vulnerable communities.",
+    "rewards": "Awards",
+    "rewardsdesc": "First place in the Enactus Guatemala national competition with the Enactus UVG Altiplano team.",
+    "future": "Our Future",
+    "futuredesc": "Expansion to more communities in Guatemala and the region, committed to a healthy future for the communities.",
+    "developer": "Developer",
+    "ourteam": "Our Team",
+    "ourteamdesc": "The developer behind GuateCare"
+  },
+ "history": {
+    "title": "The History of the Project: GuateCare",
+    "description1": "In the heart of Guatemala, where cultural richness and hope coexist with deep challenges, a multidisciplinary team of visionaries has come together with a common purpose: to fight against childhood malnutrition. This team, driven by tireless passion and exemplary dedication, has designed a revolutionary project that combines the latest technology with health expertise to address one of the most critical issues faced by vulnerable communities.",
+    "project": "Project",
+    "solution": "The Solution",
+    "description2": "Imagine a world where the fight against childhood malnutrition is not based solely on good intentions but on concrete and efficient technological solutions. Our project is based on two essential pillars: technology and health experts. This dual approach allows us to intervene effectively in the lives of the youngest, ensuring that every child receives the nutritional support they need to grow strong and healthy.",
+    "impact": "Impact",
+    "impact2": "Impact on Society",
+    "description4": "Our goal is to transform the way childhood malnutrition is addressed. By automating measurement and data collection, we not only optimize processes but also provide communities with tools to act quickly and effectively. This innovation ensures that children receive the right care at the right time, significantly improving their health and development prospects.",
+    "reward": "Recognition",
+    "rf": "Recognition and Future",
+    "description5": "We are proud to share that our project has been nationally recognized as one of the two standout projects presented by Enactus UVG Altiplano. This recognition, by winning first place in the national competition, validates the effectiveness and potential of our approach. As we move forward, our vision is to expand this solution to more communities, not only in Guatemala but throughout the region."
+  },
+  "signIn": {
+    "pageTitle": "Sign In",
+    "description": "Enter your email address below to sign in to your account",
+    "emailLabel": "Email",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "Password",
+    "forgotPasswordLink": "Forgot your password?",
+    "submitButton": "Sign In",
+    "googleButton": "Sign In with Google",
+    "noAccountText": "Don’t have an account?",
+    "registerLink": "Register"
+  },
+  "signUp": {
+    "pageTitle": "Sign Up",
+    "description": "Enter your details to create an account",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "Max",
+    "lastNameLabel": "Last Name",
+    "lastNamePlaceholder": "Robinson",
+    "emailLabel": "Email",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "",
+    "createAccountButton": "Create Account",
+    "googleButton": "Sign Up with Google",
+    "alreadyHaveAccountText": "Already have an account?",
+    "signInLink": "Sign In"
+  },
+  "support": {
+    "navbar": {
+      "aboutus": "About Us",
+      "contactus": "Contact Us",
+      "licese": "License",
+      "manual": "Manual",
+      "pp": "Privacy Policy"
+    },
+    "page": {
+      "welcome": "Hello. How can we assist you?",
+      "description": "We recommend visiting our manual for a better experience.",
+      "title1": "Manual",
+      "description1": "Everything you need to know to start using the GuateCare system.",
+      "title2": "Data Management",
+      "description2": "Let's see how to create and edit the data captured by the system.",
+      "title3": "Problems? Let's solve them.",
+      "description3": "If you have any issues with the system, we will work together to resolve them.",
+      "title4": "Need more help? Contact us.",
+      "description4": "If you have any questions or need personalized help, feel free to contact us.",
+      "title5": "Community",
+      "description5": "Institutions, organizations, and entities supporting this cause.",
+      "title6": "About Us",
+      "subtitle6": "Who are we?",
+      "description6": "We are a passionate and dedicated multidisciplinary team, focused on transforming the lives of Guatemalan and global children. By combining cutting-edge technology with the expertise of health specialists, our commitment is to create a positive and lasting impact on child welfare.",
+      "title7": "Our Story",
+      "subtitle7": "How did GuateCare begin?",
+      "description7": "In the heart of Guatemala, a passionate multidisciplinary team is revolutionizing the fight against childhood malnutrition with an innovative project that combines the latest technology with health expertise.",
+      "title8": "Gallery",
+      "subtitle8": "Relive the process",
+      "description8": "The most memorable stories come to life through memories. Explore our image gallery and discover each exciting step of the GuateCare creation process.",
+      "title9": "Location",
+      "subtitle9": "Find Us",
+      "description9": "Join us and experience GuateCare like never before! Embark on this unique adventure with our team and be part of something extraordinary. Your participation will make the experience unforgettable. Don't miss out!",
+      "title10": "Donations",
+      "subtitle10": "Join and Help Us",
+      "description10": "Your Donation Makes a Difference With your support, we will acquire more health equipment to reach more communities and departments in urgent need. Every contribution extends our reach and improves lives. Make your impact significant!"
+    },
+    "others": {
+      "readmore": "Read more...",
+      "seemore": "See more...",
+      "map": "Go to map...",
+      "donate": "Donate..."
+    }
+  },
+  "modetoggle":{
+    "dark": "Dark",
+    "light": "Light",
+    "system":"System"
+  },
+  "home": {
+    "card1": {
+      "text1": "Total registered cases",
+      "text2": "Possible acute malnutrition cases: ",
+      "text3": "cases"
+    },
+    "card2": {
+      "text1": "Current cases",
+      "text2": "Cases from the last month: ",
+      "text3": "cases"
+    },
+    "card3": {
+      "text1": "Current average weight",
+      "text2": "Average from the last month: ",
+      "text3": "pounds"
+    },
+    "card4": {
+      "text1": "Current average height/length",
+      "text2": "Average from the last month: ",
+      "text3": "centimeters"
+    },
+    "card5": {
+      "text1": "BMI (Body Mass Index)",
+      "text2": "Average from the last month: ",
+      "text3": "kg/m"
+    },
+    "charts": {
+      "text1": "Average BMI (Body Mass Index)",
+      "text2": "Weight for age",
+      "text3": "Height/Length for age",
+      "text4": "Time Management",
+      "text5": "min",
+      "text6": "hrs",
+      "text7": "day",
+      "text8": "days",
+      "text9": "Daily Average",
+      "text10": "Average time the system was used per day in the GuateCare app"
+    },
+    "data": {
+      "title": "Data",
+      "description": "Collection of real-time captured data",
+      "status": "Status",
+      "id": "Identifier",
+      "create": "Creation date",
+      "follow": "Follow-up date",
+      "priority": "Priority",
+      "dataStatus": {
+        "new": "New",
+        "inProgress": "In progress",
+        "inReview": "In review",
+        "resolved": "Resolved"
+      },
+      "dataPriority": {
+        "severe": "Severe",
+        "moderate": "Moderate",
+        "mild": "Mild"
+      }
+    },
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "dates": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "filter": {
+    "title": "Filter",
+    "filterby": "Filter by:",
+    "status": "Status",
+    "id": "Identifier",
+    "create": "Creation Date",
+    "follow": "Follow-up Date",
+    "priority": "Priority"
+  },
+  "export":{
+      "title":"Export"
+    }
+  },
+  "footer": {
+    "logo": {
+      "alt": "GuateCare",
+      "name": "GuateCare"
+    },
+    "resources": {
+      "title": "Resources",
+      "links": [
+        {
+          "name": "Flowbite",
+          "url": "https://flowbite.com/"
+        },
+        {
+          "name": "Tailwind CSS",
+          "url": "https://tailwindcss.com/"
+        }
+      ]
+    },
+    "followUs": {
+      "title": "Follow Us",
+      "links": [
+        {
+          "name": "Github",
+          "url": "https://github.com/Owl-in-night?tab=repositories"
+        },
+        {
+          "name": "Discord",
+          "url": "https://discord.gg/RY7N6wgH"
+        }
+      ]
+    },
+    "legal": {
+      "title": "Legal",
+      "links": [
+        {
+          "name": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "name": "Terms and Conditions",
+          "url": "/terms&conditions"
+        }
+      ]
+    },
+    "footerText": "© 2024 GuateCare™. All rights reserved.",
+    "socialMedia": {
+      "facebook": {
+        "url": "https://www.facebook.com/Owl.in.nigth/?locale=es_LA",
+        "alt": "Facebook Page"
+      },
+      "discord": {
+        "url": "https://discord.com/channels/@me",
+        "alt": "Discord Community"
+      },
+      "x": {
+        "url": "https://x.com/owl_in_night",
+        "alt": "X Page"
+      },
+      "github": {
+        "url": "https://github.com/Owl-in-night",
+        "alt": "GitHub Account"
+      },
+      "dribbble": {
+        "url": "https://dribbble.com/OwlInNight",
+        "alt": "Dribbble Account"
+      }
+    },
+    "footerMobile": {
+      "text": "© 2024 GuateCare™. All rights reserved.",
+      "links": [
+        {
+          "name": "About Us",
+          "url": "#"
+        },
+        {
+          "name": "Privacy Policy",
+          "url": "#"
+        },
+        {
+          "name": "Licenses",
+          "url": "#"
+        },
+        {
+          "name": "Contact",
+          "url": "#"
+        }
+      ],
+      "socialMedia": {
+        "facebook": {
+          "url": "https://www.facebook.com/Owl.in.nigth/?locale=es_LA",
+          "alt": "Facebook Page"
+        },
+        "discord": {
+          "url": "https://discord.com/channels/@me",
+          "alt": "Discord Community"
+        },
+        "x": {
+          "url": "https://x.com/owl_in_night",
+          "alt": "X Page"
+        },
+        "github": {
+          "url": "https://github.com/Owl-in-night",
+          "alt": "GitHub Account"
+        },
+        "dribbble": {
+          "url": "https://dribbble.com/OwlInNight",
+          "alt": "Dribbble Account"
+        }
+      }
+    }
+  }
+}
