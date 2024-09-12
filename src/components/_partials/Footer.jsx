@@ -3,12 +3,20 @@
 // import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import IconName from "../../../public/icons/iconName";
+
+
+import IconNameLight from "../../../public/icons/iconNameLight";
+import IconNameDark from "../../../public/icons/iconNameDark";
+
+
+import IconLight from "../../../public/icons/IconLight";
+import IconDark from "../../../public/icons/IconDark";
+import { useTheme } from "../ThemeProvider";
 export default function Footer() {
   const { t } = useTranslation("global");
   const { pathname } = useLocation();
   const currentLang = location.pathname.split("/")[1];
-
+  const { theme } = useTheme(); // Obtén el tema actual
   if (pathname === `/${currentLang}/Registrese` || pathname === `/${currentLang}/Acceder`) return null
 
   return (
@@ -19,8 +27,16 @@ export default function Footer() {
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <a href="/" className="flex items-center">
-                <img src="/img/favicon.png" className="h-8 me-3" alt="GuateCare" />
-                <IconName />
+              {theme === "dark" ? (
+              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
+            ) : (
+              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
+            )}
+                {theme === "dark" ? (
+              <IconNameDark /> 
+            ) : (
+              <IconNameLight /> 
+        )}
               </a>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

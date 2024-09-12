@@ -77,7 +77,7 @@ function SignIn() {
                     id="email"
                     type="email"
                     placeholder={t("signIn.emailPlaceholder")}
-                    required
+                    
                   />
                 </div>
                 <div className="grid gap-2">
@@ -96,7 +96,7 @@ function SignIn() {
                     id="password"
                     type="password"
                     onChange={handleChange}
-                    required
+                    
                   />
                 </div>
                 <Button type="submit" className="w-full">

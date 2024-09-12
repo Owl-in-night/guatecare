@@ -17,6 +17,7 @@
       "aboutus":"Sobre Nosotros",
       "contactus":"Contáctanos",
       "licese":"Licencia",
+      "panel":"Panel de control",
       "manual":"Manual",
       "pp":"Política de Privacidad"
     },
@@ -92,6 +93,19 @@
     "thanks":"Nos pondremos en contacto contigo pronto.",
     "error":"Error al enviar el correo."
   },
+  "contact":{
+    "title":"Es un gusto ayudarte",
+    "description":"¡Hola! Si tienes alguna pregunta o duda, puedes contactarnos por medio de este formulario. Estamos encantados de ayudarte.",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "company":"Compañia",
+    "email":"Correo",
+    "message":"Mensaje",
+    "submit":"¡Enviar datos!",
+    "none":"Por favor, completa todos los campos.",
+    "thanks":"Nos pondremos en contacto contigo pronto.",
+    "error":"Error al enviar el correo."
+  },  
   "manual":{
     "title":"Bienvenido al manual de GuateCare",
     "description":"¡Bienvenido al sistema GuateCare! A continuación, encontrará una guía paso a paso diseñada para que cualquier usuario pueda interactuar con nuestro sistema de manera eficiente y segura. Por favor, siga cuidadosamente los pasos para garantizar una experiencia óptima.",

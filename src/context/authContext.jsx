@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,12 +7,13 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
-} from 'firebase/auth';
-import { auth, db } from '../firebase';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import { dataDecrypt } from '@/utils/data-decrypt';
-import { dataEncrypt } from '@/utils/data-encrypt';
-import { useNavigate, useLocation } from 'react-router-dom';
+} from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, setDoc} from "firebase/firestore";
+import { dataDecrypt } from "@/utils/data-decrypt";
+import { dataEncrypt } from "@/utils/data-encrypt";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
 
 const AuthContext = createContext();
 
@@ -20,10 +21,12 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
+  const [redirecting, setRedirecting] = useState(false);
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const currentLang = location.pathname.split("/")[1];
 
   const saveUserToLocalStorage = (user) => {
     window.localStorage.setItem("user", dataEncrypt(user));
@@ -42,7 +45,11 @@ export function AuthProvider({ children }) {
   // Función para registrar usuarios
   const signup = async (email, password) => {
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await saveUserFirestore(result.user);
       return result;
     } catch (error) {
@@ -55,7 +62,7 @@ export function AuthProvider({ children }) {
   const signin = async (email, password) => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      await updateSignInTime(result.user);
+      
       return result;
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
@@ -66,12 +73,6 @@ export function AuthProvider({ children }) {
   // Cerrar sesión
   const signout = async () => {
     try {
-      if (user) {
-        await updateDoc(doc(db, 'users', user.uid), {
-          disabled: true,
-          lastSignOutTime: new Date().toISOString(),
-        });
-      }
       await signOut(auth);
       setUser(null);
       window.localStorage.removeItem("user");
@@ -97,23 +98,16 @@ export function AuthProvider({ children }) {
 
   // Guardar usuario en Firestore
   const saveUserFirestore = async (newUser) => {
-    await setDoc(doc(db, 'users', newUser.uid), {
+    await setDoc(doc(db, "users", newUser.uid), {
       email: newUser.email,
       uid: newUser.uid,
       displayName: newUser.displayName,
-      lastSignInTime: new Date().toISOString(),
-      disabled: false,
-      photoURL: newUser.photoURL || '/Images/13.png',
+      photoURL: newUser.photoURL || "/Images/13.png",
     });
   };
 
   // Actualizar el último tiempo de inicio de sesión
-  const updateSignInTime = async (currentUser) => {
-    await setDoc(doc(db, 'users', currentUser.uid), {
-      lastSignInTime: new Date().toISOString(),
-      disabled: false,
-    }, { merge: true });
-  };
+ 
 
   // Función para resetear la contraseña
   const resetPassword = async (email) => {
@@ -129,14 +123,21 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setLoading(true);
+      setRedirecting(false);
 
       if (currentUser) {
-        await updateSignInTime(currentUser);
         if (!user || currentUser.uid !== user.uid) {
           setUser(currentUser);
         }
         saveUserToLocalStorage(currentUser);
-        if (location.pathname === '/') navigate('/app');
+
+        if (location.pathname === `/${currentLang}`) {
+          // Muestra un Spinner mientras redirige
+          setRedirecting(true);
+          setTimeout(() => {
+            navigate(`/${currentLang}/Panel`, { replace: true });
+          }, 300); // Puedes ajustar este tiempo para que la transición sea más fluida
+        }
       } else {
         setUser(null);
         window.localStorage.removeItem("user");
@@ -146,22 +147,39 @@ export function AuthProvider({ children }) {
     });
 
     return () => unsubscribe();
-  }, [navigate, location.pathname]);
+  }, [navigate, location.pathname, currentLang]);
 
   // Memoize el contexto para evitar renderizados innecesarios
-  const contextValue = useMemo(() => ({
-    signup,
-    signin,
-    user,
-    signout,
-    loading,
-    signInWithGoogle,
-    resetPassword,
-  }), [user, loading]);
+  const contextValue = useMemo(
+    () => ({
+      signup,
+      signin,
+      user,
+      signout,
+      loading,
+      signInWithGoogle,
+      resetPassword,
+    }),
+    [user, loading]
+  );
+
+  if (loading || redirecting) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "95vw",
+        }}
+      >
+        <Spinner size="xl" />
+      </div>
+    ); // Muestra el Spinner si está cargando o redirigiendo
+  }
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }

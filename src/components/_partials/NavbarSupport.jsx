@@ -31,16 +31,25 @@ import {
 
 import { Button, useDisclosure } from "@nextui-org/react";
 import { ModeToggle } from "./ModeToggle";
-import { LifeBuoy, LogIn, Settings } from "lucide-react";
+import { House, LifeBuoy, Settings } from "lucide-react";
+
+
+import { useTheme } from "../ThemeProvider";
 //i18n
 //Language
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 
 //icon
-import IconM from "../../../public/icons/iconMatma";
-import IconName from "../../../public/icons/iconName";
-import IconSupport from "../../../public/icons/iconSoporte";
+import IconLight from "../../../public/icons/IconLight";
+import IconDark from "../../../public/icons/IconDark";
+
+
+import IconNameLight from "../../../public/icons/iconNameLight";
+import IconNameDark from "../../../public/icons/iconNameDark";
+
+import SupportLight from "../../../public/icons/SupportLight";
+import SupportDark from "../../../public/icons/SupportDark";
 export default function NavbarSupport() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { t } = useTranslation("global");
@@ -75,6 +84,7 @@ export default function NavbarSupport() {
 
   const currentLang = location.pathname.split("/")[1];
 
+  const { theme } = useTheme(); // Obtén el tema actual
 
   return (
     <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
@@ -94,24 +104,28 @@ export default function NavbarSupport() {
         <SheetContent side="left" className="lg:hidden xl:hidden 2xl:hidden">
           <Link to={`/${currentLang}/Soporte`} className="mr-6 lg:flex">
             {/* <MountainIcon className="h-6 w-6" /> */}
-            <IconM className="h-16 w-16" />
+            {theme === "dark" ? (
+              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
+            ) : (
+              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
+            )}
             <span className="sr-only">GuateCare</span>
           </Link>
           {/* Menu LINK */}
           <div className="grid gap-2 py-6">
+          <Link
+              to={`/${currentLang}/Panel`}
+              className="flex w-full items-center py-2 text-lg font-semibold"
+            >
+              <House className="h-10 w-10 px-2" />
+              {t("navbar.signInA")}
+            </Link>
             <Link
               to={`/${currentLang}/Soporte`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
               <LifeBuoy className="h-10 w-10 px-2" />
               {t("navbar.support")}
-            </Link>
-            <Link
-              to={`/${currentLang}/Acceder`}
-              className="flex w-full items-center py-2 text-lg font-semibold"
-            >
-              <LogIn className="h-10 w-10 px-2" />
-              {t("navbar.signInA")}
             </Link>
             {/* End MENU LINK */}
           </div>
@@ -224,29 +238,43 @@ export default function NavbarSupport() {
         className="hidden md:hidden items-center md:flex lg:flex xl:flex 2xl:flex "
       >
         {/* <MountainIcon className="h-6 w-6" /> */}
-        <IconM />
-        <div className="ml-5">
-          <IconName />
+        {theme === "dark" ? (
+              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
+            ) : (
+              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
+            )}
+        
+        <div className="-mr-24">
+        {theme === "dark" ? (
+              <SupportDark  /> // Mostrar IconDark si el modo oscuro está activado
+            ) : (
+              <SupportLight /> // Mostrar IconLight si el modo claro está activado
+          )}
+         
         </div>
-        <div className="ml-5">
-          <IconSupport />
-        </div>
+       
+        {theme === "dark" ? ( 
+              <IconNameDark /> 
+            ) : (
+              <IconNameLight /> 
+        )}
+  
         <span className="sr-only">GuateCare</span>
       </Link>
 
       <nav className="ml-auto hidden lg:flex gap-6">
         <Link
+          to={`/${currentLang}/Panel`}
+          className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+        >
+          {t("support.navbar.panel")}
+        </Link>
+        <Link
           to={`/${currentLang}/Soporte`}
           className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
         >
           {t("navbar.support")}
-        </Link>    
-        <Link
-          to={`/${currentLang}/Acceder`}
-          className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        >
-          {t("navbar.signInA")}
-        </Link>
+        </Link>   
         {/* Language */}
         <NavigationMenu className="z-50">
           <NavigationMenuList>

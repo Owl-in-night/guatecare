@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarSupport from "@/components/_partials/NavbarSupport";
 import { useTranslation } from "react-i18next";
 import emailjs from 'emailjs-com';
@@ -17,10 +17,10 @@ function Donar() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Send mail
+  // Enviar mail
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     // Validar campos vacíos
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
       setStatusMessage({
@@ -29,7 +29,7 @@ function Donar() {
       });
       return;
     }
-  
+
     // Configuración de EmailJS
     const templateParams = {
       from_name: `${formData.firstName} ${formData.lastName}`,
@@ -37,7 +37,7 @@ function Donar() {
       from_email: formData.email,
       message: formData.message,
     };
-  
+
     emailjs.send('service_xw9e5bp', 'template_7l4zfbq', templateParams, 'TlqBmjkxT9eSiEEGq')
       .then((response) => {
         console.log('Email sent:', response);
@@ -53,7 +53,7 @@ function Donar() {
           text: t("donar.error"),
         });
       });
-  
+
     // Resetear el formulario si es necesario
     setFormData({
       firstName: "",
@@ -62,6 +62,17 @@ function Donar() {
       message: "",
     });
   };
+
+  // Eliminar el mensaje después de 10 segundos
+  useEffect(() => {
+    if (statusMessage.text) {
+      const timer = setTimeout(() => {
+        setStatusMessage({ type: "", text: "" });
+      }, 10000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [statusMessage]);
 
   return (
     <>

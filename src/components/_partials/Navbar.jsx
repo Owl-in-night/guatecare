@@ -31,16 +31,23 @@ import {
 
 import { Button, useDisclosure } from "@nextui-org/react";
 import { ModeToggle } from "./ModeToggle";
-import { Home, LogIn, LifeBuoy, Settings } from "lucide-react";
+import { Home, LogIn, Settings } from "lucide-react";
 //i18n
 //Language
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 
-//icon  
-import IconM from "../../../public/icons/iconMatma";
-import IconName from "../../../public/icons/iconName";
+//icon
+import IconLight from "../../../public/icons/IconLight";
+import IconDark from "../../../public/icons/IconDark";
+
+
+import IconNameLight from "../../../public/icons/iconNameLight";
+import IconNameDark from "../../../public/icons/iconNameDark";
+import { useTheme } from "../ThemeProvider";
 export default function Navbar() {
+  //Tema actual
+  const { theme } = useTheme(); // Obtén el tema actual
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { t } = useTranslation("global");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -74,8 +81,23 @@ export default function Navbar() {
 
   const currentLang = location.pathname.split("/")[1];
 
-  if (pathname === `/${currentLang}/Soporte` || pathname === `/${currentLang}/Soporte/Sobre-Nosotros` || pathname === `/${currentLang}/Soporte/Contacto` || pathname === `/${currentLang}/Soporte/Licencia` || pathname === `/${currentLang}/Soporte/Manual` ||  pathname === `/${currentLang}/Soporte/Politicas-y-Privacidad` ||  pathname === `/${currentLang}/Soporte/Crear-Editar` ||  pathname === `/${currentLang}/Soporte/Problemas` || pathname === `/${currentLang}/Soporte/Comunidad` || pathname === `/${currentLang}/Soporte/Historia` || pathname === `/${currentLang}/Soporte/Fotos` || pathname === `/${currentLang}/Soporte/Mapa` || pathname === `/${currentLang}/Soporte/Donar` || pathname === `/${currentLang}/Panel`) return null
-
+  if (
+    pathname === `/${currentLang}/Soporte` ||
+    pathname === `/${currentLang}/Soporte/Sobre-Nosotros` ||
+    pathname === `/${currentLang}/Soporte/Contacto` ||
+    pathname === `/${currentLang}/Soporte/Licencia` ||
+    pathname === `/${currentLang}/Soporte/Manual` ||
+    pathname === `/${currentLang}/Soporte/Politicas-y-Privacidad` ||
+    pathname === `/${currentLang}/Soporte/Crear-Editar` ||
+    pathname === `/${currentLang}/Soporte/Problemas` ||
+    pathname === `/${currentLang}/Soporte/Comunidad` ||
+    pathname === `/${currentLang}/Soporte/Historia` ||
+    pathname === `/${currentLang}/Soporte/Fotos` ||
+    pathname === `/${currentLang}/Soporte/Mapa` ||
+    pathname === `/${currentLang}/Soporte/Donar` ||
+    pathname === `/${currentLang}/Panel`
+  )
+    return null;
 
   return (
     <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
@@ -95,7 +117,11 @@ export default function Navbar() {
         <SheetContent side="left" className="lg:hidden xl:hidden 2xl:hidden">
           <Link to={`/${currentLang}/`} className="mr-6 lg:flex">
             {/* <MountainIcon className="h-6 w-6" /> */}
-            <IconM className="h-16 w-16" />
+            {theme === "dark" ? (
+              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
+            ) : (
+              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
+            )}
             <span className="sr-only">GuateCare</span>
           </Link>
           {/* Menu LINK */}
@@ -114,13 +140,7 @@ export default function Navbar() {
               <LogIn className="h-10 w-10 px-2" />
               {t("navbar.signInA")}
             </Link>
-            <Link
-              to={`/${currentLang}/Soporte`}
-              className="flex w-full items-center py-2 text-lg font-semibold"
-            >
-              <LifeBuoy className="h-10 w-10 px-2" />
-              {t("navbar.support")}
-            </Link>
+
             {/* End MENU LINK */}
           </div>
         </SheetContent>
@@ -137,8 +157,7 @@ export default function Navbar() {
           placement="bottom-center"
           backdrop="blur"
           classNames={{
-            backdrop:
-              "lg:hidden xl:hidden 2xl:hidden",
+            backdrop: "lg:hidden xl:hidden 2xl:hidden",
           }}
         >
           <ModalContent className="lg:hidden xl:hidden 2xl:hidden overflow-visible">
@@ -233,9 +252,17 @@ export default function Navbar() {
         className="hidden md:hidden items-center md:flex lg:flex xl:flex 2xl:flex "
       >
         {/* <MountainIcon className="h-6 w-6" /> */}
-        <IconM />
+        {theme === "dark" ? (
+              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
+            ) : (
+              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
+        )}
         <div className="ml-5">
-          <IconName />
+        {theme === "dark" ? (
+              <IconNameDark /> 
+            ) : (
+              <IconNameLight /> 
+        )}
         </div>
         <span className="sr-only">GuateCare</span>
       </Link>
@@ -251,13 +278,6 @@ export default function Navbar() {
           className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
         >
           {t("navbar.signInA")}
-        </Link>
-
-        <Link
-          to={`/${currentLang}/Soporte`}
-          className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        >
-          {t("navbar.support")}
         </Link>
         {/* Language */}
         <NavigationMenu className="z-50">

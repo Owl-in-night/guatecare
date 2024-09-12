@@ -60,10 +60,25 @@ import {
 } from "@/components/ui/tooltip";
 import { Link } from "react-router-dom";
 
+
+
+import { useAuth } from "@/context/authContext";
 export const description =
   "An AI playground with a sidebar navigation and a main content area. The playground has a header with a settings drawer and a share button. The sidebar has navigation links and a user menu. The main content area shows a form to configure the model and messages.";
 
 export default function Dashboard() {
+  const { user, signout, loading } = useAuth();
+
+  const handleSignout = async () => {
+    try {
+      await signout()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  if (loading) return <h1>Loading</h1>
+
   const currentLang = location.pathname.split("/")[1];
   return (
     <div className="grid h-screen w-full pl-[53px]">
@@ -198,8 +213,8 @@ export default function Dashboard() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  Profile
+                <DropdownMenuItem onClick={() => handleSignout()}>
+                  Logout
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
@@ -239,7 +254,7 @@ export default function Dashboard() {
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuItem disabled>API</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem >
                 Log out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
               </DropdownMenuItem>

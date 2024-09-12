@@ -76,7 +76,7 @@ function SignUp() {
                     id="email"
                     type="email"
                     placeholder={t("signUp.emailPlaceholder")}
-                    required
+                    
                   />
                 </div>
                 <div className="grid gap-2">
@@ -89,11 +89,11 @@ function SignUp() {
                     id="password"
                     type="password"
                     onChange={handleChange}
-                    required
+                    
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  {t("signUp.submitButton")}
+                  {t("signUp.pageTitle")}
                 </Button>
                 <Button
                   onClick={handleGoogleSignin}

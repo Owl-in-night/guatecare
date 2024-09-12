@@ -48,6 +48,19 @@
     "thanks": "We will get in touch with you soon.",
     "error": "Error sending email."
   },
+  "contact": {
+    "title": "It's a pleasure to assist you",
+    "description": "Hello! If you have any questions or concerns, you can contact us through this form. We are happy to help you.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "company": "Company",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Submit",
+    "none": "Please fill out all fields.",
+    "thanks": "We will get in touch with you soon.",
+    "error": "Error sending the email."
+},
   "mainhome": {
         "work": "Welcome to GuateCare!",
         "workdesc": "Go to 'Home' if you want to view the current information or log in to access all system features.",
@@ -139,6 +152,7 @@
       "aboutus": "About Us",
       "contactus": "Contact Us",
       "licese": "License",
+      "panel": "Dashboard",
       "manual": "Manual",
       "pp": "Privacy Policy"
     },

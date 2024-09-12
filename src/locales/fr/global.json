@@ -48,6 +48,19 @@
     "thanks": "Nous vous contacterons bientôt.",
     "error": "Erreur lors de l'envoi de l'email."
   },
+  "contact": {
+    "title": "C'est un plaisir de vous aider",
+    "description": "Bonjour ! Si vous avez des questions ou des préoccupations, vous pouvez nous contacter via ce formulaire. Nous sommes ravis de vous aider.",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "company": "Entreprise",
+    "email": "E-mail",
+    "message": "Message",
+    "submit": "Envoyer",
+    "none": "Veuillez remplir tous les champs.",
+    "thanks": "Nous vous contacterons bientôt.",
+    "error": "Erreur lors de l'envoi de l'e-mail."
+  },
   "mainhome": {
     "work": "Bienvenue sur GuateCare!",
     "workdesc": "Allez sur 'Accueil' si vous souhaitez voir les informations actuelles ou connectez-vous pour accéder à toutes les fonctionnalités du système.",
@@ -137,6 +150,7 @@
     "navbar": {
       "aboutus": "À Propos de Nous",
       "contactus": "Nous Contacter",
+      "panel": "Tableau de bord",
       "licese": "Licence",
       "manual": "Manuel",
       "pp": "Politique de Confidentialité"

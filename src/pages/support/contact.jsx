@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarSupport from "@/components/_partials/NavbarSupport";
 import emailjs from 'emailjs-com';
 import { useTranslation } from "react-i18next";
@@ -24,10 +24,10 @@ function ContactUs() {
     e.preventDefault();
 
     // Validar campos vacíos
-    if (!formData.firstName || !formData.lastName || !formData.company || !formData.email || !formData.message || !agreed) {
+    if (!formData.firstName || !formData.lastName || !formData.company || !formData.email || !formData.message) {
       setStatusMessage({
         type: "error",
-        text: t("contact.error"),
+        text: t("contact.none"),
       });
       return;
     }
@@ -35,16 +35,17 @@ function ContactUs() {
     // Configuración de EmailJS
     const templateParams = {
       from_name: `${formData.firstName} ${formData.lastName}`,
+      to_name: 'Santos Pedro Baltazar Joj Cano',
       company: formData.company,
       from_email: formData.email,
       message: formData.message,
     };
 
-    emailjs.send('service_xw9e5bp', 'template_company_contact', templateParams, 'TlqBmjkxT9eSiEEGq')
+    emailjs.send('service_i1jsvol', 'template_csfq576', templateParams, 'TlqBmjkxT9eSiEEGq')
       .then((response) => {
         setStatusMessage({
           type: "success",
-          text: t("contact.success"),
+          text: t("contact.thanks"),
         });
       })
       .catch((error) => {
@@ -62,8 +63,18 @@ function ContactUs() {
       email: "",
       message: "",
     });
-    setAgreed(false);
   };
+
+  // Eliminar el mensaje después de 10 segundos
+  useEffect(() => {
+    if (statusMessage.text) {
+      const timer = setTimeout(() => {
+        setStatusMessage({ type: "", text: "" });
+      }, 10000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [statusMessage]);
 
   return (
     <>
@@ -71,7 +82,7 @@ function ContactUs() {
       <div className="isolate bg-white dark:bg-black px-6 py-24 sm:py-32 lg:px-8">
         <div
           aria-hidden="true"
-          className="absolute inset-x-0  -z-10 transform-gpu overflow-hidden blur-3xl "
+          className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl "
         >
           <div
             style={{

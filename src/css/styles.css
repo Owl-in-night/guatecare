@@ -4,3 +4,20 @@
   background: linear-gradient(to right, #00a8a8, #007f7f); /* Degradado cian a azul oscuro */
   overflow: hidden; /* Asegura que el patrón no se desborde */
 }
+
+
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
