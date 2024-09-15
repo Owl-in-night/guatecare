@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NavbarSupport from "@/components/_partials/NavbarSupport";
 import { useTranslation } from "react-i18next";
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 
 function Donar() {
   const [t] = useTranslation("global");

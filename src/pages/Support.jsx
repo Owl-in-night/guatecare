@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 // import { buttonVariants } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   BookType,
   FileSliders,
@@ -75,8 +75,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-//CSS
-import "../css/styles.css";
+
 
 //Navbar Support
 import NavbarSupport from "@/components/_partials/NavbarSupport";
@@ -87,7 +86,6 @@ export default function Support() {
   // const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { t } = useTranslation("global");
   // const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const location = useLocation(); // Obtener la ubicación actual
   // const navigate = useNavigate(); // Obtener la función navigate
 
   useEffect(() => {
@@ -101,20 +99,7 @@ export default function Support() {
     }
   }, []);
 
-  // const changeLanguage = (lang) => {
-  //   i18next.changeLanguage(lang);
-  //   localStorage.setItem("userLanguage", lang);
-  //   navigate(`/${lang}${location.pathname.replace(`/${currentLang}`, "")}`, {
-  //     replace: true,
-  //   });
-  // };
 
-  // const handleOpenModal = () => {
-  //   setIsSheetOpen(false); // Cierra el Sheet primero
-  //   onOpen(); // Abre el Modal después de cerrar el Sheet
-  // };
-
-  // Obtener el idioma actual desde la URL
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NavbarSupport from "@/components/_partials/NavbarSupport";
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import { useTranslation } from "react-i18next";
 
 function ContactUs() {
