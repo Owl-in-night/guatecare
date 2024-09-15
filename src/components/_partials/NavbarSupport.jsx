@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   NavigationMenu,
@@ -9,53 +8,35 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
-import { Avatar } from "@nextui-org/react";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
-
-//Modal
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@nextui-org/modal";
-
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
-import { House, LifeBuoy, Settings } from "lucide-react";
-
-
-import { useTheme } from "../ThemeProvider";
-//i18n
-//Language
+import { Home, LogIn, Settings, Menu as MenuIcon, Earth } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-
-//icon
 import IconLight from "../../../public/icons/IconLight";
 import IconDark from "../../../public/icons/IconDark";
-
-
 import IconNameLight from "../../../public/icons/iconNameLight";
 import IconNameDark from "../../../public/icons/iconNameDark";
-
-import SupportLight from "../../../public/icons/SupportLight";
 import SupportDark from "../../../public/icons/SupportDark";
+import SupportLight from "../../../public/icons/SupportLight";
+import { useTheme } from "../ThemeProvider";
+
 export default function NavbarSupport() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { t } = useTranslation("global");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const location = useLocation(); // Obtener la ubicación actual
-  const navigate = useNavigate(); // Obtener la función navigate
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const { theme } = useTheme();
+  const { t } = useTranslation("global");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("userLanguage");
@@ -65,307 +46,187 @@ export default function NavbarSupport() {
   }, []);
 
   const changeLanguage = (lang) => {
-    i18next.changeLanguage(lang);
-    localStorage.setItem("userLanguage", lang);
-    navigate(`/${lang}${location.pathname.replace(`/${currentLang}`, "")}`, {
-      replace: true,
+    i18next.changeLanguage(lang).then(() => {
+      localStorage.setItem("userLanguage", lang);
+      const path = location.pathname.replace(/^\/[a-z]{2}/, `/${lang}`);
+      navigate(path, { replace: true });
     });
   };
 
-  const handleOpenModal = () => {
-    setIsSheetOpen(false); // Cierra el Sheet primero
-    onOpen(); // Abre el Modal después de cerrar el Sheet
+  const handleOpenSheet = () => {
+    setIsSheetOpen(true);
   };
 
-  // Obtener el idioma actual desde la URL
+  const handleOpenSettings = () => {
+    setIsSettingsOpen(true);
+  };
 
-  //Visibility
-  // const { pathname } = useLocation();
 
-  const currentLang = location.pathname.split("/")[1];
-
-  const { theme } = useTheme(); // Obtén el tema actual
+  if (
+    location.pathname === `/Panel`
+  )
+    return null;
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
-      {/* Mobile */}
-      <Sheet isOpen={isSheetOpen} onOpenChange={setIsSheetOpen}>
+    <header className="flex h-20 w-full items-center px-4 md:px-6">
+      {/* Icono y nombre del sitio */}
+      <Link to={`/`} className="hidden md:flex items-center">
+        {theme === "dark" ? (
+          <IconDark className="h-16 w-16" />
+        ) : (
+          <IconLight className="h-16 w-16" />
+        )}
+         <div className="ml-5">
+          {theme === "dark" ? <SupportDark /> : <SupportLight />}
+        </div>
+        <div className="-ml-24">
+          {theme === "dark" ? <IconNameDark /> : <IconNameLight />}
+        </div>
+        <span className="sr-only">GuateCare</span>
+      </Link>
+
+      {/* Menú para pantallas grandes */}
+      <nav className="ml-auto hidden lg:flex gap-6">
+        <Link
+          to={`/Panel-Inicial`}
+          className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+        >
+          {t("navbar.home")}
+        </Link>
+        <Link
+          to={`/Acceder`}
+          className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+        >
+          {t("navbar.signInA")}
+        </Link>
+
+        {/* Selector de idiomas */}
+        <NavigationMenu className="z-50">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <Earth className="h-6 w-6" />
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                {/* Opciones de idiomas */}
+                {["en", "es", "fr", "hi", "ch"].map((lang) => (
+                  <NavigationMenuLink
+                    key={lang}
+                    onClick={() => changeLanguage(lang)}
+                    className="group inline-flex h-10 w-14 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+                  >
+                    <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 shadow-lg">
+                      <AvatarImage
+                        src={`https://flagcdn.com/${
+                          lang === "en"
+                            ? "us"
+                            : lang === "es"
+                            ? "gt"
+                            : lang === "fr"
+                            ? "fr"
+                            : lang === "hi"
+                            ? "in"
+                            : "cn"
+                        }.svg`}
+                        alt={`Flag of ${lang}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </Avatar>
+                  </NavigationMenuLink>
+                ))}
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <ModeToggle />
+      </nav>
+
+      {/* Menú móvil */}
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger asChild>
           <Button
             variant="outline"
             size="icon"
-            className="lg:hidden xl:hidden 2xl:hidden"
-            onClick={() => setIsSheetOpen(true)}
+            className="lg:hidden"
+            onClick={handleOpenSheet}
           >
             <MenuIcon className="h-6 w-6" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="lg:hidden xl:hidden 2xl:hidden">
-          <Link to={`/${currentLang}/Soporte`} className="mr-6 lg:flex">
-            {/* <MountainIcon className="h-6 w-6" /> */}
-            {theme === "dark" ? (
-              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
-            ) : (
-              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
-            )}
-            <span className="sr-only">GuateCare</span>
-          </Link>
-          {/* Menu LINK */}
+        <SheetContent side="left" className="lg:hidden">
           <div className="grid gap-2 py-6">
-          <Link
-              to={`/${currentLang}/Panel`}
+            <Link
+              to={`/Panel-Inicial`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
-              <House className="h-10 w-10 px-2" />
-              {t("navbar.signInA")}
+              <Home className="h-10 w-10 px-2" />
+              {t("navbar.home")}
             </Link>
             <Link
-              to={`/${currentLang}/Soporte`}
+              to={`/Acceder`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
-              <LifeBuoy className="h-10 w-10 px-2" />
-              {t("navbar.support")}
+              <LogIn className="h-10 w-10 px-2" />
+              {t("navbar.signInA")}
             </Link>
-            {/* End MENU LINK */}
           </div>
         </SheetContent>
-        {/* Button and modal */}
-        <Button
-          onClick={handleOpenModal}
-          variant="light"
-          className="ml-auto lg:hidden xl:hidden 2xl:hidden"
-          startContent={<Settings />}
-        ></Button>
-        <Modal
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          placement="bottom-center"
-          backdrop="blur"
-          classNames={{
-            backdrop: "lg:hidden xl:hidden 2xl:hidden",
-          }}
-        >
-          <ModalContent className="lg:hidden xl:hidden 2xl:hidden overflow-visible">
-            {(onClose) => (
-              <>
-                <ModalHeader>{t("navbar.settings")}</ModalHeader>
-                <ModalBody>
-                  <div className="flex items-center justify-center">
-                    {/* Theme changer */}
-                    <ModeToggle />
-                    {/* Language changer */}
-                    <Select>
-                      <SelectTrigger className="w-40">
-                        <SelectValue placeholder={t("navbar.language")} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup className="items-center">
-                          <SelectItem
-                            value="en"
-                            onClick={() => changeLanguage("en")}
-                          >
-                            <Avatar
-                              alt="USA"
-                              className="justify-items-start justify-start w-6 h-6" /* Avatar circular */
-                              src="https://flagcdn.com/us.svg"
-                            />
-                            {t("navbar.english")}
-                          </SelectItem>
-                          <SelectItem
-                            onClick={() => changeLanguage("es")}
-                            value="es"
-                          >
-                            <Avatar
-                              alt="Guatemala"
-                              className="justify-items-start w-6 h-6"
-                              src="https://flagcdn.com/gt.svg"
-                            />
-                            {t("navbar.spanish")}
-                          </SelectItem>
-                          <SelectItem
-                            onClick={() => changeLanguage("fr")}
-                            value="fr"
-                          >
-                            <Avatar
-                              alt="Francia"
-                              className="justify-items-start w-6 h-6"
-                              src="https://flagcdn.com/fr.svg"
-                            />
-                            {t("navbar.french")}
-                          </SelectItem>
-                          <SelectItem
-                            onClick={() => changeLanguage("hi")}
-                            value="hi"
-                          >
-                            <Avatar
-                              alt="Hindia"
-                              className="justify-items-start w-6 h-6"
-                              src="https://flagcdn.com/in.svg"
-                            />
-                            {t("navbar.hindi")}
-                          </SelectItem>
-                          <SelectItem
-                            onClick={() => changeLanguage("ch")}
-                            value="ch"
-                          >
-                            <Avatar
-                              alt="China"
-                              className="justify-items-start w-6 h-6"
-                              src="https://flagcdn.com/cn.svg"
-                            />
-                            {t("navbar.chinese")}
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="flat" onClick={onClose}>
-                    Close
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-        {/* End Button and modal */}
       </Sheet>
-      {/* PC */}
-      <Link
-        to={`/${currentLang}/Soporte`}
-        className="hidden md:hidden items-center md:flex lg:flex xl:flex 2xl:flex "
-      >
-        {/* <MountainIcon className="h-6 w-6" /> */}
-        {theme === "dark" ? (
-              <IconDark className="h-16 w-16" /> // Mostrar IconDark si el modo oscuro está activado
-            ) : (
-              <IconLight className="h-16 w-16" /> // Mostrar IconLight si el modo claro está activado
-            )}
-        
-        <div className="-mr-24">
-        {theme === "dark" ? (
-              <SupportDark  /> // Mostrar IconDark si el modo oscuro está activado
-            ) : (
-              <SupportLight /> // Mostrar IconLight si el modo claro está activado
-          )}
-         
-        </div>
-       
-        {theme === "dark" ? ( 
-              <IconNameDark /> 
-            ) : (
-              <IconNameLight /> 
-        )}
-  
-        <span className="sr-only">GuateCare</span>
-      </Link>
 
-      <nav className="ml-auto hidden lg:flex gap-6">
-        <Link
-          to={`/${currentLang}/Panel`}
-          className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        >
-          {t("support.navbar.panel")}
-        </Link>
-        <Link
-          to={`/${currentLang}/Soporte`}
-          className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        >
-          {t("navbar.support")}
-        </Link>   
-        {/* Language */}
-        <NavigationMenu className="z-50">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                {t("navbar.language")}
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <NavigationMenuLink
-                  onClick={() => changeLanguage("en")}
-                  className="group inline-flex h-9 w-28 items-center justify-center rounded-md  py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                >
-                  <Avatar
-                    alt="USA"
-                    className="mr-2 justify-items-start w-6 h-6"
-                    src="https://flagcdn.com/us.svg"
-                  />
-                  {t("navbar.english")}
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => changeLanguage("es")}
-                  className="group inline-flex h-9 w-full items-center justify-center rounded-md py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                >
-                  <Avatar
-                    alt="Guatemala"
-                    className="mr-2 justify-items-start w-6 h-6"
-                    src="https://flagcdn.com/gt.svg"
-                  />
-                  {t("navbar.spanish")}
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => changeLanguage("fr")}
-                  className="group inline-flex h-9 w-full items-center justify-center rounded-md  py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                >
-                  <Avatar
-                    alt="Francia"
-                    className="mr-2 justify-items-start w-6 h-6"
-                    src="https://flagcdn.com/fr.svg"
-                  />
-                  {t("navbar.french")}
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => changeLanguage("hi")}
-                  className="group inline-flex h-9 w-full items-center justify-center rounded-md  py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                >
-                  <Avatar
-                    alt="Hindia"
-                    className="mr-2 justify-items-start w-6 h-6"
-                    src="https://flagcdn.com/in.svg"
-                  />
-                  {t("navbar.hindi")}
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => changeLanguage("ch")}
-                  className="group inline-flex h-9 w-full items-center justify-center rounded-md  py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-zinc-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                >
-                  <Avatar
-                    alt="China"
-                    className="mr-2 justify-items-start w-6 h-6"
-                    src="https://flagcdn.com/cn.svg"
-                  />
-                  {t("navbar.chinese")}
-                </NavigationMenuLink>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        {/* Theme changer */}
-        <ModeToggle />
-      </nav>
+      {/* Configuración móvil */}
+      <Sheet open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+        <SheetTrigger asChild>
+          <Button
+            onClick={handleOpenSettings}
+            variant="light"
+            className="ml-auto lg:hidden"
+          >
+            <Settings />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="bottom" className="rounded-t-xl lg:hidden">
+          <div className="flex gap-4 py-4 items-center">
+            {/* Primer componente */}
+            <div className="flex-1">
+              <ModeToggle />
+            </div>
+            {/* Segundo componente */}
+            <div className="flex-1 ml-auto">
+              <Select onValueChange={(lang) => changeLanguage(lang)}>
+                <SelectTrigger className="w-full flex justify-center">
+                  <Earth className="h-6 w-6" />
+                </SelectTrigger>
+                <SelectContent className="w-8">
+                  <SelectGroup>
+                    {["en", "es", "fr", "hi", "ch"].map((lang) => (
+                      <SelectItem key={lang} value={lang} className="w-full">
+                        <Avatar className="w-8 h-8 rounded-full border shadow-md">
+                          <AvatarImage
+                            src={`https://flagcdn.com/${
+                              lang === "en"
+                                ? "us"
+                                : lang === "es"
+                                ? "gt"
+                                : lang === "fr"
+                                ? "fr"
+                                : lang === "hi"
+                                ? "in"
+                                : "cn"
+                            }.svg`}
+                            alt={`Flag of ${lang}`}
+                            className="rounded-full object-cover"
+                          />
+                        </Avatar>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     </header>
-  );
-}
-
-function MenuIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
   );
 }

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 function ContactUs() {
   const [t] = useTranslation("global");
-  const [agreed, setAgreed] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -42,13 +42,13 @@ function ContactUs() {
     };
 
     emailjs.send('service_i1jsvol', 'template_csfq576', templateParams, 'TlqBmjkxT9eSiEEGq')
-      .then((response) => {
+      .then(() => {
         setStatusMessage({
           type: "success",
           text: t("contact.thanks"),
         });
       })
-      .catch((error) => {
+      .catch(() => {
         setStatusMessage({
           type: "error",
           text: t("contact.error"),

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-// import { Image } from "@nextui-org/image";
+
 // import { Link } from "react-router-dom";
 
 //Recharts

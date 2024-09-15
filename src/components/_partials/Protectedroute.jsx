@@ -1,10 +1,9 @@
 import { useAuth } from "../../context/authContext";
 import { Navigate } from "react-router-dom";
-import { Spinner } from "@nextui-org/react";
+import Spinner from "./Spinner";
 
 export function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
-  const currentLang = location.pathname.split("/")[1];
 
   // Renderizar un spinner mientras se carga el estado de autenticación
   if (loading) {
@@ -27,14 +26,14 @@ export function ProtectedRoute({ children }) {
               fill="currentFill"
             />
           </svg>
-          <span className="sr-only">Cargando...</span>
+          <span className="sr-only"><Spinner/></span>
         </div>
       </div>
     );
   }
 
   // Redirigir al usuario al panel si no está autenticado
-  if (!user) return <Navigate to={`/${currentLang}/Acceder  `} />;
+  if (!user) return <Navigate to={`/Acceder`} />;
 
   // Renderizar el contenido protegido si el usuario está autenticado
   return <>{children}</>;

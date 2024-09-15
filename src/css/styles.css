@@ -1,4 +1,5 @@
 /* styles.css */
+/* Banner Support */
 .banner-bg {
   position: relative;
   background: linear-gradient(to right, #00a8a8, #007f7f); /* Degradado cian a azul oscuro */
@@ -6,7 +7,7 @@
 }
 
 
-
+/*  */
 .fade-enter {
   opacity: 0;
 }
@@ -21,3 +22,25 @@
   opacity: 0;
   transition: opacity 300ms;
 }
+
+
+/* Spinner */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1); /* Very soft transparent white */
+  border-top-color: #b0b0b0; /* Light Gray */
+  border-right-color: #d0d0d0; /* Medium Gray */
+  border-bottom-color: #e0e0e0; /* Lighter Gray */
+  border-left-color: #f0f0f0; /* Almost White Gray */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s ease-in-out infinite; /* Smooth animation */
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle soft shadow */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

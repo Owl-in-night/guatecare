@@ -79,7 +79,7 @@ export default function Dashboard() {
 
   if (loading) return <h1>Loading</h1>
 
-  const currentLang = location.pathname.split("/")[1];
+
   return (
     <div className="grid h-screen w-full pl-[53px]">
       <aside className="inset-y fixed hidden md:block left-0 z-20  h-full flex-col border-r">
@@ -171,7 +171,7 @@ export default function Dashboard() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link to={`/${currentLang}/Soporte`} className="rounded-lg">
+                <Link to={`/Soporte`} className="rounded-lg">
                   <Button
                     variant="ghost"
                     size="icon"

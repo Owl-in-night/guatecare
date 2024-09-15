@@ -47,30 +47,23 @@ i18next
 
 const queryClient = new QueryClient();
 
-// NextUI
-import { NextUIProvider, Spinner } from "@nextui-org/react";
+import Spinner from "./components/_partials/Spinner.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider>
-          <I18nextProvider i18n={i18next}>
-            <React.Suspense
-              fallback={
-                <div className="flex items-center justify-center h-screen">
-                  <Spinner
-                    color="default"
-                    labelColor="foreground"
-                    size="lg"
-                  />
-                </div>
-              }
-            >
-              <App />
-            </React.Suspense>
-          </I18nextProvider>
-        </NextUIProvider>
+        <I18nextProvider i18n={i18next}>
+          <React.Suspense
+            fallback={
+              <div className="flex items-center justify-center h-screen">
+                <Spinner />
+              </div>
+            }
+          >
+            <App />
+          </React.Suspense>
+        </I18nextProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </StrictMode>

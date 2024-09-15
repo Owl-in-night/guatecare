@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-// import { Image } from "@nextui-org/image";
+
 // import { buttonVariants } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -12,7 +12,7 @@ import {
   Album,
   BookImage,
   MapPinned,
-  HandCoins
+  HandCoins,
 } from "lucide-react";
 
 //Navbar
@@ -26,7 +26,6 @@ import {
 //   NavigationMenuTrigger,
 // } from "@/components/ui/navigation-menu";
 
-// import { Avatar } from "@nextui-org/react";
 // import {
 //   Select,
 //   SelectContent,
@@ -36,16 +35,6 @@ import {
 //   SelectValue,
 // } from "@/components/ui/select";
 
-// //Modal
-// import {
-//   Modal,
-//   ModalContent,
-//   ModalHeader,
-//   ModalBody,
-//   ModalFooter,
-// } from "@nextui-org/modal";
-
-// import { Button, useDisclosure } from "@nextui-org/react";
 // import { ModeToggle } from "../components/_partials/ModeToggle";
 // import { CircleHelp, BookUser, LogIn, Settings } from "lucide-react";
 //i18n
@@ -127,7 +116,6 @@ export default function Support() {
 
   // Obtener el idioma actual desde la URL
 
-  const currentLang = location.pathname.split("/")[1];
   return (
     <>
       {/* Navbar */}
@@ -147,7 +135,7 @@ export default function Support() {
         <main className="flex flex-col items-center gap-4 p-4 sm:px-6 sm:py-0 mt-10">
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             <Link
-              to={`/${currentLang}/Soporte/Manual`}
+              to={`/Soporte/Manual`}
               className="block w-full h-auto md:w-[450px] md:h-auto lg:w-[315px] lg:h-auto xl:w-[400px] xl:h-auto 2xl:w-[450px] 2xl:h-auto"
             >
               <Card
@@ -171,7 +159,7 @@ export default function Support() {
               </Card>
             </Link>
             <Link
-              to={`/${currentLang}/Soporte/Crear-Editar`}
+              to={`/Soporte/Crear-Editar`}
               className="block w-full h-auto md:w-[450px] md:h-auto lg:w-[315px] lg:h-auto xl:w-[400px] xl:h-auto 2xl:w-[450px] 2xl:h-auto"
             >
               <Card
@@ -195,7 +183,7 @@ export default function Support() {
               </Card>
             </Link>
             <Link
-              to={`/${currentLang}/Soporte/Problemas`}
+              to={`/Soporte/Problemas`}
               className="block w-full h-auto md:w-[450px] md:h-auto lg:w-[315px] lg:h-auto xl:w-[400px] xl:h-auto 2xl:w-[450px] 2xl:h-auto"
             >
               <Card
@@ -225,7 +213,7 @@ export default function Support() {
         <main className="flex flex-col items-center gap-4 p-4 sm:px-6 sm:py-0 md:mt-28 lg:mt-28 xl:mt-28 2xl:mt-24">
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             <Link
-              to={`/${currentLang}/Soporte/Contacto`}
+              to={`/Soporte/Contacto`}
               className="block w-full h-auto md:w-[450px] md:h-auto lg:w-[315px] lg:h-auto xl:w-[400px] xl:h-auto 2xl:w-[450px] 2xl:h-auto"
             >
               <Card
@@ -249,7 +237,7 @@ export default function Support() {
               </Card>
             </Link>
             <Link
-              to={`/${currentLang}/Soporte/Comunidad`}
+              to={`/Soporte/Comunidad`}
               className="block w-full h-auto md:w-[450px] md:h-auto lg:w-[315px] lg:h-auto xl:w-[400px] xl:h-auto 2xl:w-[450px] 2xl:h-auto"
             >
               <Card
@@ -281,37 +269,53 @@ export default function Support() {
         <main className="flex flex-col items-center gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {/* Tarjeta 1 */}
-           
+
             <Card
               className=" max-w-xs h-[350px]"
               x-chunk="dashboard-05-chunk-1"
             >
               <CardHeader className="pb-2">
-                <CardDescription className="text-lg flex"><CircleHelp className="mr-2 h-6 w-6" />{t("support.page.title6")}</CardDescription>
-                <CardTitle className="text-3xl">{t("support.page.subtitle6")}</CardTitle>
+                <CardDescription className="text-lg flex">
+                  <CircleHelp className="mr-2 h-6 w-6" />
+                  {t("support.page.title6")}
+                </CardDescription>
+                <CardTitle className="text-3xl">
+                  {t("support.page.subtitle6")}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                {t("support.page.description6")}  <Link className="font-bold text-zinc-800 dark:text-zinc-200" to={`/${currentLang}/Soporte/Sobre-Nosotros`}>{t("support.others.readmore")}</Link> 
+                  {t("support.page.description6")}{" "}
+                  <Link
+                    className="font-bold text-zinc-800 dark:text-zinc-200"
+                    to={`/Soporte/Sobre-Nosotros`}
+                  >
+                    {t("support.others.readmore")}
+                  </Link>
                 </div>
               </CardContent>
               <CardFooter></CardFooter>
-              </Card>
+            </Card>
             {/* Tarjeta 2 */}
-            <Card
-              className=" max-w-md h-auto"
-              x-chunk="dashboard-05-chunk-1"
-            >
+            <Card className=" max-w-md h-auto" x-chunk="dashboard-05-chunk-1">
               <CardHeader className="pb-2">
                 <CardDescription className="text-lg flex">
-                <Album className="mr-2 h-6 w-6" />
-                {t("support.page.title7")}
+                  <Album className="mr-2 h-6 w-6" />
+                  {t("support.page.title7")}
                 </CardDescription>
-                <CardTitle className="text-3xl">{t("support.page.subtitle7")}</CardTitle>
+                <CardTitle className="text-3xl">
+                  {t("support.page.subtitle7")}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                  {t("support.page.description7")} <Link className="font-bold text-zinc-800 dark:text-zinc-200" to={`/${currentLang}/Soporte/Historia`}>{t("support.others.readmore")}</Link> 
+                  {t("support.page.description7")}{" "}
+                  <Link
+                    className="font-bold text-zinc-800 dark:text-zinc-200"
+                    to={`/Soporte/Historia`}
+                  >
+                    {t("support.others.readmore")}
+                  </Link>
                 </div>
               </CardContent>
               <CardFooter></CardFooter>
@@ -322,44 +326,74 @@ export default function Support() {
               x-chunk="dashboard-05-chunk-1"
             >
               <CardHeader className="pb-2">
-                <CardDescription className="text-lg flex"> <BookImage className="mr-2 h-6 w-6" /> {t("support.page.title8")}</CardDescription>
-                <CardTitle className="text-3xl">{t("support.page.subtitle8")}</CardTitle>
+                <CardDescription className="text-lg flex">
+                  {" "}
+                  <BookImage className="mr-2 h-6 w-6" />{" "}
+                  {t("support.page.title8")}
+                </CardDescription>
+                <CardTitle className="text-3xl">
+                  {t("support.page.subtitle8")}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                {t("support.page.description8")} <Link className="font-bold text-zinc-800 dark:text-zinc-200" to={`/${currentLang}/Soporte/Fotos`}>{t("support.others.seemore")}</Link> 
+                  {t("support.page.description8")}{" "}
+                  <Link
+                    className="font-bold text-zinc-800 dark:text-zinc-200"
+                    to={`/Soporte/Fotos`}
+                  >
+                    {t("support.others.seemore")}
+                  </Link>
                 </div>
               </CardContent>
               <CardFooter></CardFooter>
             </Card>
             {/* Tarjeta 4 */}
-            <Card
-              className=" max-w-md h-auto"
-              x-chunk="dashboard-05-chunk-1"
-            >
+            <Card className=" max-w-md h-auto" x-chunk="dashboard-05-chunk-1">
               <CardHeader className="pb-2">
-              <CardDescription className="text-lg flex"> <MapPinned className="mr-2 h-6 w-6" />{t("support.page.title9")}</CardDescription>
-                <CardTitle className="text-3xl">{t("support.page.subtitle9")}</CardTitle>
+                <CardDescription className="text-lg flex">
+                  {" "}
+                  <MapPinned className="mr-2 h-6 w-6" />
+                  {t("support.page.title9")}
+                </CardDescription>
+                <CardTitle className="text-3xl">
+                  {t("support.page.subtitle9")}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                {t("support.page.description9")} <Link className="font-bold text-zinc-800 dark:text-zinc-200" to={`/${currentLang}/Soporte/Mapa`}>{t("support.others.map")}</Link>
+                  {t("support.page.description9")}{" "}
+                  <Link
+                    className="font-bold text-zinc-800 dark:text-zinc-200"
+                    to={`/Soporte/Mapa`}
+                  >
+                    {t("support.others.map")}
+                  </Link>
                 </div>
               </CardContent>
               <CardFooter></CardFooter>
             </Card>
             {/* Tarjeta 5 */}
-            <Card
-              className=" max-w-md h-auto"
-              x-chunk="dashboard-05-chunk-1"
-            >
+            <Card className=" max-w-md h-auto" x-chunk="dashboard-05-chunk-1">
               <CardHeader className="pb-2">
-              <CardDescription className="text-lg flex"> <HandCoins className="mr-2 h-6 w-6" />{t("support.page.title10")}</CardDescription>
-                <CardTitle className="text-3xl">{t("support.page.subtitle10")}</CardTitle>
+                <CardDescription className="text-lg flex">
+                  {" "}
+                  <HandCoins className="mr-2 h-6 w-6" />
+                  {t("support.page.title10")}
+                </CardDescription>
+                <CardTitle className="text-3xl">
+                  {t("support.page.subtitle10")}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                  {t("support.page.description10")}  <Link className="font-bold text-zinc-800 dark:text-zinc-200" to={`/${currentLang}/Soporte/Donar`}>{t("support.others.donate")}</Link>
+                  {t("support.page.description10")}{" "}
+                  <Link
+                    className="font-bold text-zinc-800 dark:text-zinc-200"
+                    to={`/Soporte/Donar`}
+                  >
+                    {t("support.others.donate")}
+                  </Link>
                 </div>
               </CardContent>
               <CardFooter></CardFooter>
@@ -370,23 +404,3 @@ export default function Support() {
     </>
   );
 }
-// function MenuIcon(props) {
-//   return (
-//     <svg
-//       {...props}
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="24"
-//       height="24"
-//       viewBox="0 0 24 24"
-//       fill="none"
-//       stroke="currentColor"
-//       strokeWidth="2"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     >
-//       <line x1="4" x2="20" y1="12" y2="12" />
-//       <line x1="4" x2="20" y1="6" y2="6" />
-//       <line x1="4" x2="20" y1="18" y2="18" />
-//     </svg>
-//   );
-// }

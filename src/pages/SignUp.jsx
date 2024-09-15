@@ -1,4 +1,3 @@
-import { Image } from "@nextui-org/image";
 import { Link, useNavigate } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -10,111 +9,225 @@ import { useAuth } from "@/context/authContext";
 function SignUp() {
   const [t] = useTranslation("global");
   const navigate = useNavigate();
-  const [user, setUser] = useState({ email: "", password: "" });
-  const { signup, signInWithGoogle } = useAuth(); // Cambié SigninWithGoogle a signInWithGoogle
+  const [user, setUser] = useState({ email: "", password: "", confirmPassword: "", displayName: "" });
+  const { signup, signInWithGoogle } = useAuth();
+
+  // Estado para errores separados
   const [error, setError] = useState("");
+  const [googleError, setGoogleError] = useState("");
+
+  // Estado para la fortaleza de la contraseña
+  const [passwordStrength, setPasswordStrength] = useState("");
 
   useEffect(() => {
     document.title = `${t("navbar.signUp")} | GuateCare`;
   }, [t]);
 
-  const currentLang = location.pathname.split("/")[1];
+
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
+    setError(""); // Limpiar error al cambiar los inputs
+
+    // Validar fortaleza de la contraseña
+    if (name === "confirmPassword") {
+      const strength = calculatePasswordStrength(value);
+      setPasswordStrength(strength);
+    }
+  };
+
+  const validateInputs = () => {
+    if (!user.email || !user.password || !user.confirmPassword || !user.displayName) {
+      return t("signUp.none");
+    }
+  
+    // Validar formato del email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(user.email)) {
+      return t("signUp.invalidEmail");
+    }
+  
+    // Validar longitud de la contraseña
+    if (user.password.length < 6) {
+      return t("signUp.passwordTooShort");
+    }
+  
+    // Validar si la contraseña incluye números y caracteres especiales
+    const hasNumber = /\d/;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+    if (!hasNumber.test(user.password)) {
+      return t("signUp.passwordNoNumber");
+    }
+    if (!hasSpecialChar.test(user.password)) {
+      return t("signUp.passwordNoSpecialChar");
+    }
+  
+    // Verificar que las contraseñas coincidan
+    if (user.password !== user.confirmPassword) {
+      return t("signUp.passwordsDoNotMatch");
+    }
+  
+    return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setGoogleError(""); // Limpiar errores de Google
 
-    if (!user.email || !user.password) {
-      return setError("Email and password are required");
+    const validationError = validateInputs();
+    if (validationError) {
+      return setError(validationError);
     }
 
     try {
-      await signup(user.email, user.password);
-      navigate(`/${currentLang}/Panel`, { replace: true });
+      await signup(user.email, user.password, user.displayName);
+      navigate(`/Panel`, { replace: true });
     } catch (error) {
-      setError(error.message);
+      console.log('Firebase Error:', error);
+    
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setError(t("signUp.emailInUse"));
+          break;
+        case "auth/invalid-email":
+          setError(t("signUp.invalidEmail"));
+          break;
+        case "auth/weak-password":
+          setError(t("signUp.passwordTooWeak"));
+          break;
+        case "auth/operation-not-allowed":
+          setError(t("signUp.registrationDisabled"));
+          break;
+        case "auth/too-many-requests":
+          setError(t("signUp.tooManyRequests"));
+          break;
+        case "auth/network-request-failed":
+          setError(t("signUp.networkError"));
+          break;
+        default:
+          setError(t("signUp.unknownError"));
+          break;
+      }
     }
   };
 
-  const handleGoogleSignin = async () => {
+  const handleGoogleSignup = async (e) => {
+    e.preventDefault();
+    setGoogleError(""); // Limpiar errores anteriores de Google
+
     try {
-      await signInWithGoogle(); // Cambié SigninWithGoogle a signInWithGoogle
-      navigate(`/${currentLang}/Panel`, { replace: true });
+      await signInWithGoogle();
+      navigate(`/Panel`, { replace: true });
     } catch (error) {
-      setError(error.message);
+      // Manejo de errores específicos de Google Sign-In
+      setGoogleError("No fue posible registrarse con Google. Inténtelo más tarde.");
     }
+  };
+
+  // Función para calcular la fortaleza de la contraseña
+  const calculatePasswordStrength = (password) => {
+    if (password.length < 6) return "red"; // Débil
+    if (password.length < 12) return "orange"; // Media
+    return "green"; // Fuerte
   };
 
   return (
-    <>
-      <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="hidden h-full w-full flex-col bg-muted lg:flex">
-          <Image
-            alt="GuateCare"
-            className="mx-auto w-full object-cover"
-            src="/public/img/love.gif"
-          />
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="flex items-center justify-center py-12">
-            <div className="mx-auto grid w-[350px] gap-6">
-              <div className="grid gap-2 text-center">
-                <h1 className="text-3xl font-bold">{t("signUp.pageTitle")}</h1>
-                <p className="text-balance text-muted-foreground">
-                  {t("signUp.description")}
-                </p>
-              </div>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">{t("signUp.emailLabel")}</Label>
-                  <Input
-                    onChange={handleChange}
-                    id="email"
-                    type="email"
-                    placeholder={t("signUp.emailPlaceholder")}
-                    
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">
-                      {t("signUp.passwordLabel")}
-                    </Label>
-                  </div>
-                  <Input
-                    id="password"
-                    type="password"
-                    onChange={handleChange}
-                    
-                  />
-                </div>
-                <Button type="submit" className="w-full">
-                  {t("signUp.pageTitle")}
-                </Button>
-                <Button
-                  onClick={handleGoogleSignin}
-                  variant="outline"
-                  className="w-full"
-                >
-                  {t("signUp.googleButton")}
-                </Button>
-              </div>
-              <div className="mt-4 text-center text-sm">
-                {t("signUp.alreadyHaveAccountText")}{" "}
-                <Link to={`/${currentLang}/Acceder`} className="underline">
-                  {t("signUp.signInLink")}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </form>
-
+        <img
+          alt="GuateCare"
+          className="mx-auto w-full object-cover"
+          src="/public/img/love.gif"
+        />
       </div>
-    </>
+      <div className="flex items-center justify-center py-12">
+        <div className="mx-auto grid w-[350px] gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-3xl font-bold">{t("signUp.pageTitle")}</h1>
+            <p className="text-balance text-muted-foreground">
+              {t("signUp.description")}
+            </p>
+          </div>
+
+          {/* Formulario para registro normal */}
+          <form onSubmit={handleSubmit}>
+            {error && <p className="text-red-500 text-center">{error}</p>}
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="displayName">{t("signUp.fullNameLabel")}</Label>
+                <Input
+                  onChange={handleChange}
+                  id="displayName"
+                  type="text"
+                  name="displayName"
+                  placeholder={t("signUp.fullNamePlaceholder")}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">{t("signUp.emailLabel")}</Label>
+                <Input
+                  onChange={handleChange}
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder={t("signUp.emailPlaceholder")}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">{t("signUp.passwordLabel")}</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder={t("signUp.passwordPlaceholder")}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="confirmPassword">{t("signUp.confirmPasswordLabel")}</Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder={t("signUp.confirmPasswordPlaceholder")}
+                  onChange={handleChange}
+                />
+                <div className="relative">
+                  <div
+                    className={`h-1 w-full rounded-full ${
+                      passwordStrength === "red"
+                        ? "bg-red-500"
+                        : passwordStrength === "orange"
+                        ? "bg-orange-500"
+                        : "bg-green-500"
+                    }`}
+                  ></div>
+                </div>
+              </div>
+              <Button type="submit" className="w-full">
+                {t("signUp.createAccountButton")}
+              </Button>
+            </div>
+          </form>
+
+          {/* Formulario para registro con Google */}
+          <form onSubmit={handleGoogleSignup}>
+            {googleError && <p className="text-red-500 text-center">{googleError}</p>}
+            <Button type="submit" variant="outline" className="w-full">
+              {t("signUp.googleButton")}
+            </Button>
+          </form>
+
+          <div className="mt-4 text-center text-sm">
+            {t("signUp.alreadyHaveAccountText")}{" "}
+            <Link to={`/Acceder`} className="underline">
+              {t("signUp.signInLink")}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
