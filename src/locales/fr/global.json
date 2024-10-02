@@ -10,7 +10,8 @@
     "french": "Français",
     "chinese": "Chinois",
     "settings": "Paramètres",
-    "signUp":"S'inscrire"
+    "signUp": "S'inscrire",
+    "stadistics": "Statistiques"
   },
   "gallery": {
     "build": "La Construction",
@@ -24,19 +25,60 @@
     "finish": "Finition",
     "description4": "Le produit sera emballé dans une boîte en carton pour sa présentation.",
     "includes": "Inclut",
-    "description5": "1 Raspberry Pi, 1 capteur de distance, 1 module de cellule de charge, 1 module HX711, câbles de connexion UTP/Dupont (installés), plaque de connexions, cadre ajustable pour les mesures de taille/longueur, 1 plateau, 1 balance numérique et une batterie externe.",
+    "description5": "1 Raspberry Pi, 1 capteur de distance, 1 module de cellule de charge, 1 module TF-LUNA LiDAR, câbles de connexion UTP/Dupont (installés), plaque de connexions, cadre ajustable pour les mesures de taille/longueur, 1 plateau, 1 balance numérique et une batterie externe.",
     "considerations": "Considérations",
     "description6": "Pour des résultats plus précis, assurez-vous de placer le produit sur une surface plane. Prenez le temps de faire les mesures nécessaires et gardez le produit hors de portée des enfants pour plus de sécurité. Merci de prêter attention à ces détails !",
     "galeria": "La Galerie",
     "watch": "Voir l'image"
   },
   "mapa": {
+    "title1": "Carte",
     "title": "Emplacement du projet",
     "description": "Bonjour à tous ! Nous sommes ravis d'annoncer que le projet GuateCare est en cours à l'actuel Hôtel Jared Centre de Soins Permanents (CAP). Si vous souhaitez voir le système en action, nous vous invitons à visiter cet endroit.",
     "description1": "Ne manquez pas l'occasion de voir de près comment ce projet passionnant se développe ! Votre visite vous permettra non seulement de voir le système en fonctionnement, mais aussi de découvrir de près les avancées et les améliorations mises en œuvre dans cet emplacement important.",
     "locate": "Hôtel Jared (Actuel CAP)"
   },
+  "errors": {
+    "notFound": "Page non trouvée",
+    "sorry": "Désolé, nous n'avons pas pu trouver la page que vous recherchez.",
+    "backhome": "Retour à l'accueil",
+    "contact": "Contacter le support"
+  },
+  "manual": {
+    "title": "Bienvenue dans le manuel de GuateCare",
+    "description": "Bienvenue dans le système GuateCare ! Ci-dessous, vous trouverez un guide étape par étape conçu pour permettre à tout utilisateur d'interagir avec notre système de manière efficace et sécurisée. Veuillez suivre attentivement les étapes pour garantir une expérience optimale.",
+    "step": "Étapes",
+    "step1": "1. Vérification initiale",
+    "step1dec": "Avant d'allumer le système, assurez-vous que le Raspberry Pi est allumé et que tous les câbles sont correctement connectés. Vérifiez qu'il n'y a pas de câbles endommagés. Cela garantit que le système fonctionne sans interruptions.",
+    "step2": "2. Mise sous tension du système",
+    "step2desc": "Si le système n'est pas allumé, connectez l'alimentation ou une banque de chargement. Attendez entre 2 et 4 minutes pour que le système démarre complètement et soit prêt à l'emploi.",
+    "step3": "3. Vérification de la connectivité",
+    "step3desc": "Assurez-vous d'avoir une connexion Internet stable et que le système et votre appareil sont connectés au même réseau. C'est crucial pour interagir avec le système sans problèmes.",
+    "step4": "4. Connexion",
+    "step4desc": "Connectez-vous avec votre compte précédemment créé ou en utilisant le service d'accès fourni. Cela vous donnera accès à toutes les fonctionnalités du système.",
+    "step5": "5. Panneau principal : enregistrement du bébé",
+    "step5desc": "Une fois que vous êtes connecté, vous serez dirigé vers le Panneau Principal. Ici, vous trouverez l'option d'enregistrement du bébé, où vous pourrez stocker et mettre à jour les informations personnelles du bébé.",
+    "step6": "6. Navigation entre les pages",
+    "step6desc": "Dans le menu latéral gauche, vous trouverez diverses sections qui vous permettront de naviguer dans le système :",
+    "step7": "7. Suivi",
+    "step7desc": "En sélectionnant l'icône de Suivi, vous pourrez mesurer et visualiser les données capturées par les appareils connectés. Vous aurez également la possibilité de sauvegarder ou de rejeter les mesures.",
+    "step8": "8. Alertes",
+    "step8desc": "Dans la section Alertes, vous verrez une liste d'alertes précédentes, où vous pourrez examiner et suivre les cas enregistrés. Vous pourrez modifier des informations, ajouter des données médicales supplémentaires et émettre de nouvelles alertes si nécessaire.",
+    "step9": "9. Rapports",
+    "step9desc": "Accédez aux Rapports pour visualiser et exporter toutes les informations collectées. Vous pourrez consulter et générer des rapports détaillés, y compris des graphiques, à tout moment.",
+    "step10": "10. Paramètres du système",
+    "step10desc": "Dans la section Paramètres, vous pourrez personnaliser votre profil et modifier toute information que vous jugez nécessaire pour optimiser votre expérience.",
+    "support": "Assistance",
+    "supportdesc": "Si vous avez des questions ou si vous avez besoin d'une assistance supplémentaire, n'hésitez pas à nous contacter. Nous sommes ici pour vous aider à obtenir la meilleure expérience possible avec notre système.",
+    "found": "Vous trouverez :",
+    "highlights": "Enregistrement du bébé",
+    "highlights2": "Suivi (Mesures)",
+    "highlights3": "Alertes",
+    "highlights4": "Rapports",
+    "highlights5": "Paramètres"
+  },
   "donar": {
+    "title1": "Dons",
     "title": "Soutenez Notre Cause",
     "description": "Votre contribution est précieuse pour ce projet. Nous vous en remercions par avance. Enregistrez vos informations afin que nous puissions vous contacter et vous proposer des options d'aide.",
     "firstName": "Prénom",
@@ -61,10 +103,36 @@
     "thanks": "Nous vous contacterons bientôt.",
     "error": "Erreur lors de l'envoi de l'e-mail."
   },
+  "problems": {
+    "titleP": "Questions Fréquemment Posées",
+    "angryip": "Téléchargez Angry IP Scanner",
+    "contact": "Contactez-nous.",
+    "title": "Résolvons les problèmes ensemble",
+    "description": "Dans cet espace, vous trouverez des solutions possibles pour les problèmes courants.",
+    "problem1": "Le Raspberry Pi ne s'allume pas",
+    "desprom1": "Assurez-vous que le Raspberry Pi est correctement connecté et qu'il possède une LED rouge fixe et une LED verte clignotante. Vérifiez également que le câble de connexion est en bon état.",
+    "problem2": "Le Raspberry Pi n'a pas de connectivité",
+    "desprom2": "Si vous recevez un message d'erreur depuis la page web de mesures, veuillez vérifier que le Raspberry Pi est sur le même réseau. Si aucune réponse n'est obtenue, utilisez l'outil Angry IP Scanner pour trouver l'IP du Raspberry Pi avec l'hôte @raspberrysantos, puis connectez-vous.",
+    "problem3": "Problèmes de connexion ou d'inscription ?",
+    "desprom3": "Si vous rencontrez des erreurs ou des problèmes de connexion, vérifiez vos informations et, si nécessaire, récupérez votre mot de passe via votre email enregistré. Si vous avez un problème lors de l'inscription, entrez à nouveau vos informations ou rechargez la page web. Si cela ne fonctionne pas",
+    "problem4": "Problèmes pour enregistrer les données",
+    "desprom4": "Assurez-vous que vous êtes correctement authentifié, vérifiez que les données que vous essayez d'enregistrer respectent le format et le schéma attendus, consultez les messages d'erreur qui apparaissent dans l'application pour obtenir des détails spécifiques sur le problème. Si le problème persiste",
+    "problem5": "Impossible d'éditer ou de visualiser des données",
+    "desprom5": "Vérifiez que les données existent à l'emplacement correct et que vous accédez au bon chemin, consultez les messages d'erreur disponibles pour obtenir des informations spécifiques sur le problème, et assurez-vous que la synchronisation entre l'application est correcte et que vous êtes connecté au réseau pour un fonctionnement optimal.",
+    "problem6": "Un câble a été débranché ou endommagé",
+    "desprom6": "Si un câble connecté au Raspberry Pi a été débranché, veuillez consulter le manuel pour le résoudre. Si le câble est endommagé, demandez de l'aide en appelant le (+502) 5383-2898.",
+    "problem7": "Un composant est endommagé",
+    "desprom7": "Si un composant est physiquement endommagé, demandez une assistance immédiate en appelant le (+502) 5383-2898 pour obtenir de l'aide.",
+    "problem8": "Les paramètres ne fonctionnent pas",
+    "desprom8": "Si les modifications apportées aux paramètres ne sont pas appliquées, veuillez vérifier que vous êtes authentifié. Si c'est le cas, rechargez la page web ; si cela ne fonctionne pas, demandez de l'aide pour obtenir un support."
+  },
+  "commuty": {
+    "thanks": "Nous souhaitons exprimer notre sincère gratitude à toutes les institutions, organisations et entités qui ont soutenu ce projet. Votre précieux soutien et votre engagement ont été essentiels pour atteindre nos objectifs et faire progresser cette mission."
+  },
   "mainhome": {
     "work": "Bienvenue sur GuateCare!",
-    "workdesc": "Allez sur 'Accueil' si vous souhaitez voir les informations actuelles ou connectez-vous pour accéder à toutes les fonctionnalités du système.",
-    "button1": "Aller à l'accueil",
+    "workdesc": "Allez dans \"Statistiques\" si vous souhaitez voir les informations actuelles ou connectez-vous pour accéder à toutes les fonctionnalités du système.",
+    "button1": "Aller aux statistiques",
     "button2": "En savoir plus sur la malnutrition",
     "title": "Qu'est-ce que la malnutrition?",
     "title2": "Définition",
@@ -84,7 +152,7 @@
     "description5": "Les programmes de repas scolaires améliorent la santé et les performances académiques, et l'éducation nutritionnelle optimise l'alimentation et la production locale.",
     "title7": "Impact",
     "description6": "La malnutrition infantile freine le développement cognitif, accroît les inégalités sociales et affaiblit la cohésion communautaire, perpétuant la pauvreté et augmentant la criminalité."
-},  
+  },
   "about": {
     "title": "Innovation qui transforme",
     "description1": "Au Guatemala, une équipe multidisciplinaire s'est réunie dans le but de lutter contre la malnutrition infantile grâce à la technologie et à l'expertise en santé.",
@@ -263,13 +331,15 @@
       "text10": "Temps moyen d'utilisation du système par jour dans l'application GuateCare"
     },
     "data": {
-      "title":"Données",
+      "title": "Données",
       "description": "Collecte des données capturées en temps réel",
       "status": "Statut",
       "id": "Identifiant",
       "create": "Date de création",
       "follow": "Date de suivi",
       "priority": "Priorité",
+      "view": "Visualiser",
+      "edit": "Éditer",
       "dataStatus": {
         "new": "Nouveau",
         "inProgress": "En cours",
@@ -292,10 +362,10 @@
       "sun": "Dim"
     },
     "dates": {
-    "day": "Jour",
-    "week": "Semaine",
-    "month": "Mois",
-    "year": "An"
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "year": "An"
     },
     "filter": {
       "title": "Filtrer",
@@ -306,11 +376,98 @@
       "follow": "Date de suivi",
       "priority": "Priorité"
     },
-    "export":{
-      "title":"Exporter"
+    "export": {
+      "title": "Exporter"
     }
-  }
-  ,
+  },
+  "dashboard": {
+    "navbar": {
+      "register": "Enregistrement du bébé",
+      "monitoreo": "Surveillance",
+      "alertas": "Alertes",
+      "informes": "Rapports",
+      "account": "Mon compte",
+      "settings": "Paramètres",
+      "logout": "Déconnexion"
+    },
+    "registro": {
+      "title": "Inscription du Responsable",
+      "description": "Veuillez remplir tous les champs demandés ; le CUI (Code Unique d'Identification) est important.",
+      "cui": "CUI",
+      "description1": "Entrez le CUI",
+      "name": "Nom du Responsable",
+      "description2": "Nom Complet",
+      "born": "Date de Naissance",
+      "month": "Sélectionnez le Mois",
+      "year": "Sélectionnez l'Année",
+      "description3": "Adresse",
+      "direction": "Département, Municipalité, communauté et rue",
+      "description4": "Numéro de Téléphone du Responsable",
+      "phonenumber": "(+502) 4532-4515",
+      "fallecio": "Décédé",
+      "falleciop": "Sélectionnez une option",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "mediciones": {
+      "title": "Mesure du patient",
+      "description": "Visualisez les données capturées ici.",
+      "size/length": "Taille/Longueur: ",
+      "weight": "Poids: ",
+      "IMC": "Indice de Masse Corporelle (IMC):",
+      "botton1": "Taille/Longueur",
+      "botton2": "Poids",
+      "rsl": "cm",
+      "rls2": "m",
+      "rw": "lb",
+      "rw2": "kg",
+      "rimc": "kg/m"
+    },
+    "alertas": {
+      "title": "Générer une alerte",
+      "description": "Ici, vous pouvez générer l'alerte correspondante",
+      "datecreate": "Date de création",
+      "datetracking": "Date de suivi",
+      "priority": "Priorité",
+      "prioritysdesc": "Légère",
+      "prioritys": {
+        "severe": "Sévère",
+        "moderate": "Modéré",
+        "mild": "Léger"
+      },
+      "status": "État",
+      "statusdesc": "Nouveau",
+      "statuss": {
+        "new": "Nouveau",
+        "in_progress": "En cours",
+        "in_review": "En révision",
+        "resolved": "Résolu"
+      },
+      "desc": "Description",
+      "alertasdesc": "Ajoutez une description médicale",
+      "notes": "Notes médicales",
+      "notasdesc": "Le bébé manque de nutriments..."
+    },
+    "settings": {
+      "welcome": "Bienvenue! ",
+      "language": "Langue",
+      "language2": "Sélectionnez votre langue préférée.",
+      "theme": "Thème",
+      "theme2": "Sélectionnez votre thème préféré."
+    },
+    "buttons": {
+      "save": "Enregistrer les données",
+      "alert": "Démarrer l'alerte"
+    }
+  },
+  "ce": {
+    "create": "Créer",
+    "create2": "Capturez des données facilement d'un simple clic.",
+    "create3": "Utilisez notre système physique pour capturer des données et générer des informations précieuses pour la santé.",
+    "view": "Modifier",
+    "view2": "Modifiez facilement les données.",
+    "view3": "Suivez les cas détectés en temps utile pour fournir les soins appropriés au patient."
+  },
   "footer": {
     "logo": {
       "alt": "GuateCare",
@@ -320,12 +477,12 @@
       "title": "Ressources",
       "links": [
         {
-          "name": "Flowbite",
-          "url": "https://flowbite.com/"
+          "name": "shadcn/ui",
+          "url": "https://ui.shadcn.com/"
         },
         {
-          "name": "Tailwind CSS",
-          "url": "https://tailwindcss.com/"
+          "name": "Tailwindui",
+          "url": "https://tailwindui.com/"
         }
       ]
     },

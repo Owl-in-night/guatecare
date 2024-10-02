@@ -6,8 +6,8 @@ import Home from "../../pages/Home";
 import DashboardI from "@/pages/DashboardI";
 import SignIn from "../../pages/SignIn";
 import SignUp from "../../pages/SignUp";
-import Support from "../../pages/Support";
 //Page Support
+import Support from "../../pages/Support";
 import Aboutus from "../../pages/support/aboutus";
 import HistoryA from "../../pages/support/history";
 import GalleryA from "@/pages/support/gallery";
@@ -16,9 +16,10 @@ import Donar from "@/pages/support/donar";
 import UserManual from "@/pages/support/manual";
 import ContactUs from "@/pages/support/contact";
 import Community from "@/pages/support/community";
+import Createditar from "@/pages/support/createdit";
+import ProblemSupport from "@/pages/support/problems";
 //Error
 import Error from "../_partials/Error";
-
 
 //AuthContext
 import { AuthProvider } from "@/context/authContext";
@@ -27,6 +28,8 @@ import { ProtectedRoute } from "../_partials/Protectedroute";
 import ScrollToTop from "../_partials/ScrollToTop";
 
 import Dashboard from "../../pages/Dashboard";
+// import System from "./System";
+
 
 function Navigation() {
   const location = useLocation();
@@ -44,9 +47,27 @@ function Navigation() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Panel-Inicial" element={<DashboardI />} />
+          <Route path="/Estadísticas" element={<DashboardI />} />
           <Route path="/Acceder" element={<SignIn />} />
           <Route path="/Registrese" element={<SignUp />} />
+          <Route
+            path="/Panel/*"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          {/* System
+          <Route
+            path="/Panel/*"
+            element={
+              <ProtectedRoute>
+                <System />
+              </ProtectedRoute>
+            }
+          /> */}
+          {/* Soporte */}
           <Route path="/Soporte" element={<Support />} />
           <Route path="/Soporte/Sobre-Nosotros" element={<Aboutus />} />
           <Route path="/Soporte/Historia" element={<HistoryA />} />
@@ -56,7 +77,8 @@ function Navigation() {
           <Route path="/Soporte/Manual" element={<UserManual />} />
           <Route path="/Soporte/Contacto" element={<ContactUs />} />
           <Route path="/Soporte/Comunidad" element={<Community />} />
-          <Route path="/Panel" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/Soporte/Crear-Editar" element={<Createditar />} />
+          <Route path="/Soporte/Problemas" element={<ProblemSupport />} />
           {/* Añade más rutas si es necesario */}
           <Route path="*" element={<Error />} />
         </Routes>

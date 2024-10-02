@@ -6,6 +6,10 @@ import { useTranslation } from "react-i18next";
 export default function UserManual() {
   const { t } = useTranslation("global");
 
+  useEffect(() => {
+    document.title = `${t("support.navbar.manual")} | GuateCare`;
+  }, [t]);
+
   const [product, setProduct] = useState({
     name: "",
     price: "",

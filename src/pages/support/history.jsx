@@ -1,7 +1,11 @@
 import NavbarSupport from "@/components/_partials/NavbarSupport";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 function HistoryA() {
   const [t] = useTranslation("global");
+  useEffect(() => {
+    document.title = `${t("support.page.title7")} | GuateCare`;
+  }, [t]);
   return (
     <>
       <NavbarSupport />

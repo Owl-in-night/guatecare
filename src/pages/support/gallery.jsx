@@ -1,10 +1,14 @@
 import NavbarSupport from "@/components/_partials/NavbarSupport";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function GalleryA() {
   const [t] = useTranslation("global");
 
+  useEffect(() => {
+    document.title = `${t("support.page.title8")} | GuateCare`;
+  }, [t]);
   // Estado para manejar el modal y la imagen seleccionada
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);

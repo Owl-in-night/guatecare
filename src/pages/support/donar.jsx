@@ -5,6 +5,11 @@ import emailjs from '@emailjs/browser';
 
 function Donar() {
   const [t] = useTranslation("global");
+  
+  useEffect(() => {
+    document.title = `${t("donar.title1")} | GuateCare`;
+  }, [t]);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

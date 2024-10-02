@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -43,12 +43,16 @@ export function AuthProvider({ children }) {
   }, []);
 
   // Función para registrar usuarios
-  const signup = async (email, password, displayName) => {
+  const signup = async (email, password, displayName, acceptedTerms) => {
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       // Actualizar el perfil del usuario con el displayName
       await updateProfile(result.user, { displayName });
-      await saveUserFirestore(result.user);
+      await saveUserFirestore(result.user, acceptedTerms);
       return result;
     } catch (error) {
       console.error("Error al registrar:", error);
@@ -85,7 +89,7 @@ export function AuthProvider({ children }) {
 
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      await saveUserFirestore(result.user);
+      await saveUserFirestore(result.user, true); // Marcar acceptedTerms como true
       return result;
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error);
@@ -94,12 +98,13 @@ export function AuthProvider({ children }) {
   };
 
   // Guardar usuario en Firestore
-  const saveUserFirestore = async (newUser) => {
+  const saveUserFirestore = async (newUser, acceptedTerms) => {
     await setDoc(doc(db, "users", newUser.uid), {
       email: newUser.email,
       uid: newUser.uid,
       displayName: newUser.displayName,
-      photoURL: newUser.photoURL || "/Images/13.png",
+      photoURL: newUser.photoURL || "https://i.ibb.co/XJzW49P/img13.png",
+      acceptedTerms: acceptedTerms, // Añadir acceptedTerms
     });
   };
 

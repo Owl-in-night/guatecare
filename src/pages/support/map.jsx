@@ -3,13 +3,16 @@ import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-lea
 import 'leaflet/dist/leaflet.css';
 import NavbarSupport from "@/components/_partials/NavbarSupport";
 import { useTranslation } from "react-i18next";
+import { useEffect } from 'react';
 
 // Coordenadas del centro del mapa (14.738556302323046, -91.1502184913152)
 const center = [14.738556302323046, -91.1502184913152];
 
 function Map() {
   const [t] = useTranslation("global");
-
+  useEffect(() => {
+    document.title = `${t("mapa.title1")} | GuateCare`;
+  }, [t]);
   return (
     <>
       <NavbarSupport />

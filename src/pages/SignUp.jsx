@@ -7,29 +7,45 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/authContext";
 
 function SignUp() {
-  const [t] = useTranslation("global");
+  const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
-  const [user, setUser] = useState({ email: "", password: "", confirmPassword: "", displayName: "" });
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    displayName: "",
+    acceptedTerms: false, // Estado del checkbox
+  });
   const { signup, signInWithGoogle } = useAuth();
 
-  // Estado para errores separados
   const [error, setError] = useState("");
   const [googleError, setGoogleError] = useState("");
-
-  // Estado para la fortaleza de la contraseña
   const [passwordStrength, setPasswordStrength] = useState("");
 
   useEffect(() => {
     document.title = `${t("navbar.signUp")} | GuateCare`;
   }, [t]);
 
+  useEffect(() => {
+    setError("");
+    setGoogleError("");
+  }, [i18n.language]);
 
+  // Actualiza el estado del usuario, maneja todos los campos
+  const handleChange = ({ target: { name, value, type, checked } }) => {
+    if (type === "checkbox") {
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: checked,
+      }));
+    } else {
+      setUser((prevUser) => ({
+        ...prevUser,
+        [name]: value,
+      }));
+    }
+    setError("");
 
-  const handleChange = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
-    setError(""); // Limpiar error al cambiar los inputs
-
-    // Validar fortaleza de la contraseña
     if (name === "confirmPassword") {
       const strength = calculatePasswordStrength(value);
       setPasswordStrength(strength);
@@ -37,22 +53,25 @@ function SignUp() {
   };
 
   const validateInputs = () => {
-    if (!user.email || !user.password || !user.confirmPassword || !user.displayName) {
+    if (
+      !user.email ||
+      !user.password ||
+      !user.confirmPassword ||
+      !user.displayName ||
+      !user.acceptedTerms // Verificar aceptación de términos
+    ) {
       return t("signUp.none");
     }
-  
-    // Validar formato del email
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(user.email)) {
       return t("signUp.invalidEmail");
     }
-  
-    // Validar longitud de la contraseña
+
     if (user.password.length < 6) {
       return t("signUp.passwordTooShort");
     }
-  
-    // Validar si la contraseña incluye números y caracteres especiales
+
     const hasNumber = /\d/;
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
     if (!hasNumber.test(user.password)) {
@@ -61,31 +80,34 @@ function SignUp() {
     if (!hasSpecialChar.test(user.password)) {
       return t("signUp.passwordNoSpecialChar");
     }
-  
-    // Verificar que las contraseñas coincidan
+
     if (user.password !== user.confirmPassword) {
       return t("signUp.passwordsDoNotMatch");
     }
-  
+
     return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setGoogleError(""); // Limpiar errores de Google
-
+    setGoogleError("");
+  
     const validationError = validateInputs();
     if (validationError) {
       return setError(validationError);
     }
-
+  
     try {
-      await signup(user.email, user.password, user.displayName);
+      await signup(
+        user.email,
+        user.password,
+        user.displayName,
+        user.acceptedTerms // Pasar acceptedTerms
+      );
       navigate(`/Panel`, { replace: true });
     } catch (error) {
-      console.log('Firebase Error:', error);
-    
+      // Manejo de errores
       switch (error.code) {
         case "auth/email-already-in-use":
           setError(t("signUp.emailInUse"));
@@ -114,22 +136,20 @@ function SignUp() {
 
   const handleGoogleSignup = async (e) => {
     e.preventDefault();
-    setGoogleError(""); // Limpiar errores anteriores de Google
+    setGoogleError("");
 
     try {
       await signInWithGoogle();
       navigate(`/Panel`, { replace: true });
     } catch (error) {
-      // Manejo de errores específicos de Google Sign-In
-      setGoogleError("No fue posible registrarse con Google. Inténtelo más tarde.");
+      setGoogleError(t("signIn.errors.googleSigninError"));
     }
   };
 
-  // Función para calcular la fortaleza de la contraseña
   const calculatePasswordStrength = (password) => {
-    if (password.length < 6) return "red"; // Débil
-    if (password.length < 12) return "orange"; // Media
-    return "green"; // Fuerte
+    if (password.length < 6) return "red";
+    if (password.length < 12) return "orange";
+    return "green";
   };
 
   return (
@@ -185,7 +205,9 @@ function SignUp() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="confirmPassword">{t("signUp.confirmPasswordLabel")}</Label>
+                <Label htmlFor="confirmPassword">
+                  {t("signUp.confirmPasswordLabel")}
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -205,6 +227,20 @@ function SignUp() {
                   ></div>
                 </div>
               </div>
+              <div className="grid gap-2">
+                <label className="flex items-center space-x-3">
+                  {/* Checkbox personalizado */}
+                  <input
+                    type="checkbox"
+                    id="acceptedTerms"
+                    name="acceptedTerms"
+                    checked={user.acceptedTerms}
+                    onChange={handleChange}
+                    className="form-checkbox h-5 w-5 text-blue-600 border-gray-300 rounded"
+                  />
+                  <span className="text-sm">{t("signUp.acceptTerms")}</span>
+                </label>
+              </div>
               <Button type="submit" className="w-full">
                 {t("signUp.createAccountButton")}
               </Button>
@@ -213,7 +249,9 @@ function SignUp() {
 
           {/* Formulario para registro con Google */}
           <form onSubmit={handleGoogleSignup}>
-            {googleError && <p className="text-red-500 text-center">{googleError}</p>}
+            {googleError && (
+              <p className="text-red-500 text-center">{googleError}</p>
+            )}
             <Button type="submit" variant="outline" className="w-full">
               {t("signUp.googleButton")}
             </Button>

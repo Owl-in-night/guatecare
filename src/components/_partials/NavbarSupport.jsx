@@ -29,6 +29,7 @@ import IconNameDark from "../../../public/icons/iconNameDark";
 import SupportDark from "../../../public/icons/SupportDark";
 import SupportLight from "../../../public/icons/SupportLight";
 import { useTheme } from "../ThemeProvider";
+import { MonitorCog } from "lucide-react";
 
 export default function NavbarSupport() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -88,16 +89,16 @@ export default function NavbarSupport() {
       {/* Menú para pantallas grandes */}
       <nav className="ml-auto hidden lg:flex gap-6">
         <Link
-          to={`/Panel-Inicial`}
+          to={`/Soporte`}
           className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
         >
-          {t("navbar.home")}
+          {t("navbar.support")}
         </Link>
         <Link
-          to={`/Acceder`}
+          to={`/Panel`}
           className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
         >
-          {t("navbar.signInA")}
+          {t("support.navbar.panel")}
         </Link>
 
         {/* Selector de idiomas */}
@@ -115,7 +116,7 @@ export default function NavbarSupport() {
                     onClick={() => changeLanguage(lang)}
                     className="group inline-flex h-10 w-14 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
                   >
-                    <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 shadow-lg">
+                    <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border  shadow-lg">
                       <AvatarImage
                         src={`https://flagcdn.com/${
                           lang === "en"
@@ -157,18 +158,18 @@ export default function NavbarSupport() {
         <SheetContent side="left" className="lg:hidden">
           <div className="grid gap-2 py-6">
             <Link
-              to={`/Panel-Inicial`}
+               to={`/Soporte`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
               <Home className="h-10 w-10 px-2" />
-              {t("navbar.home")}
+              {t("navbar.support")}
             </Link>
             <Link
-              to={`/Acceder`}
+              to={`/Panel`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
-              <LogIn className="h-10 w-10 px-2" />
-              {t("navbar.signInA")}
+              <MonitorCog className="h-10 w-10 px-2" />
+              {t("support.navbar.panel")}
             </Link>
           </div>
         </SheetContent>

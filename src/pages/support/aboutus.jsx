@@ -26,8 +26,12 @@ import { Icon } from "lucide-react";
 
 import NavbarSupport from "@/components/_partials/NavbarSupport";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 function Aboutus() {
   const [t] = useTranslation("global");
+  useEffect(() => {
+    document.title = `${t("support.navbar.aboutus")} | GuateCare`;
+  }, [t]);
   const people = [
     {
       name: "Santos Pedro Baltazar Joj Cano",

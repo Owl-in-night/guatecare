@@ -1,16 +1,17 @@
 {
-  "navbar":{
+  "navbar": {
     "home": "Home",
     "signInA": "Sign In",
-    "support":"Support",
-    "language":"Language",
-    "english":"English",
-    "spanish":"Spanish",
-    "hindi":"Hindi",
-    "french":"French",
-    "chinese":"Chinese",
-    "settings":"Settings",
-    "signUp":"Sign Up"
+    "support": "Support",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "hindi": "Hindi",
+    "french": "French",
+    "chinese": "Chinese",
+    "settings": "Settings",
+    "signUp": "Sign Up",
+    "stadistics": "Statistics"
   },
   "gallery": {
     "build": "The Build",
@@ -24,19 +25,21 @@
     "finish": "Finishing",
     "description4": "The product will be packaged for presentation in a cardboard box.",
     "includes": "Includes",
-    "description5": "1 Raspberry Pi, 1 distance sensor, 1 load cell module, 1 HX711 module, UTP/Dupont connection cables (installed), connection board, adjustable frame for size/length measurements, 1 plate, 1 digital scale, and a power bank.",
+    "description5": "1 Raspberry Pi, 1 distance sensor, 1 load cell module, 1 TF-LUNA LiDAR module, UTP/Dupont connection cables (installed), connection board, adjustable frame for size/length measurements, 1 plate, 1 digital scale, and a power bank.",
     "considerations": "Considerations",
     "description6": "For more accurate results, make sure to place the product on a flat surface. Take the time to make the necessary measurements and keep the product out of reach of children for safety. Thank you for paying attention to these details!",
     "galeria": "The Gallery",
     "watch": "View Image"
   },
   "mapa": {
+    "title1": "Map",
     "title": "Project Location",
     "description": "Hello everyone! We are pleased to announce that the GuateCare project is being carried out at the current Jared Hotel Permanent Care Center (CAP). If you want to see the system in action, we invite you to visit this location.",
     "description1": "Don't miss the opportunity to see firsthand how this exciting project is developing! Your visit will not only allow you to see the system in operation but also experience up close the advancements and improvements implemented at this important location.",
     "locate": "Jared Hotel (Current CAP)"
   },
   "donar": {
+    "title1": "Donations",
     "title": "Support Our Cause",
     "description": "Your contribution is valuable to this project. We appreciate it in advance. Register your details so we can contact you and provide assistance options.",
     "firstName": "First Name",
@@ -60,31 +63,54 @@
     "none": "Please fill out all fields.",
     "thanks": "We will get in touch with you soon.",
     "error": "Error sending the email."
-},
+  },
   "mainhome": {
-        "work": "Welcome to GuateCare!",
-        "workdesc": "Go to 'Home' if you want to view the current information or log in to access all system features.",
-        "button1": "Go to home",
-        "button2": "Learn more about malnutrition",
-        "title": "What is malnutrition?",
-        "title2": "Definition",
-        "description": "It is a pathological state that arises from inadequate nutrient intake or excessive catabolism, and is manifested by clinical, biochemical alterations and problems in body measurements.",
-        "title3": "Types",
-        "description2-1": "Acute malnutrition",
-        "description2-2": "Chronic malnutrition",
-        "description2-3": "Mixed malnutrition",
-        "title4": "Causes",
-        "description3-1": "Poverty: Lack of access to sufficient and nutritious food.",
-        "description3-2": "Conflicts and emergencies: Situations that disrupt food production and distribution.",
-        "description3-3": "Diseases: Conditions affecting the body's ability to absorb nutrients.",
-        "description3-4": "Education and knowledge: Lack of information about proper nutrition.",
-        "title5": "Consequences",
-        "description4": "Malnutrition deteriorates health and quality of life, perpetuating poverty and reducing productivity.",
-        "title6": "Prevention",
-        "description5": "School feeding programs improve health and academic performance, and nutrition education optimizes diet and local production.",
-        "title7": "Impact",
-        "description6": "Child malnutrition hampers cognitive development, widens social inequality, and weakens community cohesion, perpetuating poverty and increasing crime."
-    },
+    "work": "Welcome to GuateCare!",
+    "workdesc": "Go to \"Statistics\" if you wish to view the current information or log in to access all the system's features.",
+    "button1": "Go to statistics",
+    "button2": "Learn more about malnutrition",
+    "title": "What is malnutrition?",
+    "title2": "Definition",
+    "description": "It is a pathological state that arises from inadequate nutrient intake or excessive catabolism, and is manifested by clinical, biochemical alterations and problems in body measurements.",
+    "title3": "Types",
+    "description2-1": "Acute malnutrition",
+    "description2-2": "Chronic malnutrition",
+    "description2-3": "Mixed malnutrition",
+    "title4": "Causes",
+    "description3-1": "Poverty: Lack of access to sufficient and nutritious food.",
+    "description3-2": "Conflicts and emergencies: Situations that disrupt food production and distribution.",
+    "description3-3": "Diseases: Conditions affecting the body's ability to absorb nutrients.",
+    "description3-4": "Education and knowledge: Lack of information about proper nutrition.",
+    "title5": "Consequences",
+    "description4": "Malnutrition deteriorates health and quality of life, perpetuating poverty and reducing productivity.",
+    "title6": "Prevention",
+    "description5": "School feeding programs improve health and academic performance, and nutrition education optimizes diet and local production.",
+    "title7": "Impact",
+    "description6": "Child malnutrition hampers cognitive development, widens social inequality, and weakens community cohesion, perpetuating poverty and increasing crime."
+  },
+  "problems": {
+    "titleP": "Frequently Asked Questions",
+    "angryip": "Download Angry IP Scanner",
+    "contact": "Contact us.",
+    "title": "Let's solve the problems together",
+    "description": "In this space, you will find possible solutions for common issues.",
+    "problem1": "The Raspberry Pi does not turn on",
+    "desprom1": "Ensure that the Raspberry Pi is properly connected and has 1 steady red LED and a flashing green LED. Also, check that the connection cable is free from damage.",
+    "problem2": "The Raspberry Pi has no connectivity",
+    "desprom2": "If you receive an error message from the measurement web page, please verify that the Raspberry Pi is on the same network. If there is no response, use the Angry IP Scanner tool to find the Raspberry Pi's IP with the host @raspberrysantos and then connect.",
+    "problem3": "Problems logging in or registering?",
+    "desprom3": "If you have errors or issues logging in, check your details, and if necessary, recover your password via your registered email. If you encounter a problem when registering, re-enter your details or reload the web page. If this does not work",
+    "problem4": "Problems saving data",
+    "desprom4": "Ensure you are properly authenticated, check that the data you are trying to save meets the expected format and schema, review error messages in the application for specific details on the problem. If the problem persists",
+    "problem5": "Cannot edit or view any data",
+    "desprom5": "Check that the data exists in the correct location and that you are accessing the right path, consult the available error messages for specific information about the problem, and ensure synchronization between the application and that you are connected to the network for proper operation.",
+    "problem6": "A cable was disconnected or damaged",
+    "desprom6": "If a cable connected to the Raspberry Pi has been disconnected, please check the manual to resolve it. If the cable is damaged, request assistance by calling (+502) 5383-2898.",
+    "problem7": "A component is damaged",
+    "desprom7": "If any component is physically damaged, request immediate assistance by calling (+502) 5383-2898 for support.",
+    "problem8": "Settings are not working",
+    "desprom8": "If changes are not applying to the settings, please check that you are authenticated. If you are, reload the web page; if this does not work, request assistance for support."
+  },
   "about": {
     "title": "Innovation that Transforms",
     "description1": "In Guatemala, a multidisciplinary team has come together with the purpose of combating child malnutrition through technology and health expertise.",
@@ -106,7 +132,10 @@
     "ourteam": "Our Team",
     "ourteamdesc": "The developer behind GuateCare"
   },
- "history": {
+  "commuty": {
+    "thanks": "We want to express our deepest gratitude to all the institutions, organizations, and entities that have supported this project. Your valuable support and commitment have been essential in achieving our goals and advancing this mission."
+  },
+  "history": {
     "title": "The History of the Project: GuateCare",
     "description1": "In the heart of Guatemala, where cultural richness and hope coexist with deep challenges, a multidisciplinary team of visionaries has come together with a common purpose: to fight against childhood malnutrition. This team, driven by tireless passion and exemplary dedication, has designed a revolutionary project that combines the latest technology with health expertise to address one of the most critical issues faced by vulnerable communities.",
     "project": "Project",
@@ -219,10 +248,49 @@
       "donate": "Donate..."
     }
   },
-  "modetoggle":{
+  "errors": {
+    "notFound": "Page not found",
+    "sorry": "Sorry, we couldn't find the page you are looking for.",
+    "backhome": "Go to home",
+    "contact": "Contact support"
+  },
+  "manual": {
+    "title": "Welcome to the GuateCare Manual",
+    "description": "Welcome to the GuateCare system! Below, you will find a step-by-step guide designed for any user to interact with our system efficiently and safely. Please carefully follow the steps to ensure an optimal experience.",
+    "step": "Steps",
+    "step1": "1. Initial Verification",
+    "step1dec": "Before powering on the system, ensure that the Raspberry Pi is turned on and that all cables are properly connected. Check for any damaged cables. This ensures that the system operates without interruptions.",
+    "step2": "2. Powering on the System",
+    "step2desc": "If the system is not powered on, connect the power supply or a charging bank. Wait between 2 to 4 minutes for the system to fully boot up and be ready for use.",
+    "step3": "3. Connectivity Check",
+    "step3desc": "Make sure you have a stable internet connection and that both the system and your device are connected to the same network. This is crucial for interacting with the system without issues.",
+    "step4": "4. Login",
+    "step4desc": "Log in with your previously created account or using the provided access service. This will grant you access to all the system's functionalities.",
+    "step5": "5. Main Panel: Baby Registration",
+    "step5desc": "Once you have logged in, you will be directed to the Main Panel. Here you will find the baby registration option, where you can store and update the baby's personal information.",
+    "step6": "6. Navigating Between Pages",
+    "step6desc": "In the left sidebar menu, you will find various sections that allow you to navigate through the system:",
+    "step7": "7. Monitoring",
+    "step7desc": "By selecting the Monitoring icon, you can measure and visualize data captured by connected devices. You will also have the option to save or discard the measurements.",
+    "step8": "8. Alerts",
+    "step8desc": "In the Alerts section, you will see a list of previous alerts, where you can review and follow up on registered cases. You will be able to edit information, add additional medical data, and issue new alerts if necessary.",
+    "step9": "9. Reports",
+    "step9desc": "Access Reports to view and export all collected information. You can consult and generate detailed reports, including graphs, at any time.",
+    "step10": "10. System Settings",
+    "step10desc": "In the Settings section, you can customize your profile and modify any information you consider necessary to optimize your experience.",
+    "support": "Assistance",
+    "supportdesc": "If you have any questions or need additional assistance, please do not hesitate to contact us. We are here to help you get the best possible experience with our system.",
+    "found": "You will find:",
+    "highlights": "Baby Registration",
+    "highlights2": "Monitoring (Measurements)",
+    "highlights3": "Alerts",
+    "highlights4": "Reports",
+    "highlights5": "Settings"
+  },
+  "modetoggle": {
     "dark": "Dark",
     "light": "Light",
-    "system":"System"
+    "system": "System"
   },
   "home": {
     "card1": {
@@ -270,6 +338,8 @@
       "create": "Creation date",
       "follow": "Follow-up date",
       "priority": "Priority",
+      "view": "View",
+      "edit": "Edit",
       "dataStatus": {
         "new": "New",
         "inProgress": "In progress",
@@ -298,17 +368,105 @@
       "year": "Year"
     },
     "filter": {
-    "title": "Filter",
-    "filterby": "Filter by:",
-    "status": "Status",
-    "id": "Identifier",
-    "create": "Creation Date",
-    "follow": "Follow-up Date",
-    "priority": "Priority"
-  },
-  "export":{
-      "title":"Export"
+      "title": "Filter",
+      "filterby": "Filter by:",
+      "status": "Status",
+      "id": "Identifier",
+      "create": "Creation Date",
+      "follow": "Follow-up Date",
+      "priority": "Priority"
+    },
+    "export": {
+      "title": "Export"
     }
+  },
+  "dashboard": {
+    "navbar": {
+      "register": "Baby Registration",
+      "monitoreo": "Monitoring",
+      "alertas": "Alerts",
+      "informes": "Reports",
+      "account": "My Account",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "registro": {
+      "title": "Manager Registration",
+      "description": "Please fill in all the requested fields; the CUI (Unique Identification Code) is important.",
+      "cui": "CUI",
+      "description1": "Enter the CUI",
+      "name": "Manager's Name",
+      "description2": "Full Name",
+      "born": "Date of Birth",
+      "month": "Select Month",
+      "year": "Select Year",
+      "description3": "Address",
+      "direction": "Department, Municipality, community, and street",
+      "description4": "Manager's Phone Number",
+      "phonenumber": "(+502) 4532-4515",
+      "fallecio": "Deceased",
+      "falleciop": "Select an option",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "mediciones": {
+      "title": "Patient Measurement",
+      "description": "View the captured data here.",
+      "size/length": "Height/Length: ",
+      "weight": "Weight: ",
+      "IMC": "Body Mass Index (BMI):",
+      "botton1": "Height/Length",
+      "botton2": "Weight",
+      "rsl": "cm",
+      "rls2": "m",
+      "rw": "lb",
+      "rw2": "kg",
+      "rimc": "kg/m"
+    },
+    "alertas": {
+      "title": "Generate Alert",
+      "description": "Here you can generate the respective alert",
+      "datecreate": "Creation Date",
+      "datetracking": "Tracking Date",
+      "priority": "Priority",
+      "prioritysdesc": "Mild",
+      "prioritys": {
+        "severe": "Severe",
+        "moderate": "Moderate",
+        "mild": "Mild"
+      },
+      "status": "Status",
+      "statusdesc": "New",
+      "statuss": {
+        "new": "New",
+        "in_progress": "In Progress",
+        "in_review": "In Review",
+        "resolved": "Resolved"
+      },
+      "desc": "Description",
+      "alertasdesc": "Add a medical description",
+      "notes": "Medical Notes",
+      "notasdesc": "The baby lacks nutrients..."
+    },
+    "settings": {
+      "welcome": "Welcome! ",
+      "language": "Language",
+      "language2": "Select your preferred language.",
+      "theme": "Theme",
+      "theme2": "Select your preferred theme."
+    },
+    "buttons": {
+      "save": "Save Data",
+      "alert": "Start Alert"
+    }
+  },
+  "ce": {
+    "create": "Create",
+    "create2": "Easily capture data with a single click.",
+    "create3": "Use our physical system to capture data and generate valuable health information.",
+    "view": "Edit",
+    "view2": "Easily edit the data.",
+    "view3": "Follow up on detected cases in a timely manner to provide appropriate care to the patient."
   },
   "footer": {
     "logo": {
@@ -319,12 +477,12 @@
       "title": "Resources",
       "links": [
         {
-          "name": "Flowbite",
-          "url": "https://flowbite.com/"
+          "name": "shadcn/ui",
+          "url": "https://ui.shadcn.com/"
         },
         {
-          "name": "Tailwind CSS",
-          "url": "https://tailwindcss.com/"
+          "name": "Tailwindui",
+          "url": "https://tailwindui.com/"
         }
       ]
     },

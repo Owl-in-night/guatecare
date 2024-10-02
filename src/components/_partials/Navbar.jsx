@@ -61,11 +61,10 @@ export default function Navbar() {
 
 
 
-  if (
-    location.pathname === `/Soporte` ||
-    location.pathname === `/Panel`
-  )
+  // Excluir Navbar en rutas que comienzan con "/Soporte" o "/Panel"
+  if (location.pathname.startsWith("/Soporte") || location.pathname.startsWith("/Panel")) {
     return null;
+  }
 
   return (
     <header className="flex h-20 w-full items-center px-4 md:px-6">
@@ -85,7 +84,7 @@ export default function Navbar() {
       {/* Menú para pantallas grandes */}
       <nav className="ml-auto hidden lg:flex gap-6">
         <Link
-          to={`/Panel-Inicial`}
+          to={`/`}
           className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
         >
           {t("navbar.home")}
@@ -154,7 +153,7 @@ export default function Navbar() {
         <SheetContent side="left" className="lg:hidden">
           <div className="grid gap-2 py-6">
             <Link
-              to={`/Panel-Inicial`}
+              to={`/Estadísticas`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
               <Home className="h-10 w-10 px-2" />

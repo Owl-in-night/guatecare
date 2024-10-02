@@ -4,7 +4,12 @@ import emailjs from '@emailjs/browser';
 import { useTranslation } from "react-i18next";
 
 function ContactUs() {
+
   const [t] = useTranslation("global");
+  
+  useEffect(() => {
+    document.title = `${t("support.navbar.contactus")} | GuateCare`;
+  }, [t]);
 
   const [formData, setFormData] = useState({
     firstName: "",
