@@ -28,15 +28,15 @@ function GalleryA() {
 
   // Lista de imágenes con diferentes alturas
   const images = [
-    { src: "/public/img/1.png", height: "h-64" },
-    { src: "/public/img/2.png", height: "h-80" },
-    { src: "/public/img/3.png", height: "h-96" },
-    { src: "/public/img/4.png", height: "h-72" },
-    { src: "/public/img/5.png", height: "h-80" },
-    { src: "/public/img/a.jpg", height: "h-64" },
-    { src: "/public/img/b.jpg", height: "h-72" },
-    { src: "/public/img/c.jpg", height: "h-90" },
-    { src: "/public/img/d.jpg", height: "h-96" },
+    { src: "/img/1.png", height: "h-64" },
+    { src: "/img/2.png", height: "h-80" },
+    { src: "/img/3.png", height: "h-96" },
+    { src: "/img/4.png", height: "h-72" },
+    { src: "/img/5.png", height: "h-80" },
+    { src: "/img/a.jpg", height: "h-64" },
+    { src: "/img/b.jpg", height: "h-72" },
+    { src: "/img/c.jpg", height: "h-90" },
+    { src: "/img/d.jpg", height: "h-96" },
   ];
 
   // Función para abrir el modal con la imagen seleccionada
@@ -55,17 +55,17 @@ function GalleryA() {
     <>
       <NavbarSupport />
       {/* Descripción */}
-      <div className="text-gray-100 min-h-screen">
+      <div className=" min-h-screen">
         <div className="mx-auto max-w-7xl py-24 sm:px-6 lg:px-8">
-          <div className="text-gray-100 min-h-screen">
+          <div className=" min-h-screen">
             <div className="mx-auto max-w-7xl py-24 px-8 sm:px-6 lg:px-8">
               {/* Información de la obra */}
               <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div>
-                  <h2 className="text-4xl font-extrabold tracking-tight text-white">
+                  <h2 className="text-4xl font-extrabold tracking-tight ">
                     {t("gallery.build")}
                   </h2>
-                  <p className="mt-4 text-lg text-gray-300">
+                  <p className="mt-4 text-lg ">
                     {t("gallery.description")}
                   </p>
                   <dl className="mt-12 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
@@ -74,10 +74,10 @@ function GalleryA() {
                         key={feature.name}
                         className="border-t border-gray-500 pt-4"
                       >
-                        <dt className="font-medium text-white">
+                        <dt className="font-medium ">
                           {feature.name}
                         </dt>
-                        <dd className="mt-2 text-sm text-gray-300">
+                        <dd className="mt-2 text-sm ">
                           {feature.description}
                         </dd>
                       </div>
@@ -86,7 +86,7 @@ function GalleryA() {
                 </div>
                 <div className="flex items-center justify-center rounded-2xl">
                   <img
-                    src="/public/img/SH.png"
+                    src="/img/SH.png"
                     className="w-96 h-96 md:w-full md:h-full lg:w-full lg:h-full xl:w-full xl:h-full 2xl:w-full 2xl:h-full object-cover transform transition-transform duration-500 group-hover:scale-105 py-5"
                   />
                 </div>

@@ -595,7 +595,7 @@ export default function Registro() {
 
       <img
         alt="GuateCare"
-        src="/public/img/registro.png"
+        src="/img/registro.png"
         className="w-80 md:w-1/3 object-cover mb-4 md:mb-0 md:mr-4"
       />
 

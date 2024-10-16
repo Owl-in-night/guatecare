@@ -195,7 +195,7 @@ function SignIn() {
           <img
             alt="GuateCare"
             className="mx-auto w-full object-cover"
-            src="/public/img/mano.gif"
+            src="/img/mano.gif"
           />
         </div>
       </div>

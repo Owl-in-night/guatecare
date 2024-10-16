@@ -77,7 +77,7 @@ function Mediciones() {
           <Button
             variant="outline"
             onClick={() => alert("¡Muy pronto!")}
-            className="border-blue-500 hover:text-gray-900"
+            className="border-blue-500"
           >
             <Weight className="w-4 h-4 mr-2" />
             {t("dashboard.mediciones.botton2")}
@@ -88,7 +88,7 @@ function Mediciones() {
       <div className="flex flex-col md:flex-row items-center justify-center w-full h-screen px-4">
         <img
           alt="GuateCare"
-          src="/public/img/mediciones.png"
+          src="/img/mediciones.png"
           className="w-80 md:w-1/3 object-cover mb-4 md:mb-0 md:mr-4"
         />
         <Card className="w-full md:w-1/2 max-w-md">

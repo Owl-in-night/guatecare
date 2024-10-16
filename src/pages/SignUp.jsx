@@ -158,7 +158,7 @@ function SignUp() {
         <img
           alt="GuateCare"
           className="mx-auto w-full object-cover"
-          src="/public/img/love.gif"
+          src="/img/love.gif"
         />
       </div>
       <div className="flex items-center justify-center py-12">

@@ -340,6 +340,7 @@
       "priority": "优先级",
       "view": "查看",
       "edit": "编辑",
+      "alert":"警报",
       "dataStatus": {
         "new": "新",
         "inProgress": "进行中",

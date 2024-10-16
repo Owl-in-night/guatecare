@@ -36,7 +36,7 @@ function Aboutus() {
     {
       name: "Santos Pedro Baltazar Joj Cano",
       role: t("about.developer"),
-      imageUrl: "/public/img/dev.jpg",
+      imageUrl: "/img/dev.jpg",
     },
     // More people...
   ];

@@ -19,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
-import { Home, LogIn, Settings, Menu as MenuIcon, Earth } from "lucide-react";
+import { Home, Settings, Menu as MenuIcon, Earth } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import IconLight from "../../../public/icons/IconLight";
@@ -114,9 +114,9 @@ export default function NavbarSupport() {
                   <NavigationMenuLink
                     key={lang}
                     onClick={() => changeLanguage(lang)}
-                    className="group inline-flex h-10 w-14 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+                    className="group inline-flex h-10 w-28 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
                   >
-                    <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border  shadow-lg">
+                    <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border shadow-lg">
                       <AvatarImage
                         src={`https://flagcdn.com/${
                           lang === "en"
@@ -133,6 +133,19 @@ export default function NavbarSupport() {
                         className="w-full h-full object-cover"
                       />
                     </Avatar>
+                    <span className="ml-2">
+                      {" "}
+                      {/* Añade un margen a la izquierda */}
+                      {lang === "en"
+                        ? t("navbar.english")
+                        : lang === "es"
+                        ? t("navbar.spanish")
+                        : lang === "fr"
+                        ? t("navbar.french")
+                        : lang === "hi"
+                        ? t("navbar.hindi")
+                        : t("navbar.chinese")}
+                    </span>
                   </NavigationMenuLink>
                 ))}
               </NavigationMenuContent>
@@ -215,10 +228,29 @@ export default function NavbarSupport() {
                                 ? "in"
                                 : "cn"
                             }.svg`}
-                            alt={`Flag of ${lang}`}
+                            alt={`Flag of ${
+                              lang === "en"
+                                ? "United States"
+                                : lang === "es"
+                                ? "Guatemala"
+                                : lang === "fr"
+                                ? "France"
+                                : lang === "hi"
+                                ? "India"
+                                : "China"
+                            }`}
                             className="rounded-full object-cover"
                           />
                         </Avatar>
+                        {lang === "en"
+                          ? t("navbar.english")
+                          : lang === "es"
+                          ? t("navbar.spanish")
+                          : lang === "fr"
+                          ? t("navbar.french")
+                          : lang === "hi"
+                          ? t("navbar.hindi")
+                          : t("navbar.chinese")}
                       </SelectItem>
                     ))}
                   </SelectGroup>

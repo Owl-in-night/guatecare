@@ -22,7 +22,7 @@ function HistoryA() {
               </p>
             </div>
             <img
-              src="/public/img/sm.png"
+              src="/img/sm.png"
               alt="Imagen descriptiva"
               className="w-5/12 h-auto rounded-lg shadow-lg hidden md:block lg:block xl:block 2xl:block"
             />

@@ -68,17 +68,18 @@ export function SettingsA() {
                       {t("dashboard.settings.welcome")}{" "}
                       {user?.displayName || user?.email}
                     </CardTitle>
-                    <CardDescription>
-                      {user?.email || "email@ejemplo.com"}
-                    </CardDescription>
+                    <CardDescription>{user?.email}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex items-center">
                     <img
                       src={
                         user?.photoURL || "https://i.ibb.co/XJzW49P/img13.png"
                       }
-                      alt="User"
+                      alt=""
                       className="h-16 w-16 rounded-full border"
+                      onError={(e) => {
+                        e.target.src = "https://i.ibb.co/XJzW49P/img13.png"; // Cambia a la imagen de respaldo si hay un error
+                      }}
                     />
                   </CardContent>
                 </Card>
@@ -118,7 +119,7 @@ export function SettingsA() {
                               <NavigationMenuLink
                                 key={lang}
                                 onClick={() => changeLanguage(lang)}
-                                className="group inline-flex h-10 w-14 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+                                className="group inline-flex h-10 w-28 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
                               >
                                 <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border shadow-lg">
                                   <AvatarImage
@@ -137,6 +138,19 @@ export function SettingsA() {
                                     className="w-full h-full object-cover"
                                   />
                                 </Avatar>
+                                <span className="ml-2">
+                                  {" "}
+                                  {/* Añade un margen a la izquierda */}
+                                  {lang === "en"
+                                    ? t("navbar.english")
+                                    : lang === "es"
+                                    ? t("navbar.spanish")
+                                    : lang === "fr"
+                                    ? t("navbar.french")
+                                    : lang === "hi"
+                                    ? t("navbar.hindi")
+                                    : t("navbar.chinese")}
+                                </span>
                               </NavigationMenuLink>
                             ))}
                           </NavigationMenuContent>
@@ -170,10 +184,29 @@ export function SettingsA() {
                                         ? "in"
                                         : "cn"
                                     }.svg`}
-                                    alt={`Flag of ${lang}`}
+                                    alt={`Flag of ${
+                                      lang === "en"
+                                        ? "United States"
+                                        : lang === "es"
+                                        ? "Guatemala"
+                                        : lang === "fr"
+                                        ? "France"
+                                        : lang === "hi"
+                                        ? "India"
+                                        : "China"
+                                    }`}
                                     className="rounded-full object-cover"
                                   />
                                 </Avatar>
+                                {lang === "en"
+                                  ? t("navbar.english")
+                                  : lang === "es"
+                                  ? t("navbar.spanish")
+                                  : lang === "fr"
+                                  ? t("navbar.french")
+                                  : lang === "hi"
+                                  ? t("navbar.hindi")
+                                  : t("navbar.chinese")}
                               </SelectItem>
                             ))}
                           </SelectGroup>

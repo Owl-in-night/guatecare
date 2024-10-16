@@ -340,6 +340,7 @@
       "priority": "Priorité",
       "view": "Visualiser",
       "edit": "Éditer",
+      "alert":"Alerte",
       "dataStatus": {
         "new": "Nouveau",
         "inProgress": "En cours",

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 // import { Badge } from "@/components/ui/badge";
 import { File, ListFilter } from "lucide-react";
-import { Label } from "@/components/ui/label";
+// import { Label } from "@/components/ui/label";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,33 +26,33 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+// import { cn } from "@/lib/utils";
+// import { format } from "date-fns";
+// import { Calendar } from "@/components/ui/calendar";
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from "@/components/ui/popover";
+// import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
+// import { CalendarIcon } from "lucide-react";
+// import { useState } from "react";
+// import { Textarea } from "@/components/ui/textarea";
 
 function Alertas() {
   const [t] = useTranslation("global");
 
-  // Estados separados para las fechas
-  const [dateCreate, setDateCreate] = useState();
-  const [dateTracking, setDateTracking] = useState();
+  // // Estados separados para las fechas
+  // const [dateCreate, setDateCreate] = useState();
+  // const [dateTracking, setDateTracking] = useState();
 
   // Función para obtener el color del estado
   const getStatusColor = (status) => {
@@ -78,175 +78,8 @@ function Alertas() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row items-center justify-center space-x-0 md:space-x-8">
-        <img
-          alt="GuateCare"
-          src="/public/img/alertas.png"
-          className="w-48 md:w-96 object-cover mb-4"
-        />
-
-        <Card className="max-w-md mb-4">
-          <CardHeader>
-            <CardTitle className="text-3xl">
-              {t("dashboard.alertas.title")}
-            </CardTitle>
-            <CardDescription>
-              {t("dashboard.alertas.description")}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Selector de fecha de creación */}
-              <div className="space-y-2">
-                <Label htmlFor="input-1" className="block">
-                  {t("dashboard.alertas.datecreate")}
-                </Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-auto justify-start text-left font-normal",
-                        !dateCreate && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {dateCreate ? (
-                        format(dateCreate, "dd-MM-yyyy")
-                      ) : (
-                        <span>dd/mm/yyyy</span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={dateCreate}
-                      onSelect={setDateCreate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-
-              {/* Selector de prioridad */}
-              <div className="space-y-2">
-                <Label htmlFor="select-4" className="block">
-                  {t("dashboard.alertas.priority")}
-                </Label>
-                <Select>
-                  <SelectTrigger className="w-auto ml-2">
-                    <SelectValue
-                      placeholder={t("dashboard.alertas.prioritysdesc")}
-                    />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="mild">
-                      {t("dashboard.alertas.prioritys.mild")}
-                    </SelectItem>
-                    <SelectItem value="moderate">
-                      {t("dashboard.alertas.prioritys.moderate")}
-                    </SelectItem>
-                    <SelectItem value="severe">
-                      {t("dashboard.alertas.prioritys.severe")}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Selector de fecha de seguimiento */}
-              <div className="space-y-2">
-                <Label htmlFor="input-1" className="block">
-                  {t("dashboard.alertas.datetracking")}
-                </Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-auto justify-start text-left font-normal",
-                        !dateTracking && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {dateTracking ? (
-                        format(dateTracking, "dd-MM-yyyy")
-                      ) : (
-                        <span>dd/mm/yyyy</span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={dateTracking}
-                      onSelect={setDateTracking}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-
-              {/* Selector de estado */}
-              <div className="space-y-2">
-                <Label htmlFor="select-4" className="block">
-                  {t("dashboard.alertas.status")}
-                </Label>
-                <Select>
-                  <SelectTrigger className="w-auto ml-2">
-                    <SelectValue
-                      placeholder={t("dashboard.alertas.statusdesc")}
-                    />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="new">
-                      {t("dashboard.alertas.statuss.new")}
-                    </SelectItem>
-                    <SelectItem value="in_progress">
-                      {t("dashboard.alertas.statuss.in_progress")}
-                    </SelectItem>
-                    <SelectItem value="in_review">
-                      {t("dashboard.alertas.statuss.in_review")}
-                    </SelectItem>
-                    <SelectItem value="resolved">
-                      {t("dashboard.alertas.statuss.resolved")}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Input para nombre */}
-              <div className="space-y-2">
-                <Label htmlFor="input-1" className="block">
-                  {t("dashboard.alertas.desc")}
-                </Label>
-                <Input
-                  id="input-1"
-                  type="text"
-                  name="nombre"
-                  placeholder={t("dashboard.alertas.alertasdesc")}
-                />
-              </div>
-              
-              {/* Notas médicas */}
-              <div className="space-y-2">
-                <Label htmlFor="input-1" className="block">
-                  {t("dashboard.alertas.notes")}
-                </Label>
-                <Textarea
-                  id="input-1"
-                  type="text"
-                  name="nombre"
-                  placeholder={t("dashboard.alertas.notasdesc")}
-                />
-              </div>
-            </div>
-            <Button className="w-full">{t("dashboard.buttons.alert")}</Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Tabs defaultValue="week" className="py-4 w-full max-w-4xl mx-auto">
+    
+      <Tabs defaultValue="week" className="py-4 w-full max-w-6xl mx-auto">
         <div className="flex items-center">
           <TabsList>
             <TabsTrigger value="week">{t("home.dates.week")}</TabsTrigger>
@@ -317,6 +150,9 @@ function Alertas() {
                       </TableHead>
                       <TableHead className="text-right">
                         {t("home.data.view")}
+                      </TableHead>
+                      <TableHead className="text-right">
+                        {t("home.data.alert")}
                       </TableHead>
                     </TableRow>
                   </TableHeader>
@@ -389,6 +225,11 @@ function Alertas() {
                         <TableCell className="text-right">
                           <Button size="sm" variant="outline" className="h-7">
                             Visualizar
+                          </Button>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button size="sm" variant="outline" className="h-7">
+                            Alerta
                           </Button>
                         </TableCell>
                       </TableRow>
