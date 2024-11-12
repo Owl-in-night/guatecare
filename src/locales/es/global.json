@@ -377,9 +377,13 @@
     }
   },
   "dashboard": {
+    "selectMeasurement":"Seleccione la medición",
+    "noMeasurementsAvailable":"No hay mediciones disponibles",
+    "selectM":"Escoja una medición",
     "navbar": {
       "register": "Registro del bebé",
       "monitoreo": "Monitoreo",
+      "datos": "Datos",
       "alertas": "Alertas",
       "informes": "Informes",
       "account": "Mi cuenta",

@@ -28,14 +28,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+//Firebase
 import { db } from "@/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
 export default function Registro() {
-  
   const { t } = useTranslation("global");
-
   //Forms 1
   const [formData, setFormData] = useState({
     dpi: "",
@@ -52,11 +51,11 @@ export default function Registro() {
     nameb: "",
     born2: "",
     dirrl: "",
-    gen: "",  
+    gen: "",
     pue: "",
     comu: "",
+    measurementId: null, // Nuevo campo para almacenar el ID de la medición
   });
-
 
   //Date form 1
   const [dateCreate, setDateCreate] = useState();
@@ -66,6 +65,35 @@ export default function Registro() {
   const [success, setSuccess] = useState("");
   const [errorB, setErrorB] = useState("");
   const [successB, setSuccessB] = useState("");
+
+  const [measurements, setMeasurements] = useState([]);
+
+  // Obtener la colección "measurements" desde Firebase
+  useEffect(() => {
+    const fetchMeasurements = async () => {
+      // Obtener las mediciones de Firebase
+      const querySnapshot = await getDocs(collection(db, "measurements"));
+      const measurementList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      // Obtener los registros de la colección "bebe"
+      const bebeSnapshot = await getDocs(collection(db, "bebe"));
+      const usedMeasurementIds = bebeSnapshot.docs.map(
+        (doc) => doc.data().measurementId
+      );
+
+      // Filtrar mediciones que ya están vinculadas
+      const availableMeasurements = measurementList.filter(
+        (measurement) => !usedMeasurementIds.includes(measurement.id)
+      );
+
+      setMeasurements(availableMeasurements);
+    };
+
+    fetchMeasurements();
+  }, []);
 
   const handleYearChange = (value) => {
     const newYear = parseInt(value, 10);
@@ -217,55 +245,96 @@ export default function Registro() {
 
   //Base de datos
 
+  const formatDate = (date) => {
+    const options = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const formattedDate = new Intl.DateTimeFormat("es-ES", options).format(
+      date
+    );
+
+    // Cambiar el formato a "DD/MM/YYYY hh:mm AM/PM"
+    const [datePart, timePart] = formattedDate.split(", ");
+    const [day, month, year] = datePart.split("/");
+    return `${day}/${month}/${year} ${timePart}`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
+    setErrorB("");
+    setSuccessB("");
+  
     // Validar que todos los campos requeridos están llenos
-    const requiredFields = [
-      "dpi",
-      "nameE",
-      "born",
-      "dirr",
-      "tel",
-      "fallecio",
-      "comunidadLing",
-    ];
-
-    for (const field of requiredFields) {
+    const requiredFieldsForm1 = ["dpi", "nameE", "born", "dirr", "tel", "fallecio", "comunidadLing"];
+    const requiredFieldsForm2 = ["cui", "nameb", "born2", "dirrl", "gen", "pue", "comu", "measurementId"];
+  
+    for (const field of requiredFieldsForm1) {
       if (!formData[field]) {
         setError(t("donar.none"));
         return;
       }
     }
-
-    // Verificar que dateCreate está definido
-    if (!dateCreate) {
+  
+    for (const field of requiredFieldsForm2) {
+      if (!formDataB[field]) {
+        setErrorB(t("donar.none"));
+        return;
+      }
+    }
+  
+    if (!dateCreate || !dateCreateB) {
       setError(t("dashboard.registro.dateError"));
       return;
     }
-
+  
     const phoneWithoutFormat = formData.tel.replace("-", "");
-    const formattedPhone = `(+502) ${phoneWithoutFormat.slice(
-      0,
-      4
-    )}-${phoneWithoutFormat.slice(4)}`;
-
+    const formattedPhone = `(+502) ${phoneWithoutFormat.slice(0, 4)}-${phoneWithoutFormat.slice(4)}`;
+  
     try {
-      // Guardar en Firebase
-      await addDoc(collection(db, "encargado"), {
+      const encargadoDocRef = await addDoc(collection(db, "encargado"), {
         dpi: formData.dpi,
         nombreEncargado: formData.nameE,
         direccion: formData.dirr,
         telefono: formattedPhone,
-        fechaNacimiento: dateCreate, // Asegúrate de usar dateCreate aquí
+        fechaNacimiento: dateCreate,
         fallecio: formData.fallecio === t("dashboard.registro.yes"),
         comunidadLinguistica: formData.comunidadLing,
       });
-
-      // Mostrar mensaje de éxito y resetear el formulario
+  
+      let measurementId = formDataB.measurementId;
+  
+      // Guardar en Firebase para el formulario 2
+      await addDoc(collection(db, "bebe"), {
+        cui: formDataB.cui,
+        nombrebebe: formDataB.nameb,
+        lugar: formDataB.dirrl,
+        fechaNacimiento: dateCreateB,
+        genero: formDataB.gen === t("dashboard.registro.male"),
+        comunidadLinguistica: formDataB.comu,
+        pueblo: formDataB.pue,
+        encargadoId: encargadoDocRef.id,
+        measurementId: measurementId,
+        createdAt: formatDate(new Date()),
+      });
+  
+      // Actualizar lista de mediciones disponibles eliminando la que se usó
+      setMeasurements(prevMeasurements =>
+        prevMeasurements.filter(measurement => measurement.id !== measurementId)
+      );
+  
       setSuccess(t("dashboard.registro.successMessage"));
+      setTimeout(() => {
+        setSuccess("");
+      }, 10000);
+  
+      // Resetear los formularios y el estado
       setFormData({
         dpi: "",
         nameE: "",
@@ -275,64 +344,6 @@ export default function Registro() {
         fallecio: "",
         comunidadLing: "",
       });
-      setDateCreate(undefined);
-      setSelectedYear(new Date().getFullYear());
-      setSelectedMonth(new Date().getMonth());
-    } catch (e) {
-      setError(t("dashboard.registro.errorMessage"));
-      // console.error("Error adding document: ", e);
-    }
-  };
-
-  //Baby
-  const handleSubmitB = async (e) => {
-    e.preventDefault();
-    setErrorB("");
-    setSuccessB("");
-
-    // Validar que todos los campos requeridos están llenos
-    const requiredFields = [
-      "cui",
-      "nameb",
-      "born2",
-      "dirrl",
-      "gen",
-      "pue",
-      "comu",
-    ];
-
-    for (const field of requiredFields) {
-      if (!formDataB[field]) {
-        setErrorB(t("donar.none"));
-        return;
-      }
-    }
-
-    // Verificar que dateCreate está definido
-    if (!dateCreateB) {
-      setErrorB(t("dashboard.registro.dateError"));
-      return;
-    }
-
-    // Verificar que dateCreate está definido
-    if (!dateCreateB) {
-      setErrorB(t("dashboard.registro.dateError")); // Asegúrate de tener esta traducción
-      return;
-    }
-    try {
-      // Guardar en Firebase
-      await addDoc(collection(db, "bebe"), {
-        cui: formDataB.cui,
-        nombrebebe: formDataB.nameb,
-        lugar: formDataB.dirrl,
-        fechaNacimiento: dateCreateB, // Asegúrate de usar dateCreateB aquí
-        genero: formDataB.gen === t("dashboard.registro.male"),
-        comunidadLinguistica: formDataB.comu,
-        pueblo: formDataB.pue,
-      });
-
-      // Mostrar mensaje de éxito y resetear el formulario
-      setSuccessB(t("dashboard.registro.successMessage"));
       setFormDataB({
         cui: "",
         nameb: "",
@@ -341,20 +352,23 @@ export default function Registro() {
         gen: "",
         pue: "",
         comu: "",
+        measurementId: null, // Resetear el campo measurementId
       });
+      setDateCreate(undefined);
       setDateCreateB(undefined);
+      setSelectedYear(new Date().getFullYear());
+      setSelectedMonth(new Date().getMonth());
       setSelectedYearB(new Date().getFullYear());
       setSelectedMonthB(new Date().getMonth());
-    } catch (e) {
-      setErrorB(t("dashboard.registro.errorMessage"));
-      // console.error("Error adding document: ", e);
+    } catch (error) {
+      console.error("Error al guardar en Firebase:", error);
+      setError(t("dashboard.registro.errorMessage"));
     }
   };
-
+  
   // console.log("formData:", formData);
-  console.log("formDataB:", formDataB);
+  // console.log("formDataB:", formDataB);
   // console.log("dateCreateB:", dateCreateB);
-
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center space-x-0 md:space-x-8">
@@ -372,6 +386,40 @@ export default function Registro() {
           {error && <p className="text-red-500">{error}</p>}
           {success && <p className="text-green-500">{success}</p>}
           <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label
+                htmlFor="measurementId"
+                className="block text-sm font-medium"
+              >
+                {t("dashboard.selectMeasurement")}
+              </label>
+              <Select
+                id="measurementId"
+                name="measurementId"
+                onValueChange={(value) =>
+                  setFormDataB({ ...formDataB, measurementId: value })
+                }
+                value={formDataB.measurementId || ""}
+              >
+                <SelectTrigger className="w-full mt-1  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <SelectValue placeholder={t("dashboard.selectM")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {measurements.length > 0 ? (
+                    measurements.map((measurement) => (
+                      <SelectItem key={measurement.id} value={measurement.id}>
+                        {measurement.nombreMedicion || `${measurement.id}`}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem disabled>
+                      {t("dashboard.noMeasurementsAvailable")}
+                    </SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="dpi" className="block">
                 {t("dashboard.registro.dpi")}
@@ -584,11 +632,11 @@ export default function Registro() {
               </Select>
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Button type="submit" className="w-full ">
                 {t("dashboard.buttons.save")}
               </Button>
-            </div>
+            </div> */}
           </form>
         </CardContent>
       </Card>
@@ -610,9 +658,9 @@ export default function Registro() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {errorB && <p className="text-red-500">{errorB}</p>}
-          {successB && <p className="text-green-500">{successB}</p>}
-          <form onSubmit={handleSubmitB} className="grid grid-cols-2 gap-4">
+          {/* {errorB && <p className="text-red-500">{errorB}</p>}
+          {successB && <p className="text-green-500">{successB}</p>} */}
+          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="cui" className="block">
                 {t("dashboard.registro.cui")}
@@ -844,7 +892,7 @@ export default function Registro() {
               </Select>
             </div>
 
-            <div className="space-y-2"> 
+            <div className="space-y-2">
               <Button type="submit" className="w-full ">
                 {t("dashboard.buttons.save")}
               </Button>

@@ -4,8 +4,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 //Main Pages
 import Registro from "@/pages/system/registro";
 import Mediciones from "./system/mediciones";
-import Alertas from "./system/alertas";
+import Datos from "./system/datos";
 import { SettingsA } from "./system/settings";
+import AlertasN from "./system/alertas";
+import AlertasR from "./system/alertasR";
 //Error
 import Error from "@/components/_partials/Error";
 
@@ -18,6 +20,10 @@ import ScrollToTop from "@/components/_partials/ScrollToTop";
 import Asidebar from "@/components/_partials/Asidebar";
 import Informes from "./system/informes";
 
+import UpdateRegistro from "./system/update";
+import ReadRegistro from "./system/Read";
+import ReMediciones from "./system/remediciones";
+import ReportesRegistros from "./system/reportes";
 export default function Dashboard() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
@@ -41,9 +47,15 @@ export default function Dashboard() {
         <Routes>
           <Route path="/" element={<Mediciones />} />
           <Route path="//Registro" element={<Registro />} />
-          <Route path="//Alertas" element={<Alertas />} />
+          <Route path="//Datos" element={<Datos />} />
+          <Route path="//Alertas" element={<AlertasN />} />
+          {/* <Route path="//Info/:id" element={<AlertasR />} /> */}
           <Route path="//Informes" element={<Informes />} />
           <Route path="//Ajustes" element={<SettingsA />} />
+          <Route path="//Editar/:id" element={<UpdateRegistro />} />
+          <Route path="//Leer/:id" element={<ReadRegistro />} />
+          <Route path="//Remedir/:id" element={<ReMediciones />} />
+          <Route path="//Reportes/:id" element={<ReportesRegistros />} />
           {/* Añade más rutas si es necesario */}
           <Route path="*" element={<Error />} />
         </Routes>
