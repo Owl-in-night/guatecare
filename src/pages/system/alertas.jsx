@@ -95,11 +95,22 @@ export default function AlertasN() {
 
   // Convertir la fecha en formato de cadena "11/11/2024, 02:17 PM" a un objeto Date
   const formatDate = (timestamp) => {
-    if (timestamp) {
-      return new Date(timestamp); // Convierte la cadena a un objeto Date
-    }
-    return null; // Si no hay timestamp, retornamos null
+    if (!timestamp) return null;
+  
+    // Separar la fecha y hora
+    const [datePart, timePart] = timestamp.split(", ");
+    const [day, month, year] = datePart.split("/").map(Number);
+  
+    // Parsear la hora y convertir a formato 24 horas si es necesario
+    let [time, meridian] = timePart.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+    if (meridian === "PM" && hours < 12) hours += 12;
+    if (meridian === "AM" && hours === 12) hours = 0;
+  
+    // Crear el objeto Date
+    return new Date(year, month - 1, day, hours, minutes);
   };
+  
 
   // Obtener los datos de prioridad y estado del reporte correspondiente
   const getPrioridadYEstado = (alertId) => {

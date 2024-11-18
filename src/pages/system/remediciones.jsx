@@ -28,18 +28,17 @@ function ReMediciones({ babyId }) {
     // Por ejemplo, obtener la última medición del bebé (talla y peso).
   }, [babyId]);
 
+  // Función para medir talla (distancia/longitud)
   const handleMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get("http://raspberrypisantos.local:5000/sensor");
-      // Suponiendo que distancia y longitud están en centímetros
       const distanciaPromedio = response.data.distancia_promedio;
       const longitudPromedio = response.data.longitud_promedio;
 
-      // Establecer los valores originales en centímetros
-      setDistance(distanciaPromedio); // Guardar en centímetros
-      setLength(longitudPromedio); // Guardar en centímetros
+      setDistance(distanciaPromedio); // Guardar distancia en cm
+      setLength(longitudPromedio); // Guardar longitud en cm
     } catch (error) {
       console.error("Error midiendo la distancia:", error);
       setError("Hubo un problema al medir la distancia. Por favor, inténtalo de nuevo más tarde.");
@@ -48,6 +47,23 @@ function ReMediciones({ babyId }) {
     }
   };
 
+  // Función para medir peso
+  const handleWeightMeasure = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get("http://raspberrypisantos.local:5000/weight");
+      const weightData = response.data.weight; // Suponiendo que el peso viene en el campo `weight`
+      setWeight(weightData); // Guardar el peso
+    } catch (error) {
+      console.error("Error midiendo el peso:", error);
+      setError("Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Función para guardar los datos
   const handleSave = async () => {
     try {
       const babyRef = doc(db, "bebe", babyId); // Referencia al documento del bebé en la colección 'bebe'
@@ -58,11 +74,11 @@ function ReMediciones({ babyId }) {
         const babyData = babyDoc.data();
 
         // Crear nuevos campos incrementales para talla y peso
-        const newTallaField = `talla${Object.keys(babyData).filter(key => key.startsWith('talla')).length + 1}`;
-        const newPesoField = `peso${Object.keys(babyData).filter(key => key.startsWith('peso')).length + 1}`;
+        const newTallaField = `talla${Object.keys(babyData).filter(key => key.startsWith("talla")).length + 1}`;
+        const newPesoField = `peso${Object.keys(babyData).filter(key => key.startsWith("peso")).length + 1}`;
 
         // Verificar si ya existen datos de peso y talla para el bebé
-        if (distance !== null && weight !== null) {
+        if (length !== null && weight !== null) {
           // Actualizar los datos del bebé en la colección 'bebe'
           await updateDoc(babyRef, {
             [newTallaField]: length, // Guardar talla
@@ -96,7 +112,8 @@ function ReMediciones({ babyId }) {
           </Button>
           <Button
             variant="outline"
-            onClick={() => alert("¡Muy pronto!")}
+            onClick={handleWeightMeasure}
+            disabled={loading}
             className="border-blue-500"
           >
             <Weight className="w-4 h-4 mr-2" />
@@ -133,11 +150,16 @@ function ReMediciones({ babyId }) {
                 </p>
               </>
             )}
+            {weight !== null && (
+              <p>
+                {t("dashboard.mediciones.weight")}: {weight.toFixed(2)} kg
+              </p>
+            )}
           </CardContent>
           <CardFooter>
             <Button
               onClick={handleSave}
-              disabled={distance === null || weight === null}
+              disabled={length === null || weight === null} // Habilitar solo si hay datos de talla y peso
             >
               {t("dashboard.buttons.save")}
             </Button>

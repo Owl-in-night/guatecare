@@ -18,10 +18,13 @@ import { collection, addDoc } from "firebase/firestore";
 function Mediciones() {
   const [distance, setDistance] = useState(null); // Para almacenar la distancia
   const [length, setLength] = useState(null); // Para almacenar la longitud
+  const [pesoKg, setPesoKg] = useState(null); // Para peso en kg
+  const [pesoLb, setPesoLb] = useState(null); // Para peso en lb
   const [loading, setLoading] = useState(false); // Para manejar el estado de carga
   const [error, setError] = useState(null); // Para manejar errores
   const { t } = useTranslation("global"); // Traducción
 
+  // Obtener mediciones de distancia/longitud
   const handleMeasure = async () => {
     setLoading(true);
     setError(null);
@@ -29,13 +32,11 @@ function Mediciones() {
       const response = await axios.get(
         "http://raspberrypisantos.local:5000/sensor"
       );
-      // Suponiendo que distancia y longitud están en centímetros
       const distanciaPromedio = response.data.distancia_promedio;
       const longitudPromedio = response.data.longitud_promedio;
 
-      // Establecer los valores originales en centímetros
-      setDistance(distanciaPromedio); // Guardar en centímetros
-      setLength(longitudPromedio); // Guardar en centímetros
+      setDistance(distanciaPromedio); // Guardar distancia en cm
+      setLength(longitudPromedio); // Guardar longitud en cm
     } catch (error) {
       console.error("Error midiendo la distancia:", error);
       setError(
@@ -46,12 +47,36 @@ function Mediciones() {
     }
   };
 
+  // Obtener mediciones de peso
+  const handleWeightMeasure = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        "http://raspberrypisantos.local:5000/weight"
+      );
+      const pesoData = response.data.data;
+      setPesoKg(pesoData.kilograms); // Guardar peso en kg
+      setPesoLb(pesoData.pounds); // Guardar peso en lb
+    } catch (error) {
+      console.error("Error midiendo el peso:", error);
+      setError(
+        "Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Guardar mediciones en Firebase
   const handleSave = async () => {
     try {
       await addDoc(collection(db, "measurements"), {
-        distancia: distance, // Guardar distancia en centímetros
-        longitud_cm: length, // Convertir longitud a metros antes de guardar
-        longitud_m: length / 100, // Convertir longitud a metros antes de guardar
+        distancia: distance, // En cm
+        longitud_cm: length, // En cm
+        longitud_m: length / 100, // En metros
+        peso_kg: pesoKg, // Peso en kg
+        peso_lb: pesoLb, // Peso en lb
         timestamp: new Date(),
       });
       alert("Datos guardados con éxito");
@@ -77,7 +102,8 @@ function Mediciones() {
           </Button>
           <Button
             variant="outline"
-            onClick={() => alert("¡Muy pronto!")}
+            onClick={handleWeightMeasure}
+            disabled={loading}
             className="border-blue-500"
           >
             <Weight className="w-4 h-4 mr-2" />
@@ -104,13 +130,23 @@ function Mediciones() {
             {distance !== null && length !== null && (
               <>
                 <p>
-                  {t("dashboard.mediciones.size/length")}: {length.toFixed(2)}{" "}
+                  {t("dashboard.mediciones.size/length")} {length.toFixed(2)}{" "}
                   {t("dashboard.mediciones.rsl")} {/* En cm */}
                 </p>
                 <p>
-                  {t("dashboard.mediciones.size/length")}:{" "}
+                  {t("dashboard.mediciones.size/length")}{" "}
                   {(length / 100).toFixed(2)} {t("dashboard.mediciones.rls2")}{" "}
-                  {/* Mostrar en metros */}
+                  {/* En metros */}
+                </p>
+              </>
+            )}
+            {pesoKg !== null && pesoLb !== null && (
+              <>
+                <p>
+                  {t("dashboard.mediciones.weight/kg")}: {pesoKg.toFixed(2)} kg
+                </p>
+                <p>
+                  {t("dashboard.mediciones.weight/lb")}: {pesoLb.toFixed(2)} lb
                 </p>
               </>
             )}
@@ -118,7 +154,12 @@ function Mediciones() {
           <CardFooter>
             <Button
               onClick={handleSave}
-              disabled={distance === null || length === null}
+              disabled={
+                distance === null ||
+                length === null ||
+                pesoKg === null ||
+                pesoLb === null
+              }
             >
               {t("dashboard.buttons.save")}
             </Button>

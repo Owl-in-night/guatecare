@@ -7,7 +7,7 @@ import Mediciones from "./system/mediciones";
 import Datos from "./system/datos";
 import { SettingsA } from "./system/settings";
 import AlertasN from "./system/alertas";
-import AlertasR from "./system/alertasR";
+
 //Error
 import Error from "@/components/_partials/Error";
 

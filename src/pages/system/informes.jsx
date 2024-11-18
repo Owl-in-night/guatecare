@@ -1,7 +1,5 @@
-import * as React from "react";
-import { TrendingUp } from "lucide-react";
-import { Label, Pie, PieChart } from "recharts";
-import { CartesianGrid, Line, LineChart, XAxis, Tooltip } from "recharts";
+import { CartesianGrid, Label, Pie, PieChart } from "recharts";
+
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
@@ -20,34 +18,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { format } from "date-fns";
 
-const lineChartConfig = {
-  P3: { label: "Percentil 3", color: "#FF6D6D" }, // Rojo claro
-  P15: { label: "Percentil 15", color: "#FFA726" }, // Naranja claro
-  P50: { label: "Percentil 50 (Mediana)", color: "#4CAF50" }, // Verde medio
-  P85: { label: "Percentil 85", color: "#42A5F5" }, // Azul claro
-  P97: { label: "Percentil 97", color: "#7E57C2" }, // Púrpura
-  userData: { label: "Longitud del niño", color: "#FFCA28" }, // Amarillo oscuro para destacar al usuario
-};
+import { Bar, BarChart, XAxis, YAxis, Tooltip, Legend, Cell } from "recharts";
+import { LineChart } from "lucide-react";
+import { Line } from "react-chartjs-2";
 
 function Informes() {
-  // const totalVisitors = React.useMemo(() => {
-  //   return pieChartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  // }, []);
   const [pieChartData, setPieChartData] = useState(null);
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [monthYear, setMonthYear] = useState("");
-
-  //Mes piechart
   const [selectedMonth, setSelectedMonth] = useState(""); // Nuevo estado para el mes seleccionado
-
-  const [lineChartData, setLineChartData] = useState([]);
+  const [selectedYear, setSelectedYear] = useState("2024"); // Estado para el año seleccionado
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,12 +37,54 @@ function Informes() {
         let totalNinos = 0;
         let totalNinas = 0;
 
-        // Define el mes y año actuales
+        // Define el mes y año actuales si no están seleccionados
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();
         const currentYear = currentDate.getFullYear();
 
-        // Nombre del mes y año para la descripción
+        // Usa el mes y año seleccionados (o los valores actuales si no están seleccionados)
+        const selectedMonthIndex = selectedMonth
+          ? new Date(`${selectedMonth} 1, 2024`).getMonth() // Convierte el mes seleccionado en un índice
+          : currentMonth;
+
+        const selectedYearValue = selectedYear
+          ? parseInt(selectedYear, 10)
+          : currentYear;
+        // Filtra y cuenta niños y niñas del mes y año seleccionados
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          let fecha = null;
+
+          if (data.createdAt) {
+            fecha =
+              typeof data.createdAt === "string"
+                ? new Date(Date.parse(data.createdAt))
+                : data.createdAt.toDate();
+          }
+
+          if (
+            fecha &&
+            fecha.getMonth() === selectedMonthIndex &&
+            fecha.getFullYear() === selectedYearValue
+          ) {
+            if (data.genero === true) {
+              totalNinos += 1;
+            } else if (data.genero === false) {
+              totalNinas += 1;
+            }
+          }
+        });
+        const total = totalNinos + totalNinas;
+        setTotalVisitors(total);
+        if (total > 0) {
+          setPieChartData([
+            { name: "Niños", value: totalNinos, fill: "#0066FF" },
+            { name: "Niñas", value: totalNinas, fill: "#FFB6C1" },
+          ]);
+        } else {
+          console.warn("No se encontraron registros de niños o niñas.");
+          setPieChartData([]);
+        }
         const monthNames = [
           "Enero",
           "Febrero",
@@ -76,117 +99,329 @@ function Informes() {
           "Noviembre",
           "Diciembre",
         ];
-        setMonthYear(`${monthNames[currentMonth]} ${currentYear}`);
+        setMonthYear(`${monthNames[selectedMonthIndex]} ${selectedYearValue}`);
+      } catch (error) {
+        console.error("Error al obtener los datos de Firebase:", error);
+      }
+    };
+    fetchData();
+  }, [selectedMonth, selectedYear]); // Dependemos de los filtros de mes y año
 
-        // Filtra y cuenta niños y niñas del mes actual
+  // Distribución por Comunidad Lingüística
+  const [barChartData, setBarChartData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "bebe"));
+        const comunidadCounts = {};
+
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          let fecha = null;
-
-          // Intenta convertir createdAt a Date
-          if (data.createdAt) {
-            fecha =
-              typeof data.createdAt === "string"
-                ? new Date(Date.parse(data.createdAt)) // Convierte la cadena a Date
-                : data.createdAt.toDate(); // Si ya es Timestamp, conviértelo directamente
-          }
-
-          if (
-            fecha &&
-            fecha.getMonth() === currentMonth &&
-            fecha.getFullYear() === currentYear
-          ) {
-            if (data.genero === true) {
-              totalNinos += 1;
-            } else if (data.genero === false) {
-              totalNinas += 1;
-            }
+          const { comunidadLinguistica } = doc.data();
+          if (comunidadLinguistica) {
+            comunidadCounts[comunidadLinguistica] =
+              (comunidadCounts[comunidadLinguistica] || 0) + 1;
           }
         });
 
-        // Calcula el total y define los datos del gráfico
-        const total = totalNinos + totalNinas;
-        setTotalVisitors(total);
+        const formattedData = Object.entries(comunidadCounts).map(
+          ([name, value]) => ({ name, value })
+        );
 
-        if (total > 0) {
-          setPieChartData([
-            { name: "Niños", value: totalNinos, fill: "#0066FF" },
-            { name: "Niñas", value: totalNinas, fill: "#FFB6C1" },
-          ]);
-        } else {
-          console.warn(
-            "No se encontraron registros de niños o niñas en el mes actual."
-          );
-          setPieChartData([]);
-        }
+        setBarChartData(formattedData);
       } catch (error) {
-        console.error("Error al obtener los datos de Firebase:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
+  //Crecimiento Longitudinal
+  const [lineChartData, setLineChartData] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "bebe"));
-        let totalNinos = 0;
-        let totalNinas = 0;
+        const querySnapshot = await getDocs(collection(db, "measurements"));
+        const data = [];
 
-        // Si no hay mes seleccionado, usamos el mes actual
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth();
-        const currentYear = currentDate.getFullYear();
-        const selectedMonthIndex = selectedMonth
-          ? new Date(`${selectedMonth} 1, 2024`).getMonth() // Convierte el mes seleccionado en un índice
-          : currentMonth;
-
-        // Filtra y cuenta niños y niñas del mes seleccionado
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          let fecha = null;
+          const { longitud_cm, timestamp } = doc.data();
+          if (longitud_cm && timestamp) {
+            const fecha =
+              typeof timestamp === "string"
+                ? new Date(Date.parse(timestamp))
+                : timestamp.toDate();
 
-          if (data.createdAt) {
-            fecha =
-              typeof data.createdAt === "string"
-                ? new Date(Date.parse(data.createdAt))
-                : data.createdAt.toDate(); // Si ya es Timestamp, conviértelo directamente
-          }
-
-          if (
-            fecha &&
-            fecha.getMonth() === selectedMonthIndex &&
-            fecha.getFullYear() === currentYear
-          ) {
-            if (data.genero === true) {
-              totalNinos += 1;
-            } else if (data.genero === false) {
-              totalNinas += 1;
-            }
+            data.push({
+              fecha: fecha.toLocaleDateString(),
+              longitud: longitud_cm,
+            });
           }
         });
 
-        // Calcula el total y define los datos del gráfico
-        const total = totalNinos + totalNinas;
-        setTotalVisitors(total);
+        // Ordenar por fecha
+        const sortedData = data.sort(
+          (a, b) => new Date(a.fecha) - new Date(b.fecha)
+        );
 
-        if (total > 0) {
-          setPieChartData([
-            { name: "Niños", value: totalNinos, fill: "#0066FF" },
-            { name: "Niñas", value: totalNinas, fill: "#FFB6C1" },
-          ]);
-        } else {
-          console.warn("No se encontraron registros de niños o niñas.");
-          setPieChartData([]);
-        }
+        setLineChartData(sortedData);
       } catch (error) {
-        console.error("Error al obtener los datos de Firebase:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [selectedMonth]); // Dependemos del mes seleccionado
+  }, []);
+
+  //Frecuencia de Signos de Desnutrición Aguda
+  const [signosData, setSignosData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "reportes"));
+        const signosCounts = {};
+
+        querySnapshot.forEach((doc) => {
+          const { signosDesnutricionAguda } = doc.data();
+          if (Array.isArray(signosDesnutricionAguda)) {
+            signosDesnutricionAguda.forEach((signo) => {
+              signosCounts[signo] = (signosCounts[signo] || 0) + 1;
+            });
+          }
+        });
+
+        const formattedData = Object.entries(signosCounts).map(
+          ([name, value]) => ({ name, value })
+        );
+
+        setSignosData(formattedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Distribución de Género por Comunidad Lingüística
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "bebe"));
+        const comunidadData = {};
+
+        querySnapshot.forEach((doc) => {
+          const { comunidadLinguistica, genero } = doc.data();
+          if (comunidadLinguistica) {
+            if (!comunidadData[comunidadLinguistica]) {
+              comunidadData[comunidadLinguistica] = { niños: 0, niñas: 0 };
+            }
+            if (genero === true) {
+              comunidadData[comunidadLinguistica].niños += 1;
+            } else if (genero === false) {
+              comunidadData[comunidadLinguistica].niñas += 1;
+            }
+          }
+        });
+
+        const formattedData = Object.entries(comunidadData).map(
+          ([name, counts]) => ({
+            name,
+            niños: counts.niños,
+            niñas: counts.niñas,
+          })
+        );
+
+        setData(formattedData);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Evolución del Peso Promedio Mensual
+  const [data2, setData2] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "measurements"));
+        const monthlyData = {};
+
+        querySnapshot.forEach((doc) => {
+          const { peso_lb, timestamp } = doc.data();
+          if (peso_lb && timestamp) {
+            const fecha =
+              typeof timestamp === "string"
+                ? new Date(Date.parse(timestamp))
+                : timestamp.toDate();
+            const monthYear = `${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+
+            if (!monthlyData[monthYear]) {
+              monthlyData[monthYear] = { totalPeso: 0, count: 0 };
+            }
+            monthlyData[monthYear].totalPeso += peso_lb;
+            monthlyData[monthYear].count += 1;
+          }
+        });
+
+        const formattedData = Object.entries(monthlyData).map(
+          ([monthYear, { totalPeso, count }]) => ({
+            monthYear,
+            pesoPromedio: totalPeso / count,
+          })
+        );
+
+        setData2(formattedData); // Usamos setData2 aquí
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //Alertas
+  const [data3, setData3] = useState([]); // Cambio aquí a data3 y setData3
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "alerta"));
+        const monthlyData = {};
+
+        querySnapshot.forEach((doc) => {
+          const { timestamp } = doc.data();
+          if (timestamp) {
+            // Convertir el timestamp en un objeto Date
+            const fecha =
+              typeof timestamp === "string"
+                ? new Date(Date.parse(timestamp))
+                : timestamp.toDate();
+
+            // Formatear como "Mes/Año"
+            const monthYear = `${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+
+            // Incrementar el conteo de alertas para ese mes
+            if (!monthlyData[monthYear]) {
+              monthlyData[monthYear] = 0;
+            }
+            monthlyData[monthYear] += 1;
+          }
+        });
+
+        // Formatear los datos para usar en la gráfica
+        const formattedData = Object.entries(monthlyData).map(
+          ([monthYear, count]) => ({
+            monthYear,
+            alertas: count,
+          })
+        );
+
+        // Ordenar los datos por fecha
+        formattedData.sort((a, b) => {
+          const [monthA, yearA] = a.monthYear.split("/").map(Number);
+          const [monthB, yearB] = b.monthYear.split("/").map(Number);
+          return yearA === yearB ? monthA - monthB : yearA - yearB;
+        });
+
+        setData3(formattedData); // Usamos setData3 aquí
+      } catch (error) {
+        console.error("Error al obtener los datos de alertas:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const [data4, setData4] = useState([]); // Reemplazamos data y setData por data4 y setData4
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "bebe"));
+        const communityData = {};
+
+        querySnapshot.forEach((doc) => {
+          const { comunidadLinguistica } = doc.data();
+          if (comunidadLinguistica) {
+            if (!communityData[comunidadLinguistica]) {
+              communityData[comunidadLinguistica] = 0;
+            }
+            communityData[comunidadLinguistica] += 1;
+          }
+        });
+
+        const formattedData = Object.entries(communityData).map(
+          ([name, value]) => ({ name, value })
+        );
+
+        setData4(formattedData); // Usamos setData4 para actualizar el estado
+      } catch (error) {
+        console.error(
+          "Error al obtener los datos de bebés por comunidad:",
+          error
+        );
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A020F0"];
+
+  const [data5, setData5] = useState([]); // Reemplazamos data y setData por data5 y setData5
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "measurements"));
+        const monthlyData = {};
+
+        querySnapshot.forEach((doc) => {
+          const { longitud_cm, timestamp } = doc.data();
+          if (timestamp && longitud_cm) {
+            const fecha = new Date(timestamp.seconds * 1000);
+            const monthYear = `${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+
+            if (!monthlyData[monthYear]) {
+              monthlyData[monthYear] = { total: 0, count: 0 };
+            }
+            monthlyData[monthYear].total += longitud_cm;
+            monthlyData[monthYear].count += 1;
+          }
+        });
+
+        const formattedData = Object.entries(monthlyData).map(
+          ([monthYear, { total, count }]) => ({
+            monthYear,
+            avgLongitud: total / count,
+          })
+        );
+
+        formattedData.sort((a, b) => {
+          const [monthA, yearA] = a.monthYear.split("/").map(Number);
+          const [monthB, yearB] = b.monthYear.split("/").map(Number);
+          return yearA === yearB ? monthA - monthB : yearA - yearB;
+        });
+
+        setData5(formattedData); // Usamos setData5 para actualizar el estado con los datos procesados
+      } catch (error) {
+        console.error(
+          "Error al obtener los datos de longitud promedio:",
+          error
+        );
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -198,57 +433,86 @@ function Informes() {
           Informes generales de los usuarios registrados
         </p>
       </div>
-
       <div className="flex flex-wrap justify-center mb-4 mx-14">
         {" "}
-        {/* Centrado y margen */}
         {/* Pie Chart Section */}
         <Card className="flex flex-col m-2 w-1/4">
           <CardHeader className="items-center pb-0">
             <CardTitle>Total niñez registrada</CardTitle>
-            <div className="space-y-2">
-              <Label htmlFor="mes" className="block">
-                Mes
-              </Label>
-              <Select
-                id="mes"
-                name="mes"
-                onValueChange={(value) => {
-                  setSelectedMonth(value); // Actualizar el mes seleccionado
-                }}
-                value={selectedMonth}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Selecciona un mes" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[
-                    "enero",
-                    "febrero",
-                    "marzo",
-                    "abril",
-                    "mayo",
-                    "junio",
-                    "julio",
-                    "agosto",
-                    "septiembre",
-                    "octubre",
-                    "noviembre",
-                    "diciembre",
-                  ].map((mes) => (
-                    <SelectItem key={mes} value={mes}>
-                      {mes.charAt(0).toUpperCase() + mes.slice(1)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="flex space-x-4 w-full">
+              {" "}
+              {/* Flexbox para alinear los filtros horizontalmente */}
+              {/* Selector de mes */}
+              <div className="w-1/2">
+                {" "}
+                {/* Ancho para el selector de mes */}
+                <Label htmlFor="mes" className="block">
+                  Mes
+                </Label>
+                <Select
+                  id="mes"
+                  name="mes"
+                  onValueChange={(value) => setSelectedMonth(value)} // Actualizar el mes seleccionado
+                  value={selectedMonth}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecciona un mes" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[
+                      "enero",
+                      "febrero",
+                      "marzo",
+                      "abril",
+                      "mayo",
+                      "junio",
+                      "julio",
+                      "agosto",
+                      "septiembre",
+                      "octubre",
+                      "noviembre",
+                      "diciembre",
+                    ].map((mes) => (
+                      <SelectItem key={mes} value={mes}>
+                        {mes.charAt(0).toUpperCase() + mes.slice(1)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              {/* Selector de año */}
+              <div className="w-1/2">
+                {" "}
+                {/* Ancho para el selector de año */}
+                <Label htmlFor="anio" className="block">
+                  Año
+                </Label>
+                <Select
+                  id="anio"
+                  name="anio"
+                  onValueChange={(value) => setSelectedYear(value)} // Actualizar el año seleccionado
+                  value={selectedYear}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecciona un año" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[2023, 2024, 2025].map((year) => (
+                      <SelectItem key={year} value={year.toString()}>
+                        {year}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+
             <CardDescription>
               {selectedMonth
                 ? `${
                     selectedMonth.charAt(0).toUpperCase() +
                     selectedMonth.slice(1)
-                  } 2024`
+                  } ${selectedYear}`
                 : monthYear}
             </CardDescription>
           </CardHeader>
@@ -301,7 +565,6 @@ function Informes() {
                     }}
                   />
                 </Pie>
-                <ChartTooltip />
               </PieChart>
             )}
           </CardContent>
@@ -312,7 +575,7 @@ function Informes() {
                 ? `${
                     selectedMonth.charAt(0).toUpperCase() +
                     selectedMonth.slice(1)
-                  } 2024`
+                  } ${selectedYear}`
                 : monthYear}
             </div>
             <div className="leading-none text-muted-foreground">
@@ -321,84 +584,123 @@ function Informes() {
           </CardFooter>
         </Card>
         {/*End Pie Chart Section */}
-        {/* Line Chart Section */}
-        <Card className="flex flex-col m-2 w-1/4">
+        {/* COMUNIDADES */}
+        <Card className="flex flex-col m-2 w-auto">
           <CardHeader>
-            <CardTitle>Curva de Crecimiento de Longitud</CardTitle>
-            <CardDescription>Comparado con los Percentiles OMS</CardDescription>
+            <CardTitle>Distribución por Comunidad Lingüística</CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={lineChartConfig}>
-              <LineChart data={lineChartData} margin={{ left: 12, right: 12 }}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="month"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  tickFormatter={(value = "") => value.slice(0, 3)}
-                />
-                <Tooltip cursor={{ stroke: "rgba(0, 0, 0, 0.1)" }} />
-
-                <Line
-                  dataKey="P3"
-                  type="natural"
-                  stroke={lineChartConfig.P3.color}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  dataKey="P15"
-                  type="natural"
-                  stroke={lineChartConfig.P15.color}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  dataKey="P50"
-                  type="natural"
-                  stroke={lineChartConfig.P50.color}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  dataKey="P85"
-                  type="natural"
-                  stroke={lineChartConfig.P85.color}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  dataKey="P97"
-                  type="natural"
-                  stroke={lineChartConfig.P97.color}
-                  strokeWidth={2}
-                  dot={false}
-                />
-
-                {/* Línea de los datos promedio del niño */}
-                <Line
-                  dataKey="userData"
-                  type="natural"
-                  stroke={lineChartConfig.userData.color}
-                  strokeWidth={3}
-                  dot={{ r: 4 }}
-                />
-              </LineChart>
-            </ChartContainer>
+            {barChartData.length > 0 ? (
+              <BarChart width={400} height={300} data={barChartData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#82ca9d" />
+              </BarChart>
+            ) : (
+              <p>Cargando datos...</p>
+            )}
           </CardContent>
-          <CardFooter className="flex-col items-start gap-2 text-sm">
-            <div className="flex gap-2 font-medium leading-none">
-              Seguimiento del Crecimiento
-            </div>
-            <div className="leading-none text-muted-foreground">
-              Comparación con percentiles de la OMS
-            </div>
-          </CardFooter>
         </Card>
+      
+        {/* Signos */}
+        <Card className="flex flex-col m-2 w-auto">
+          <CardHeader>
+            <CardTitle>Frecuencia de Signos de Desnutrición</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {signosData.length > 0 ? (
+              <BarChart width={400} height={300} data={signosData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#ff6666" />
+              </BarChart>
+            ) : (
+              <p>Cargando datos...</p>
+            )}
+          </CardContent>
+        </Card>
+        {/*  */}
+        <Card className="flex flex-col m-2 w-auto">
+          <CardHeader>
+            <CardTitle>
+              Distribución de Género por Comunidad Lingüística
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data.length > 0 ? (
+              <BarChart width={600} height={400} data={data}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="niños" fill="#0066FF" />
+                <Bar dataKey="niñas" fill="#FFB6C1" />
+              </BarChart>
+            ) : (
+              <p>Cargando datos...</p>
+            )}
+          </CardContent>
+        </Card>
+        {/* End Signos */}
+        <Card className="flex flex-col m-2 w-auto">
+          <CardHeader>
+            <CardTitle>Número de Alertas por Mes</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data3.length > 0 ? ( // Se cambia data a data3
+              <BarChart width={600} height={400} data={data3}>
+                {" "}
+                {/* Aquí también se usa data3 */}
+                <XAxis dataKey="monthYear" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="alertas" fill="#FF5733" />
+              </BarChart>
+            ) : (
+              <p>Cargando datos...</p>
+            )}
+          </CardContent>
+        </Card>
+        <Card className="flex flex-col m-2 w-auto">
+          <CardHeader>
+            <CardTitle>Bebés por Comunidad Lingüística</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {data4.length > 0 ? (
+              <PieChart width={400} height={400}>
+                <Pie
+                  data={data4}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={150}
+                  fill="#8884d8"
+                >
+                  {data4.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            ) : (
+              <p>Cargando datos...</p>
+            )}
+          </CardContent>
+        </Card>
+        {/* Longitud Promedio por Mes */}
+        {/*  */}
       </div>
     </>
   );
 }
-
 export default Informes;

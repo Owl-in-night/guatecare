@@ -27,6 +27,7 @@ import IconDark from "../../../public/icons/IconDark";
 import IconNameLight from "../../../public/icons/iconNameLight";
 import IconNameDark from "../../../public/icons/iconNameDark";
 import { useTheme } from "../ThemeProvider";
+import { ChartLine } from "lucide-react";
 
 export default function Navbar() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -89,6 +90,12 @@ export default function Navbar() {
           className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
         >
           {t("navbar.home")}
+        </Link>
+        <Link
+          to={`/Estadísticas`}
+          className="group inline-flex h-9 items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+        >
+          {t("navbar.stadistics")}
         </Link>
         <Link
           to={`/Acceder`}
@@ -167,11 +174,18 @@ export default function Navbar() {
         <SheetContent side="left" className="lg:hidden">
           <div className="grid gap-2 py-6">
             <Link
-              to={`/Estadísticas`}
+              to={`/`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
               <Home className="h-10 w-10 px-2" />
               {t("navbar.home")}
+            </Link>
+            <Link
+              to={`/Estadísticas`}
+              className="flex w-full items-center py-2 text-lg font-semibold"
+            >
+              <ChartLine className="h-10 w-10 px-2" />
+              {t("navbar.stadistics")}  
             </Link>
             <Link
               to={`/Acceder`}

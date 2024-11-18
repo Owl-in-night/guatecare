@@ -30,6 +30,19 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --chart-6: 84.8 85.2% 34.5%;
+    --color-blue: #4f85f0;
+    --color-green: #6ecf7a;
+    --color-orange: #f69e5b;
+    --color-red: #f56f6f;
+    --color-purple: #9c6df9;
+    --color-teal: #1a9a8b;
+    --color-yellow: #f9c74f;
+    --color-cyan: #32c9e3;
+    --color-pink: #f78fb3;
+    --color-brown: #9c715c;
+    --color-lime: #88c06f;
+    --color-indigo: #5e58d4;
+    --chart-1: #4f46e5; /* Puedes cambiar este valor por el color que desees */
   }
 
   .dark {

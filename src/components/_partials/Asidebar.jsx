@@ -46,6 +46,9 @@ import { Database } from "lucide-react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { BellRing } from "lucide-react";
+import { Home } from "lucide-react";
+import { ChartLine } from "lucide-react";
+import { LogIn } from "lucide-react";
 
 function Asidebar() {
   const { theme } = useTheme();
@@ -64,54 +67,53 @@ function Asidebar() {
         isRead: doc.data().isRead || false,
         hidden: doc.data().hidden || false, // Verificamos si la alerta está oculta
       }));
-  
+
       setNotifications(notificationsList);
-  
+
       // Actualiza el estado de hasNewNotifications basado en las alertas visibles
       setHasNewNotifications(
-        notificationsList.some((notification) => !notification.isRead && !notification.hidden)
+        notificationsList.some(
+          (notification) => !notification.isRead && !notification.hidden
+        )
       );
     });
-  
+
     return () => unsubscribe();
   }, []);
-  
 
   // Marcar como leída y ocultar la notificación
   // Marcar como leída y ocultar la alerta temporalmente de la bandeja
-const handleMarkAsRead = async (id) => {
-  try {
-    const notificationRef = doc(db, "alerta", id);
-    await updateDoc(notificationRef, { 
-      isRead: true, 
-      hidden: true // Ocultamos la notificación después de marcarla como leída
-    });
+  const handleMarkAsRead = async (id) => {
+    try {
+      const notificationRef = doc(db, "alerta", id);
+      await updateDoc(notificationRef, {
+        isRead: true,
+        hidden: true, // Ocultamos la notificación después de marcarla como leída
+      });
 
-    setNotifications((prev) =>
-      prev.map((notification) =>
-        notification.id === id 
-          ? { ...notification, isRead: true, hidden: true }
-          : notification
-      )
-    );
-
-    // Rehabilitar la notificación después de 5 minutos
-    setTimeout(async () => {
-      await updateDoc(notificationRef, { hidden: false }); // Rehabilitarla
       setNotifications((prev) =>
         prev.map((notification) =>
-          notification.id === id 
-            ? { ...notification, hidden: false }
+          notification.id === id
+            ? { ...notification, isRead: true, hidden: true }
             : notification
         )
       );
-    }, 5 * 60 * 1000); // 5 minutos
-  } catch (error) {
-    console.error("Error al marcar como leído:", error);
-  }
-};
 
-
+      // Rehabilitar la notificación después de 5 minutos
+      setTimeout(async () => {
+        await updateDoc(notificationRef, { hidden: false }); // Rehabilitarla
+        setNotifications((prev) =>
+          prev.map((notification) =>
+            notification.id === id
+              ? { ...notification, hidden: false }
+              : notification
+          )
+        );
+      }, 5 * 60 * 1000); // 5 minutos
+    } catch (error) {
+      console.error("Error al marcar como leído:", error);
+    }
+  };
 
   const handleOpenNotifications = () => {
     setHasNewNotifications(false);
@@ -246,16 +248,39 @@ const handleMarkAsRead = async (id) => {
             <SheetContent side="left" className="flex flex-col">
               <nav className="grid gap-2 text-lg font-medium">
                 <Link
-                  to={"/"}
-                  className="flex items-center gap-2 text-lg font-semibold"
+                  to={`/`}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
                 >
-                  <Icon className="size-5 fill-foreground" />
+                  <Radar className="h-10 w-10 px-2" />
+                  {t("dashboard.navbar.monitoreo")}
                 </Link>
                 <Link
-                  to={"/"}
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 font-semibold text-foreground hover:bg-muted/70"
+                  to={`/Panel/Registro`}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
                 >
-                  {t("navbar.monitoreo")}
+                  <BookMarked className="h-10 w-10 px-2" />
+                  {t("dashboard.navbar.register")}
+                </Link>
+                <Link
+                  to={`/Panel/Datos`}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                >
+                  <Database className="h-10 w-10 px-2" />
+                  {t("dashboard.navbar.datos")}
+                </Link>
+                <Link
+                  to={`/Panel/Alertas`}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                >
+                  <TriangleAlert className="h-10 w-10 px-2" />
+                  {t("dashboard.navbar.alertas")}
+                </Link>
+                <Link
+                  to={`/Panel/Informes`}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                >
+                  <ClipboardPlus className="h-10 w-10 px-2" />
+                  {t("dashboard.navbar.informes")}
                 </Link>
               </nav>
             </SheetContent>
@@ -279,18 +304,25 @@ const handleMarkAsRead = async (id) => {
               <DropdownMenuLabel>Notificaciones</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {notifications.length === 0 ? (
-                <DropdownMenuItem disabled>No hay notificaciones</DropdownMenuItem>
+                <DropdownMenuItem disabled>
+                  No hay notificaciones
+                </DropdownMenuItem>
               ) : (
                 <div className="max-h-60 overflow-y-auto">
                   {notifications.map((notification) => (
                     <DropdownMenuItem
                       key={notification.id}
                       className="flex flex-col items-start gap-2"
-                      
                     >
                       <Link to={`/Panel/Alertas`} className="w-full">
-                        <Alert className="flex items-center gap-2 dark:bg-neutral-950 bg-neutral-50 " style={{ color: "red", borderColor:"red" }}>
-                          <TriangleAlert className="h-4 w-4" style={{ color: "red" }} />
+                        <Alert
+                          className="flex items-center gap-2 dark:bg-neutral-950 bg-neutral-50 "
+                          style={{ color: "red", borderColor: "red" }}
+                        >
+                          <TriangleAlert
+                            className="h-4 w-4"
+                            style={{ color: "red" }}
+                          />
                           <AlertTitle>Alerta</AlertTitle>
                           <AlertDescription>
                             Haz clic para ver los detalles.
@@ -339,7 +371,6 @@ const handleMarkAsRead = async (id) => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
         </header>
       </div>
     </>

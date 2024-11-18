@@ -63,21 +63,21 @@ export default function UserManual() {
           inStock: true,
           content: t("manual.step1"),
           content2: t("manual.step1dec"),
-          image: "/img/on.jpg",
+          image: "/img/wifi.jpg",
         },
         {
           name: "2",
           inStock: true,
           content: t("manual.step2"),
           content2: t("manual.step2desc"),
-          image: "/img/fuente.png",
+          image: "/img/connect.jpg",
         },
         {
           name: "3",
           inStock: true,
           content: t("manual.step3"),
           content2: t("manual.step3desc"),
-          image: "/img/connection.png",
+          image: "/img/raspconne.jpg",
         },
         {
           name: "4",
@@ -91,7 +91,7 @@ export default function UserManual() {
           inStock: true,
           content: t("manual.step5"),
           content2: t("manual.step5desc"),
-          image: "/img/dashboard.png",
+          image: "/img/creardatos2.png",
         },
         {
           name: "6",
@@ -103,7 +103,6 @@ export default function UserManual() {
             t("manual.highlights2"),
             t("manual.highlights3"),
             t("manual.highlights5"),
-            t("manual.highlights6"),
           ],
           image: "/img/navigation.png",
         },
@@ -112,28 +111,28 @@ export default function UserManual() {
           inStock: true,
           content: t("manual.step7"),
           content2: t("manual.step7desc"),
-          image: "/img/monitoreo.png",
+          image: "/img/medi.png",
         },
         {
           name: "8",
           inStock: true,
           content: t("manual.step8"),
           content2: t("manual.step8desc"),
-          image: "https://example.com/step1-image.jpg",
+          image: "/img/datos.png",
         },
         {
           name: "9",
           inStock: true,
           content: t("manual.step9"),
           content2: t("manual.step9desc"),
-          image: "https://example.com/step1-image.jpg",
+          image: "/img/alertas2.png",
         },
         {
           name: "10",
           inStock: true,
           content: t("manual.step10"),
           content2: t("manual.step10desc"),
-          image: "/img/ajustes.png",
+          image: "/img/informes.png",
           content4: t("manual.support"),
           content5: t("manual.supportdesc"),
         },
@@ -152,49 +151,6 @@ export default function UserManual() {
       <NavbarSupport />
       <div className="">
         <div className="pt-6">
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            {product.images.length > 0 && (
-              <>
-                <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-                  <img
-                    alt={product.images[0].alt}
-                    src={product.images[0].src}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-                <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                  {product.images[1] && (
-                    <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                      <img
-                        alt={product.images[1].alt}
-                        src={product.images[1].src}
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
-                  )}
-                  {product.images[2] && (
-                    <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                      <img
-                        alt={product.images[2].alt}
-                        src={product.images[2].src}
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                  {product.images[3] && (
-                    <img
-                      alt={product.images[3].alt}
-                      src={product.images[3].src}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-200 sm:text-3xl">
