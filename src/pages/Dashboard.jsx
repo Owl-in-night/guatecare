@@ -18,12 +18,14 @@ import { AuthProvider } from "@/context/authContext";
 import ScrollToTop from "@/components/_partials/ScrollToTop";
 
 import Asidebar from "@/components/_partials/Asidebar";
+
 import Informes from "./system/informes";
 
 import UpdateRegistro from "./system/update";
-import ReadRegistro from "./system/Read";
+import ReadRegistro from "./system/read";
 import ReMediciones from "./system/remediciones";
 import ReportesRegistros from "./system/reportes";
+
 export default function Dashboard() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
