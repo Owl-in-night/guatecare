@@ -245,7 +245,7 @@ function Asidebar() {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col">
+            <SheetContent side="left" className="flex flex-col block md:hidden lg:hidden xl:hidden 2xl:hidden">
               <nav className="grid gap-2 text-lg font-medium">
                 <Link
                   to={`/`}
@@ -281,6 +281,13 @@ function Asidebar() {
                 >
                   <ClipboardPlus className="h-10 w-10 px-2" />
                   {t("dashboard.navbar.informes")}
+                </Link>
+                <Link
+                  to={`/Soporte`}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                >
+                  <LifeBuoy className="h-10 w-10 px-2" />
+                  {t("navbar.support")}
                 </Link>
               </nav>
             </SheetContent>

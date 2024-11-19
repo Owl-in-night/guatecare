@@ -19,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
-import { Home, Settings, Menu as MenuIcon, Earth } from "lucide-react";
+import { Home, Settings, Menu as MenuIcon, Earth, LifeBuoyIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import IconLight from "../../../public/icons/IconLight";
@@ -174,7 +174,7 @@ export default function NavbarSupport() {
                to={`/Soporte`}
               className="flex w-full items-center py-2 text-lg font-semibold"
             >
-              <Home className="h-10 w-10 px-2" />
+              <LifeBuoyIcon className="h-10 w-10 px-2" />
               {t("navbar.support")}
             </Link>
             <Link

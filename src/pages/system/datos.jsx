@@ -117,7 +117,8 @@ function Datos() {
         // Muestra el toast de éxito
         toast({
           variant: "destructive",
-          description: "La alerta ha sido activada correctamente en el registro.",
+          description:
+            "La alerta ha sido activada correctamente en el registro.",
           duration: 3000, // Duración en milisegundos
           position: "top-center", // Posición del toast
         });
@@ -132,30 +133,44 @@ function Datos() {
 
   return (
     <>
-      <div className="mx-auto max-w-2xl text-center">
+      <div className="mx-auto max-w-2xl text-center px-4">
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
           Datos
         </h2>
         <p className="mt-2 text-lg/8">
-          Seleccione el registro que desee Editar, Visualizar, Remedir, Crear reporte o Alertar
+          Seleccione el registro que desee Editar, Visualizar, Remedir, Crear
+          reporte o Alertar
         </p>
       </div>
 
-      <Tabs value={filter} onValueChange={(newFilter) => setFilter(newFilter)} className="py-4 w-full max-w-6xl mx-auto">
-        <TabsList>
-          <TabsTrigger value="week">Semana</TabsTrigger>
-          <TabsTrigger value="month">Mes</TabsTrigger>
-          <TabsTrigger value="year">Año</TabsTrigger>
+      <Tabs
+        value={filter}
+        onValueChange={(newFilter) => setFilter(newFilter)}
+        className="py-4 w-full max-w-6xl mx-auto px-4"
+      >
+        <TabsList className="flex flex-wrap justify-center">
+          <TabsTrigger value="week" className="p-2 mx-1">
+            Semana
+          </TabsTrigger>
+          <TabsTrigger value="month" className="p-2 mx-1">
+            Mes
+          </TabsTrigger>
+          <TabsTrigger value="year" className="p-2 mx-1">
+            Año
+          </TabsTrigger>
         </TabsList>
+
         <TabsContent value={filter}>
           <Card className="mt-4">
             <CardHeader>
               <CardTitle>Datos</CardTitle>
-              <CardDescription>Visualizando datos según el filtro seleccionado</CardDescription>
+              <CardDescription>
+                Visualizando datos según el filtro seleccionado
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="my-4">
-                <Table className="w-full">
+                <Table className="w-full table-auto">
                   <TableHeader>
                     <TableRow>
                       <TableHead>ID</TableHead>
@@ -174,26 +189,38 @@ function Datos() {
                         <TableCell>{item.createdAt}</TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Editar/${item.id}`}>
-                            <Button size="sm" variant="outline">Editar</Button>
+                            <Button size="sm" variant="outline">
+                              Editar
+                            </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Leer/${item.id}`}>
-                            <Button size="sm" variant="outline">Leer</Button>
+                            <Button size="sm" variant="outline">
+                              Leer
+                            </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Remedir/${item.id}`}>
-                            <Button size="sm" variant="outline">Remedir</Button>
+                            <Button size="sm" variant="outline">
+                              Remedir
+                            </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Reportes/${item.id}`}>
-                            <Button size="sm" variant="outline">Reportes</Button>
+                            <Button size="sm" variant="outline">
+                              Reportes
+                            </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button size="sm" variant="destructive" onClick={() => handleAlertDialogOpen(item.id)}>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleAlertDialogOpen(item.id)}
+                          >
                             Alertar
                           </Button>
                         </TableCell>
@@ -217,8 +244,12 @@ function Datos() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setAlertDialogOpen(false)}>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleAlert}>Activar Alerta</AlertDialogAction>
+            <AlertDialogCancel onClick={() => setAlertDialogOpen(false)}>
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={handleAlert}>
+              Activar Alerta
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

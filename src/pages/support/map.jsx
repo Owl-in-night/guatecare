@@ -15,7 +15,7 @@ function Map() {
   }, [t]);
   return (
     <>
-      <NavbarSupport />
+      <NavbarSupport/>
       <div className="max-w-4xl mx-auto p-6  rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out mt-8">
         <h2 className="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-6">
           {t('mapa.title')}
@@ -26,7 +26,7 @@ function Map() {
           <br />
           {t('mapa.description1')}
         </p>
-        <div className="relative">
+        <div className="relative z-10">
           <MapContainer
             center={center}
             zoom={13}

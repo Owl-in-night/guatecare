@@ -96,21 +96,20 @@ export default function AlertasN() {
   // Convertir la fecha en formato de cadena "11/11/2024, 02:17 PM" a un objeto Date
   const formatDate = (timestamp) => {
     if (!timestamp) return null;
-  
+
     // Separar la fecha y hora
     const [datePart, timePart] = timestamp.split(", ");
     const [day, month, year] = datePart.split("/").map(Number);
-  
+
     // Parsear la hora y convertir a formato 24 horas si es necesario
     let [time, meridian] = timePart.split(" ");
     let [hours, minutes] = time.split(":").map(Number);
     if (meridian === "PM" && hours < 12) hours += 12;
     if (meridian === "AM" && hours === 12) hours = 0;
-  
+
     // Crear el objeto Date
     return new Date(year, month - 1, day, hours, minutes);
   };
-  
 
   // Obtener los datos de prioridad y estado del reporte correspondiente
   const getPrioridadYEstado = (alertId) => {
@@ -196,9 +195,7 @@ export default function AlertasN() {
   };
 
   if (loading) {
-    return (
-      <Spinner/>
-    );
+    return <Spinner />;
   }
 
   return (
@@ -208,14 +205,15 @@ export default function AlertasN() {
           Alertas
         </h2>
         <p className="mt-2 text-lg/8">
-          Visualice de manera clara la fecha, la prioridad, el estado y las acciones disponibles para gestionar las alertas.
+          Visualice de manera clara la fecha, la prioridad, el estado y las
+          acciones disponibles para gestionar las alertas.
         </p>
       </div>
 
       {/* Filtros */}
       <div className="max-w-2xl mx-auto p-4">
         {/* Filtros de la tabla */}
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center">
           {/* Filtro de Prioridad */}
           <Select
             value={filter.prioridad}
@@ -223,7 +221,7 @@ export default function AlertasN() {
               setFilter({ ...filter, prioridad: value })
             }
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] sm:w-[220px]">
               <SelectValue placeholder="Prioridad" />
             </SelectTrigger>
             <SelectContent>
@@ -241,7 +239,7 @@ export default function AlertasN() {
             value={filter.estado}
             onValueChange={(value) => setFilter({ ...filter, estado: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] sm:w-[220px]">
               <SelectValue placeholder="Estado" />
             </SelectTrigger>
             <SelectContent>
@@ -255,12 +253,12 @@ export default function AlertasN() {
             </SelectContent>
           </Select>
 
-          {/* Filtros de Mes y Año */}
+          {/* Filtro de Mes */}
           <Select
             value={filter.mes}
             onValueChange={(value) => setFilter({ ...filter, mes: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] sm:w-[220px]">
               <SelectValue placeholder="Mes" />
             </SelectTrigger>
             <SelectContent>
@@ -277,12 +275,12 @@ export default function AlertasN() {
             </SelectContent>
           </Select>
 
-          {/* Año */}
+          {/* Filtro de Año */}
           <Select
             value={filter.año}
             onValueChange={(value) => setFilter({ ...filter, año: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] sm:w-[220px]">
               <SelectValue placeholder="Año" />
             </SelectTrigger>
             <SelectContent>
@@ -302,7 +300,7 @@ export default function AlertasN() {
         </div>
 
         {/* Limpiar filtros */}
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="flex justify-center gap-4 mt-4 flex-wrap">
           <Button variant="outline" onClick={() => clearFilter("prioridad")}>
             Limpiar Prioridad
           </Button>
@@ -318,149 +316,146 @@ export default function AlertasN() {
         </div>
 
         {/* Botón para eliminar todas las alertas */}
-        {showDeleteButton && (
+        {/* {showDeleteButton && (
           <div className="mt-6 text-center">
             <Button variant="destructive" onClick={handleDeleteAllAlerts}>
               Eliminar todas las alertas
             </Button>
           </div>
-        )}
+        )} */}
       </div>
 
-      <Table className="py-4 w-full max-w-6xl mx-auto">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Fecha</TableHead>
-            <TableHead>Prioridad</TableHead>
-            <TableHead>Estado</TableHead>
-            <TableHead>ID</TableHead>
-            <TableHead className="text-right">Acciones</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredAlerts.length === 0 ? (
+      {/* Tabla */}
+      <div className="py-4 px-6">
+        <Table className="w-full max-w-6xl mx-auto">
+          <TableHeader>
             <TableRow>
-              <TableCell colSpan={5} className="text-center text-muted py-4">
-                No hay alertas.
-              </TableCell>
+              <TableHead>Fecha</TableHead>
+              <TableHead>Prioridad</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead>ID</TableHead>
+              <TableHead className="text-right">Acciones</TableHead>
             </TableRow>
-          ) : (
-            filteredAlerts.map((alert) => {
-              const { prioridad, estado } = getPrioridadYEstado(alert.id);
+          </TableHeader>
+          <TableBody>
+            {filteredAlerts.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center text-muted py-4">
+                  No hay alertas.
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredAlerts.map((alert) => {
+                const { prioridad, estado } = getPrioridadYEstado(alert.id);
 
-              return (
-                <TableRow key={alert.id}>
-                  {/* Fecha */}
-                  <TableCell>
-                    {formatDate(alert.timestamp)?.toLocaleString()}
-                  </TableCell>
-                  {/* Prioridad */}
-                  <TableCell>
-                    <span
-                      className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
-                        prioridad
-                      )}`}
-                    ></span>
-                    {prioridad}
-                  </TableCell>
-                  {/* Estado */}
-                  <TableCell>
-                    <span
-                      className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
-                        estado
-                      )}`}
-                    ></span>
-                    {estado}
-                  </TableCell>
-                  {/* ID de la alerta */}
-                  <TableCell>{alert.id}</TableCell>
-                  {/* Descripción */}
-                  <TableCell>{alert.message}</TableCell>
-                  {/* Acciones */}
-                  <TableCell className="text-right">
-                    <div className="flex gap-2 justify-end">
-                      <Link to={`/Panel/Reportes/${alert.id}`}>
-                        <Button variant="outline" size="sm">
-                          Editar reporte
-                        </Button>
-                      </Link>
-
-                      {/* Botón Resuelto (Verde) */}
-                      <AlertDialog
-                        open={isDialogOpen}
-                        onOpenChange={setIsDialogOpen}
-                      >
-                        <AlertDialogTrigger asChild>
-                          <Button
-                            style={{
-                              backgroundColor: "#00A36C",
-                              color: "white",
-                            }}
-                            size="sm"
-                            onClick={() => {
-                              setAlertIdToResolve(alert.id);
-                              setIsDialogOpen(true);
-                            }}
-                          >
-                            Resuelto
+                return (
+                  <TableRow key={alert.id}>
+                    <TableCell>
+                      {formatDate(alert.timestamp)?.toLocaleString()}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
+                          prioridad
+                        )}`}
+                      ></span>
+                      {prioridad}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
+                          estado
+                        )}`}
+                      ></span>
+                      {estado}
+                    </TableCell>
+                    <TableCell>{alert.id}</TableCell>
+                    <TableCell>{alert.message}</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex gap-2 justify-end">
+                        <Link to={`/Panel/Reportes/${alert.id}`}>
+                          <Button variant="outline" size="sm">
+                            Editar reporte
                           </Button>
-                        </AlertDialogTrigger>
+                        </Link>
 
-                        {/* Dialogo de advertencia para el botón verde */}
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Esta acción marcará la alerta como resuelta y la
-                              eliminará de la base de datos.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction
+                        {/* Botón Resuelto (Verde) */}
+                        <AlertDialog
+                          open={isDialogOpen}
+                          onOpenChange={setIsDialogOpen}
+                        >
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              style={{
+                                backgroundColor: "#00A36C",
+                                color: "white",
+                              }}
+                              size="sm"
                               onClick={() => {
-                                setIsDialogOpen(false);
-                                setIsConfirmDialogOpen(true); // Abre el dialogo de confirmación
+                                setAlertIdToResolve(alert.id);
+                                setIsDialogOpen(true);
                               }}
                             >
-                              Continuar
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                              Resuelto
+                            </Button>
+                          </AlertDialogTrigger>
 
-                      {/* Botón rojo para eliminar alerta */}
-                      <AlertDialog
-                        open={isConfirmDialogOpen}
-                        onOpenChange={setIsConfirmDialogOpen}
-                      >
-                        {/* Dialogo de confirmación para el botón rojo */}
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Confirmar Eliminación
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Esta acción eliminará permanentemente la alerta de
-                              la base de datos. ¿Deseas continuar?
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleResolve}>
-                              Confirmar
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </Table>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                ¿Estás seguro?
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Esta acción marcará la alerta como resuelta y la
+                                eliminará de la base de datos.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => {
+                                  setIsDialogOpen(false);
+                                  setIsConfirmDialogOpen(true); // Abre el dialogo de confirmación
+                                }}
+                              >
+                                Continuar
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+
+                        {/* Botón rojo para eliminar alerta */}
+                        <AlertDialog
+                          open={isConfirmDialogOpen}
+                          onOpenChange={setIsConfirmDialogOpen}
+                        >
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Confirmar Eliminación
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Esta acción eliminará permanentemente la alerta
+                                de la base de datos. ¿Deseas continuar?
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                              <AlertDialogAction onClick={handleResolve}>
+                                Confirmar
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
       <div className="min-h-screen"></div>
     </>

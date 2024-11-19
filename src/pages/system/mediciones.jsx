@@ -30,7 +30,7 @@ function Mediciones() {
     setError(null);
     try {
       const response = await axios.get(
-        "http://raspberrypisantos.local:5000/sensor"
+        "https://c877-2800-98-1a07-24c4-8284-3a8f-1fd3-d945.ngrok-free.app/sensor"
       );
       const distanciaPromedio = response.data.distancia_promedio;
       const longitudPromedio = response.data.longitud_promedio;
@@ -53,7 +53,7 @@ function Mediciones() {
     setError(null);
     try {
       const response = await axios.get(
-        "http://raspberrypisantos.local:5000/weight"
+        "https://c877-2800-98-1a07-24c4-8284-3a8f-1fd3-d945.ngrok-free.app/weight"
       );
       const pesoData = response.data.data;
       setPesoKg(pesoData.kilograms); // Guardar peso en kg
@@ -143,10 +143,10 @@ function Mediciones() {
             {pesoKg !== null && pesoLb !== null && (
               <>
                 <p>
-                  {t("dashboard.mediciones.weight/kg")}: {pesoKg.toFixed(2)} kg
+                  Peso en kg: {pesoKg.toFixed(2)} kg
                 </p>
                 <p>
-                  {t("dashboard.mediciones.weight/lb")}: {pesoLb.toFixed(2)} lb
+                  Peso en lb: {pesoLb.toFixed(2)} lb
                 </p>
               </>
             )}
