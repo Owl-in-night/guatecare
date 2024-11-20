@@ -16,22 +16,42 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  collection,
+  where,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 
 // Días de la semana en español
-const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+const daysOfWeek = [
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+  "Domingo",
+];
 
 const chartConfig = {
   commonColor: "hsl(348, 87%, 61%)",
 };
 
-const convertToPercentage = (secondsOn) => ((secondsOn / 86400) * 100).toFixed(2);
+const convertToPercentage = (secondsOn) =>
+  ((secondsOn / 86400) * 100).toFixed(2);
 const convertSecondsToTime = (seconds) => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = seconds % 60;
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+    2,
+    "0"
+  )}:${String(remainingSeconds).padStart(2, "0")}`;
 };
 
 const getCurrentDate = () => new Date().toISOString().split("T")[0];
@@ -41,30 +61,63 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex === 0 ? 6 : dayIndex - 1];
 };
 
+// Función para obtener el inicio de la semana (lunes)
+const getStartOfWeek = (date) => {
+  const startOfWeek = new Date(date);
+  const day = startOfWeek.getDay();
+  const diff = day === 0 ? -6 : 1 - day; // Si es domingo, ajustamos al lunes anterior
+  startOfWeek.setDate(startOfWeek.getDate() + diff);
+  return startOfWeek.toISOString().split("T")[0];
+};
+
+// Cargar todos los datos de la semana actual desde Firebase
+const getWeekDataFromFirebase = async (weekStartDate) => {
+  const weekData = [];
+  const startOfWeek = new Date(weekStartDate);
+  for (let i = 0; i < 7; i++) {
+    const currentDay = daysOfWeek[i];
+    const date = new Date(startOfWeek);
+    date.setDate(date.getDate() + i);
+    const dateStr = date.toISOString().split("T")[0];
+
+    const dayRef = doc(db, "time", `${currentDay}_${dateStr}`);
+    const daySnap = await getDoc(dayRef);
+    if (daySnap.exists()) {
+      const data = daySnap.data();
+      weekData.push({
+        day: currentDay,
+        visitors: data.percentage || 0,
+        timeOn: convertSecondsToTime(data.uptime_seconds || 0),
+      });
+    } else {
+      weekData.push({
+        day: currentDay,
+        visitors: 0,
+        timeOn: "00:00:00",
+      });
+    }
+  }
+  return weekData;
+};
+
 const saveBackup = async (uptimeSeconds, percentage, day, date) => {
   const time = new Date().toISOString();
   const backupRef = doc(db, "time", `backup_${date}_${day}`);
-  await setDoc(backupRef, { uptime_seconds: uptimeSeconds, percentage, day, date, time }, { merge: true });
+  await setDoc(
+    backupRef,
+    { uptime_seconds: uptimeSeconds, percentage, day, date, time },
+    { merge: true }
+  );
 };
 
 const saveDayDataToFirebase = async (uptimeSeconds, percentage, day, date) => {
   const time = new Date().toISOString();
   const dayRef = doc(db, "time", `${day}_${date}`);
-  await setDoc(dayRef, { uptime_seconds: uptimeSeconds, percentage, day, date, time }, { merge: true });
-};
-
-const getLastDayDataFromFirebase = async (day, date) => {
-  const dayRef = doc(db, "time", `${day}_${date}`);
-  const daySnap = await getDoc(dayRef);
-
-  if (daySnap.exists()) {
-    const data = daySnap.data();
-    return {
-      visitors: data.percentage || 0,
-      timeOn: convertSecondsToTime(data.uptime_seconds || 0),
-    };
-  }
-  return { visitors: 0, timeOn: "00:00:00" };
+  await setDoc(
+    dayRef,
+    { uptime_seconds: uptimeSeconds, percentage, day, date, time },
+    { merge: true }
+  );
 };
 
 function TiemRaspberry() {
@@ -77,7 +130,14 @@ function TiemRaspberry() {
 
   const fetchUptime = async () => {
     try {
-      const response = await axios.get("http://raspberrypisantos.local:5000/api/uptime");
+      const response = await axios.get(
+        "https://deep-personally-pug.ngrok-free.app/api/uptime",
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
       const uptimeSeconds = response.data?.uptime_seconds % 86400 || 0;
       const percentage = convertToPercentage(uptimeSeconds);
       const today = getCurrentDay();
@@ -85,7 +145,12 @@ function TiemRaspberry() {
 
       // Reiniciar datos si cambia el día
       if (date !== lastDate) {
-        await saveBackup(uptimeRef.current, convertToPercentage(uptimeRef.current), currentDay, lastDate);
+        await saveBackup(
+          uptimeRef.current,
+          convertToPercentage(uptimeRef.current),
+          currentDay,
+          lastDate
+        );
         uptimeRef.current = 0;
         setLastDate(date);
         setCurrentDay(today);
@@ -98,7 +163,11 @@ function TiemRaspberry() {
       setChartData((prevData) =>
         prevData.map((item) =>
           item.day === today
-            ? { ...item, visitors: percentage, timeOn: convertSecondsToTime(uptimeSeconds) }
+            ? {
+                ...item,
+                visitors: percentage,
+                timeOn: convertSecondsToTime(uptimeSeconds),
+              }
             : item
         )
       );
@@ -113,26 +182,32 @@ function TiemRaspberry() {
       setChartData((prevData) =>
         prevData.map((item) =>
           item.day === today
-            ? { ...item, visitors: lastDayData.visitors, timeOn: lastDayData.timeOn }
+            ? {
+                ...item,
+                visitors: lastDayData.visitors,
+                timeOn: lastDayData.timeOn,
+              }
             : item
         )
       );
     }
   };
 
+  const getLastDayDataFromFirebase = async (today, date) => {
+    const weekStartDate = getStartOfWeek(date); // Obtener fecha de inicio de la semana
+    const weekData = await getWeekDataFromFirebase(weekStartDate);
+
+    // Verificar si hay datos en la semana anterior
+    const lastDayData = weekData.find((item) => item.day === today);
+    return lastDayData || { visitors: 0, timeOn: "00:00:00" };
+  };
+
   useEffect(() => {
     const initializeData = async () => {
-      const today = getCurrentDay();
-      const date = getCurrentDate();
-      const lastDayData = await getLastDayDataFromFirebase(today, date);
-
-      setChartData((prevData) =>
-        prevData.map((item) =>
-          item.day === today
-            ? { ...item, visitors: lastDayData.visitors, timeOn: lastDayData.timeOn }
-            : item
-        )
-      );
+      const weekStartDate = getStartOfWeek(getCurrentDate()); // Obtener fecha de inicio de la semana
+      const weekData = await getWeekDataFromFirebase(weekStartDate);
+      console.log("Semana cargada: ", weekData); // Debugging
+      setChartData(weekData);
     };
 
     initializeData();
@@ -142,33 +217,49 @@ function TiemRaspberry() {
   }, [lastDate]);
 
   return (
-    <Card className="max-w-lg w-full mx-auto my-4 p-4 shadow-lg rounded-lg">
-      <CardHeader>
-        <CardTitle>Gráfico de actividad de la Raspberry Pi por día</CardTitle>
-        <CardDescription>
-          Tiempo de actividad de la Raspberry Pi esta semana
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="relative">
-          <BarChart width={500} height={300} data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis dataKey="day" tickLine={false} tickMargin={10} axisLine={false} />
-            <YAxis domain={[0, 100]} tickFormatter={(value) => `${value}%`} />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey="visitors" fill={chartConfig.commonColor} strokeWidth={2} radius={[10, 10, 0, 0]} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Porcentaje actual: {chartData.find((item) => item.day === currentDay)?.visitors || "0"}% sobre el 100% o 24 horas
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Tiempo de actividad de la Raspberry Pi para hoy ({currentDay}) - {chartData.find((item) => item.day === currentDay)?.timeOn || "00:00:00"}
-        </div>
-      </CardFooter>
-    </Card>
+    <div className="flex justify-center items-center min-h-screen">
+      <Card className="lg:w-1/2 xl:w-4/5 2xl:w-5/6 shadow-lg rounded-lg m-2">
+        <CardHeader>
+          <CardTitle>
+            Gráfico de actividad de la Raspberry Pi por semana
+          </CardTitle>
+          <CardDescription>
+            Tiempo de actividad de la Raspberry Pi esta semana
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfig} className="relative">
+            <BarChart width={500} height={300} data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="day"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+              />
+              <YAxis domain={[0, 100]} tickFormatter={(value) => `${value}%`} />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <Bar
+                dataKey="visitors"
+                fill={chartConfig.commonColor}
+                strokeWidth={2}
+                radius={[10, 10, 0, 0]}
+              />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter className="flex-col items-start">
+          <span className="text-lg font-bold">{currentDay}</span>
+          <span>
+            Tiempo de actividad:{" "}
+            {chartData.find((d) => d.day === currentDay)?.timeOn || "00:00:00"}
+          </span>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
 

@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/alert-dialog"; // ShadCN UI Alert Dialog
 import Spinner from "@/components/_partials/Spinner";
 
-export default function DataTable() {
+export default function AlertasN() {
   const [alerts, setAlerts] = useState([]);
   const [reportes, setReportes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,6 +44,10 @@ export default function DataTable() {
     mes: "",
     año: "",
   });
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Dialog de advertencia
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false); // Dialog de confirmación
+  const [alertIdToResolve, setAlertIdToResolve] = useState(null); // Alerta que se desea resolver
+  const [showDeleteButton, setShowDeleteButton] = useState(true); // Controlar visibilidad del botón para eliminar todas las alertas
 
   // Fetch alerts from Firestore
   useEffect(() => {
@@ -72,6 +76,22 @@ export default function DataTable() {
 
     fetchData();
   }, []);
+
+  // Handle marking an alert as resolved and removing it from Firestore
+  const handleResolve = async () => {
+    if (alertIdToResolve) {
+      try {
+        const alertRef = doc(db, "alerta", alertIdToResolve);
+        await deleteDoc(alertRef); // Eliminar la alerta completamente de Firestore
+        setAlerts((prev) =>
+          prev.filter((alert) => alert.id !== alertIdToResolve)
+        ); // Eliminamos de la tabla
+        setIsConfirmDialogOpen(false); // Cerrar el diálogo de confirmación después de eliminar
+      } catch (error) {
+        console.error("Error al resolver la alerta: ", error);
+      }
+    }
+  };
 
   // Convertir la fecha en formato de cadena "11/11/2024, 02:17 PM" a un objeto Date
   const formatDate = (timestamp) => {
@@ -162,42 +182,22 @@ export default function DataTable() {
     }));
   };
 
-  const formatTimestamp = (timestamp) => {
-    if (!timestamp) return null;
+  // Eliminar todas las alertas
 
-    // Convertir el timestamp de Firestore en un objeto Date
-    const date = timestamp.toDate();
-
-    // Formatear la fecha utilizando Intl.DateTimeFormat para obtener el formato deseado
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-      timeZoneName: "short",
-    };
-
-    return new Intl.DateTimeFormat("es-ES", options).format(date);
-  };
+  
 
   return (
     <>
-      <div className="mx-auto max-w-2xl text-center">
+      <div className="mx-auto max-w-2xl px-2 text-center">
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          Alertas
+          Alertas activas
         </h2>
-        <p className="mt-2 text-lg/8">
-          Visualice las alertas activas en tiempo real.
-        </p>
       </div>
 
       {/* Filtros */}
-      <div className="max-w-2xl mx-auto p-4">
+      <div className="max-w-2xl mx-auto p-2">
         {/* Filtros de la tabla */}
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-wrap gap-2 justify-center">
           {/* Filtro de Prioridad */}
           <Select
             value={filter.prioridad}
@@ -205,7 +205,7 @@ export default function DataTable() {
               setFilter({ ...filter, prioridad: value })
             }
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[160px] sm:w-[180px]">
               <SelectValue placeholder="Prioridad" />
             </SelectTrigger>
             <SelectContent>
@@ -223,7 +223,7 @@ export default function DataTable() {
             value={filter.estado}
             onValueChange={(value) => setFilter({ ...filter, estado: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[160px] sm:w-[180px]">
               <SelectValue placeholder="Estado" />
             </SelectTrigger>
             <SelectContent>
@@ -237,12 +237,12 @@ export default function DataTable() {
             </SelectContent>
           </Select>
 
-          {/* Filtros de Mes y Año */}
+          {/* Filtro de Mes */}
           <Select
             value={filter.mes}
             onValueChange={(value) => setFilter({ ...filter, mes: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[160px] sm:w-[180px]">
               <SelectValue placeholder="Mes" />
             </SelectTrigger>
             <SelectContent>
@@ -259,12 +259,12 @@ export default function DataTable() {
             </SelectContent>
           </Select>
 
-          {/* Año */}
+          {/* Filtro de Año */}
           <Select
             value={filter.año}
             onValueChange={(value) => setFilter({ ...filter, año: value })}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[160px] sm:w-[180px]">
               <SelectValue placeholder="Año" />
             </SelectTrigger>
             <SelectContent>
@@ -284,7 +284,7 @@ export default function DataTable() {
         </div>
 
         {/* Limpiar filtros */}
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="flex justify-center gap-2 mt-2 flex-wrap">
           <Button variant="outline" onClick={() => clearFilter("prioridad")}>
             Limpiar Prioridad
           </Button>
@@ -298,71 +298,59 @@ export default function DataTable() {
             Limpiar Año
           </Button>
         </div>
-
-        {/* Botón para eliminar todas las alertas */}
       </div>
 
-      <Table className="py-4 w-full max-w-6xl mx-auto">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Fecha de creación de la alerta</TableHead>
-            <TableHead>Prioridad</TableHead>
-            <TableHead>Estado</TableHead>
-            <TableHead>ID</TableHead>
-            <TableHead>Fecha de seguimiento del reporte</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredAlerts.length === 0 ? (
+      {/* Tabla */}
+      <div className="py-2 px-2">
+        <Table className="w-full max-w-6xl mx-auto">
+          <TableHeader>
             <TableRow>
-              <TableCell colSpan={5} className="text-center text-muted py-4">
-                No hay alertas.
-              </TableCell>
+              <TableHead>Fecha</TableHead>
+              <TableHead>Prioridad</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead>ID</TableHead>
             </TableRow>
-          ) : (
-            filteredAlerts.map((alert) => {
-              const { prioridad, estado } = getPrioridadYEstado(alert.id);
+          </TableHeader>
+          <TableBody>
+            {filteredAlerts.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center text-muted py-4">
+                  No hay alertas.
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredAlerts.map((alert) => {
+                const { prioridad, estado } = getPrioridadYEstado(alert.id);
 
-              return (
-                <TableRow key={alert.id}>
-                  {/* Fecha */}
-                  <TableCell>
-                    {formatDate(alert.timestamp)?.toLocaleString()}
-                  </TableCell>
-                  {/* Prioridad */}
-                  <TableCell>
-                    <span
-                      className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
-                        prioridad
-                      )}`}
-                    ></span>
-                    {prioridad}
-                  </TableCell>
-                  {/* Estado */}
-                  <TableCell>
-                    <span
-                      className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
-                        estado
-                      )}`}
-                    ></span>
-                    {estado}
-                  </TableCell>
-                  {/* ID de la alerta */}
-                  <TableCell>{alert.id}</TableCell>
-
-                  {/* Fecaha de segumiento del reporte */}
-                  <TableCell>
-                    {formatTimestamp(
-                      reportes.find((reporte) => reporte.id === alert.id)
-                        ?.timestamp
-                    )}
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </Table>
+                return (
+                  <TableRow key={alert.id}>
+                    <TableCell>
+                      {formatDate(alert.timestamp)?.toLocaleString()}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
+                          prioridad
+                        )}`}
+                      ></span>
+                      {prioridad}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
+                          estado
+                        )}`}
+                      ></span>
+                      {estado}
+                    </TableCell>
+                    <TableCell>{alert.id}</TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }

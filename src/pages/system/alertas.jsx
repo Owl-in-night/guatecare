@@ -204,7 +204,7 @@ export default function AlertasN() {
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
           Alertas
         </h2>
-        <p className="mt-2 text-lg/8">
+        <p className="mt-2 p-6 text-lg/8">
           Visualice de manera clara la fecha, la prioridad, el estado y las
           acciones disponibles para gestionar las alertas.
         </p>

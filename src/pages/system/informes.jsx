@@ -435,24 +435,20 @@ function Informes() {
       </div>
       <div className="flex flex-wrap justify-center mb-4 mx-14">
         {" "}
-        {/* Pie Chart Section */}
-        <Card className="flex flex-col m-2 w-1/4">
-          <CardHeader className="items-center pb-0">
+        {/* Chart1 */}
+        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-1/2 xl:w-1/3 2xl:w-1/4 shadow-lg rounded-lg">
+          <CardHeader className="items-center pb-4">
             <CardTitle>Total niñez registrada</CardTitle>
-            <div className="flex space-x-4 w-full">
-              {" "}
-              {/* Flexbox para alinear los filtros horizontalmente */}
+            <div className="flex flex-wrap gap-4 w-full justify-between">
               {/* Selector de mes */}
-              <div className="w-1/2">
-                {" "}
-                {/* Ancho para el selector de mes */}
+              <div className="flex-1 min-w-[120px]">
                 <Label htmlFor="mes" className="block">
                   Mes
                 </Label>
                 <Select
                   id="mes"
                   name="mes"
-                  onValueChange={(value) => setSelectedMonth(value)} // Actualizar el mes seleccionado
+                  onValueChange={(value) => setSelectedMonth(value)}
                   value={selectedMonth}
                 >
                   <SelectTrigger className="w-full">
@@ -481,16 +477,14 @@ function Informes() {
                 </Select>
               </div>
               {/* Selector de año */}
-              <div className="w-1/2">
-                {" "}
-                {/* Ancho para el selector de año */}
+              <div className="flex-1 min-w-[120px]">
                 <Label htmlFor="anio" className="block">
                   Año
                 </Label>
                 <Select
                   id="anio"
                   name="anio"
-                  onValueChange={(value) => setSelectedYear(value)} // Actualizar el año seleccionado
+                  onValueChange={(value) => setSelectedYear(value)}
                   value={selectedYear}
                 >
                   <SelectTrigger className="w-full">
@@ -506,8 +500,7 @@ function Informes() {
                 </Select>
               </div>
             </div>
-
-            <CardDescription>
+            <CardDescription className="mt-4 text-center">
               {selectedMonth
                 ? `${
                     selectedMonth.charAt(0).toUpperCase() +
@@ -516,22 +509,22 @@ function Informes() {
                 : monthYear}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex-1 pb-0">
+          <CardContent className="flex-1 flex items-center justify-center pb-4">
             {pieChartData === null ? (
               <p>Cargando datos...</p>
             ) : pieChartData.length === 0 ? (
               <p>No hay datos para mostrar.</p>
             ) : (
               <PieChart
-                width={250}
-                height={250}
-                className="mx-auto aspect-square max-h-[250px]"
+                width={200}
+                height={200}
+                className="aspect-square max-w-full max-h-[200px]"
               >
                 <Pie
                   data={pieChartData}
                   dataKey="value"
                   nameKey="name"
-                  innerRadius={60}
+                  innerRadius={50}
                   strokeWidth={5}
                 >
                   <Label
@@ -547,14 +540,14 @@ function Informes() {
                             <tspan
                               x={viewBox.cx}
                               y={viewBox.cy}
-                              className="fill-foreground text-3xl font-bold"
+                              className="fill-foreground text-2xl font-bold"
                             >
                               {totalVisitors}
                             </tspan>
                             <tspan
                               x={viewBox.cx}
-                              y={(viewBox.cy || 0) + 24}
-                              className="fill-muted-foreground"
+                              y={(viewBox.cy || 0) + 20}
+                              className="fill-muted-foreground text-sm"
                             >
                               Total
                             </tspan>
@@ -568,8 +561,8 @@ function Informes() {
               </PieChart>
             )}
           </CardContent>
-          <CardFooter className="flex-col gap-2 text-sm">
-            <div className="flex items-center gap-2 font-medium leading-none">
+          <CardFooter className="flex flex-col gap-2 text-sm">
+            <div className="flex items-center gap-2 font-medium">
               Mostrando datos de{" "}
               {selectedMonth
                 ? `${
@@ -578,108 +571,154 @@ function Informes() {
                   } ${selectedYear}`
                 : monthYear}
             </div>
-            <div className="leading-none text-muted-foreground">
+            <div className="text-muted-foreground">
               Total de niños y niñas registrados este mes
             </div>
           </CardFooter>
         </Card>
-        {/*End Pie Chart Section */}
+        {/*Chart 2 */}
         {/* COMUNIDADES */}
-        <Card className="flex flex-col m-2 w-auto">
-          <CardHeader>
+        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
+          <CardHeader className="text-center">
             <CardTitle>Distribución por Comunidad Lingüística</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex items-center justify-center">
             {barChartData.length > 0 ? (
-              <BarChart width={400} height={300} data={barChartData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="value" fill="#82ca9d" />
+              <BarChart
+                width={300}
+                height={250}
+                data={barChartData}
+                className="max-w-full aspect-video"
+              >
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis tickLine={false} axisLine={false} />
+                <Tooltip cursor={false} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Bar dataKey="value" fill="#82ca9d" radius={[10, 10, 0, 0]} />
               </BarChart>
             ) : (
-              <p>Cargando datos...</p>
+              <p className="text-center text-muted-foreground">
+                Cargando datos...
+              </p>
             )}
           </CardContent>
         </Card>
-      
-        {/* Signos */}
-        <Card className="flex flex-col m-2 w-auto">
-          <CardHeader>
+        {/* Chart 3 */}
+        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
+          <CardHeader className="text-center">
             <CardTitle>Frecuencia de Signos de Desnutrición</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex items-center justify-center">
             {signosData.length > 0 ? (
-              <BarChart width={400} height={300} data={signosData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="value" fill="#ff6666" />
+              <BarChart
+                width={300}
+                height={250}
+                data={signosData}
+                className="max-w-full aspect-video"
+              >
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis tickLine={false} axisLine={false} />
+                <Tooltip cursor={false} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Bar dataKey="value" fill="#ff6666" radius={[10, 10, 0, 0]} />
               </BarChart>
             ) : (
-              <p>Cargando datos...</p>
+              <p className="text-center text-muted-foreground">
+                Cargando datos...
+              </p>
             )}
           </CardContent>
         </Card>
-        {/*  */}
-        <Card className="flex flex-col m-2 w-auto">
-          <CardHeader>
+        {/* Chart4 */}
+        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
+          <CardHeader className="text-center">
             <CardTitle>
               Distribución de Género por Comunidad Lingüística
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex items-center justify-center">
             {data.length > 0 ? (
-              <BarChart width={600} height={400} data={data}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="niños" fill="#0066FF" />
-                <Bar dataKey="niñas" fill="#FFB6C1" />
+              <BarChart
+                width={300}
+                height={250}
+                data={data}
+                className="max-w-full aspect-video"
+              >
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis tickLine={false} axisLine={false} />
+                <Tooltip cursor={false} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Bar dataKey="niños" fill="#0066FF" radius={[10, 10, 0, 0]} />
+                <Bar dataKey="niñas" fill="#FFB6C1" radius={[10, 10, 0, 0]} />
               </BarChart>
             ) : (
-              <p>Cargando datos...</p>
+              <p className="text-center text-muted-foreground">
+                Cargando datos...
+              </p>
             )}
           </CardContent>
         </Card>
-        {/* End Signos */}
-        <Card className="flex flex-col m-2 w-auto">
-          <CardHeader>
+        {/* Chart5 */}
+        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
+          <CardHeader className="text-center">
             <CardTitle>Número de Alertas por Mes</CardTitle>
           </CardHeader>
-          <CardContent>
-            {data3.length > 0 ? ( // Se cambia data a data3
-              <BarChart width={600} height={400} data={data3}>
-                {" "}
-                {/* Aquí también se usa data3 */}
-                <XAxis dataKey="monthYear" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="alertas" fill="#FF5733" />
+          <CardContent className="flex items-center justify-center">
+            {data3.length > 0 ? (
+              <BarChart
+                width={300}
+                height={250}
+                data={data3}
+                className="max-w-full aspect-video"
+              >
+                <XAxis
+                  dataKey="monthYear"
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis tickLine={false} axisLine={false} />
+                <Tooltip cursor={false} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Bar dataKey="alertas" fill="#FF5733" radius={[10, 10, 0, 0]} />
               </BarChart>
             ) : (
-              <p>Cargando datos...</p>
+              <p className="text-center text-muted-foreground">
+                Cargando datos...
+              </p>
             )}
           </CardContent>
         </Card>
-        <Card className="flex flex-col m-2 w-auto">
-          <CardHeader>
+        {/* Chart6 */}
+        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
+          <CardHeader className="text-center">
             <CardTitle>Bebés por Comunidad Lingüística</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex flex-col items-center justify-center text-center">
             {data4.length > 0 ? (
-              <PieChart width={400} height={400}>
+              <PieChart width={300} height={300} className="max-w-full">
                 <Pie
                   data={data4}
                   dataKey="value"
                   nameKey="name"
                   cx="50%"
                   cy="50%"
-                  outerRadius={150}
+                  outerRadius={100}
                   fill="#8884d8"
                 >
                   {data4.map((entry, index) => (
@@ -689,11 +728,21 @@ function Informes() {
                     />
                   ))}
                 </Pie>
-                <Tooltip />
-                <Legend />
+                <Tooltip  />
+                <Legend
+                  layout="horizontal"
+                  align="center" // Centra el texto en el mobile
+                  verticalAlign="bottom"
+                  wrapperStyle={{
+                    fontSize: 12,
+                    textAlign: "center", // Asegura que el texto de los legendas también esté centrado
+                  }}
+                />
               </PieChart>
             ) : (
-              <p>Cargando datos...</p>
+              <p className="text-center text-muted-foreground">
+                Cargando datos...
+              </p>
             )}
           </CardContent>
         </Card>

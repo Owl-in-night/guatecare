@@ -1,13 +1,43 @@
 import { useState, useEffect } from "react";
-import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
-import axios from "axios";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+} from "recharts";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { TrendingUp } from "lucide-react";
+
 function AlertaGrafico() {
   const [signosData, setSignosData] = useState([]);
+
+  // Configuración del gráfico
+  const chartConfig = {
+    signos: {
+      label: "Signos de Desnutrición",
+      color: "#ff0000", // Color rojo en hexadecimal
+    },
+  };
+
+  // Fetch de datos desde Firestore
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,20 +67,54 @@ function AlertaGrafico() {
   }, []);
 
   return (
-    <Card className="flex flex-col m-2 w-auto">
+    <Card className="flex flex-col max-w-[460px] sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1100px] rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+      {/* Encabezado */}
       <CardHeader>
-        <CardTitle>Frecuencia de signos de desnutrición</CardTitle>
+        <CardTitle className="text-xl font-semibold text-center">
+          Frecuencia de signos de desnutrición
+        </CardTitle>
+        <CardDescription>
+          Análisis de datos recopilados durante los últimos meses.
+        </CardDescription>
       </CardHeader>
+
+      {/* Contenido */}
       <CardContent>
         {signosData.length > 0 ? (
-          <BarChart width={400} height={300} data={signosData} cursor={false}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            {/* Quitar Tooltip y Legend */}
-            <Bar dataKey="value" fill="#ff6666" />
-          </BarChart>
+          <div className="w-auto">
+            <ChartContainer config={chartConfig}>
+              <ResponsiveContainer>
+                <BarChart data={signosData}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fill: "#4A5568" }}
+                    tickLine={false}
+                    axisLine={false}
+                  />
+                  <YAxis
+                    tick={{ fill: "#4A5568" }}
+                    tickLine={false}
+                    axisLine={false}
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Bar
+                    dataKey="value"
+                    fill="#ff0000" // Cambiamos el color a rojo
+                  >
+                    <LabelList position="top" className="fill-foreground" />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </div>
         ) : (
-          <p>Cargando datos...</p>
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
+            
+          </p>
         )}
       </CardContent>
     </Card>

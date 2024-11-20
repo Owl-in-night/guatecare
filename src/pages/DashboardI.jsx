@@ -715,22 +715,23 @@ export default function DashboardI() {
               </CardFooter>
             </Card>
           </div>
-          {/* Charts */}
-          <div className="grid flex-1 items-center gap-2 p-2 sm:px-6 sm:py-0 md:gap-2 lg:grid-cols-2 xl:grid-cols-3">
-            <Card className="flex flex-col">
-              <CardHeader className="items-center pb-0">
-                <CardTitle>Bebés por comunidad lingüística</CardTitle>
-                <CardDescription>
+          <div className="grid gap-4 md:items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+            <Card className="flex flex-col shadow-lg">
+              <CardHeader className="items-center pb-2">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl">
+                  Bebés por comunidad lingüística
+                </CardTitle>
+                <CardDescription className="text-sm sm:text-base">
                   Reporte mensual sobre la cantidad de bebés por comunidad
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex-1 pb-0">
+              <CardContent className="flex-1 pb-4">
                 {data4.length > 0 ? (
                   <ChartContainer
                     config={chartConfig}
-                    className="mx-auto aspect-square max-h-auto"
+                    className="mx-auto aspect-square w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px]"
                   >
-                    <PieChart width={400} height={400}>
+                    <PieChart width={300} height={300}>
                       <ChartTooltip
                         cursor={false}
                         content={<ChartTooltipContent hideLabel />}
@@ -741,9 +742,9 @@ export default function DashboardI() {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={150}
-                        innerRadius={60}
-                        strokeWidth={5}
+                        outerRadius="70%"
+                        innerRadius="40%"
+                        strokeWidth={4}
                       >
                         {data4.map((entry, index) => (
                           <Cell
@@ -757,26 +758,24 @@ export default function DashboardI() {
                     </PieChart>
                   </ChartContainer>
                 ) : (
-                  <p>Cargando datos...</p>
+                  <p className="text-center text-gray-500">Cargando datos...</p>
                 )}
               </CardContent>
               <CardFooter className="flex-col gap-2 text-sm">
                 {data4.length > 0 && (
-                  <div className="font-medium text-lg">
+                  <div className="font-medium text-base sm:text-lg">
                     <strong>Comunidad con más bebés:</strong>{" "}
                     {maxCommunity.name}
                     <div>
-                      <strong>Numero de bebés:</strong> {maxCommunity.value}
+                      <strong>Número de bebés:</strong> {maxCommunity.value}
                     </div>
                   </div>
                 )}
               </CardFooter>
             </Card>
-
-            {/* Chart3 */}
-            <AlertaGrafico />
-          
             {/* Chart 2 */}
+            <AlertaGrafico />
+            {/* Chart 3 */}
             <Card>
               <CardHeader>
                 <CardTitle>Reportes por mes</CardTitle>
@@ -841,16 +840,16 @@ export default function DashboardI() {
                 </span>
               </CardFooter>
             </Card>
-
-            {/* Chart 3 */}
           </div>
-          {/* DATA TABLE */}
-          <DataTable />
-          {/* END DATA TABLE */}
-          {/* Time */}
-          <TiemRaspberry />
         </div>
       </main>
+      <div className=" justify-center items-center">
+        <DataTable />
+      </div>
+
+      <TiemRaspberry />
+
+      {/* <DataTable /> */}
       <div className="flex justify-center items-center my-10"></div>
     </>
   );
