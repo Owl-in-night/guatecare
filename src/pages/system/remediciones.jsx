@@ -33,7 +33,11 @@ function ReMediciones({ babyId }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://raspberrypisantos.local:5000/sensor");
+      const response = await axios.get("http://raspberrypisantos.local:5000/sensor", {
+        headers: {
+          "ngrok-skip-browser-warning": "true"
+        }
+      });
       const distanciaPromedio = response.data.distancia_promedio;
       const longitudPromedio = response.data.longitud_promedio;
 
@@ -52,7 +56,11 @@ function ReMediciones({ babyId }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://raspberrypisantos.local:5000/weight");
+      const response = await axios.get("http://raspberrypisantos.local:5000/weight", {
+        headers: {
+          "ngrok-skip-browser-warning": "true"
+        }
+      });
       const weightData = response.data.weight; // Suponiendo que el peso viene en el campo `weight`
       setWeight(weightData); // Guardar el peso
     } catch (error) {
