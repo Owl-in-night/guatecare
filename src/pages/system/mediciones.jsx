@@ -30,8 +30,11 @@ function Mediciones() {
     setError(null);
     try {
       const response = await axios.get(
-        "http://raspberrypisantos.local:5000/sensor"
-      );
+        "https://deep-personally-pug.ngrok-free.app/sensor", {
+          headers: {
+            "ngrok-skip-browser-warning": "true"
+          }
+        });
       const distanciaPromedio = response.data.distancia_promedio;
       const longitudPromedio = response.data.longitud_promedio;
 
@@ -53,8 +56,11 @@ function Mediciones() {
     setError(null);
     try {
       const response = await axios.get(
-        "http://raspberrypisantos.local:5000/weight"
-      );
+        "https://deep-personally-pug.ngrok-free.app/weight", {
+          headers: {
+            "ngrok-skip-browser-warning": "true"
+          }
+        });
       const pesoData = response.data.data;
       setPesoKg(pesoData.kilograms); // Guardar peso en kg
       setPesoLb(pesoData.pounds); // Guardar peso en lb
