@@ -7,102 +7,99 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Weight } from "lucide-react";
-import { Ruler } from "lucide-react";
+import { Weight, Ruler } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { db } from "../../firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore"; // Importar métodos para obtener y actualizar documentos
+import { collection, addDoc } from "firebase/firestore";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function ReMediciones({ babyId }) {
-  const [distance, setDistance] = useState(null); // Para almacenar la distancia
-  const [length, setLength] = useState(null); // Para almacenar la longitud
-  const [weight, setWeight] = useState(null); // Para almacenar el peso
-  const [loading, setLoading] = useState(false); // Para manejar el estado de carga
-  const [error, setError] = useState(null); // Para manejar errores
-  const { t } = useTranslation("global"); // Traducción
+  const [distance, setDistance] = useState(null);
+  const [length, setLength] = useState(null);
+  const [weightKg, setWeightKg] = useState(null);
+  const [weightLb, setWeightLb] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { t } = useTranslation("global");
 
   useEffect(() => {
-    // Aquí podrías cargar la información inicial del bebé si es necesario.
-    // Por ejemplo, obtener la última medición del bebé (talla y peso).
-  }, [babyId]);
+    document.title = `${t("dashboard.navbar.remedir")} | GuateCare`;
+  }, [t]);
 
-  // Función para medir talla (distancia/longitud)
   const handleMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://raspberrypisantos.local:5000/sensor", {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
+      const response = await axios.get(
+        "http://raspberrypisantos.local:5000/sensor",
+        {
+          headers: { "ngrok-skip-browser-warning": "true" },
         }
-      });
-      const distanciaPromedio = response.data.distancia_promedio;
-      const longitudPromedio = response.data.longitud_promedio;
-
-      setDistance(distanciaPromedio); // Guardar distancia en cm
-      setLength(longitudPromedio); // Guardar longitud en cm
+      );
+      setDistance(response.data.distancia_promedio);
+      setLength(response.data.longitud_promedio);
     } catch (error) {
-      console.error("Error midiendo la distancia:", error);
-      setError("Hubo un problema al medir la distancia. Por favor, inténtalo de nuevo más tarde.");
+      setError(t(
+        "errors.errorl"
+      ));
     } finally {
       setLoading(false);
     }
   };
 
-  // Función para medir peso
   const handleWeightMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://raspberrypisantos.local:5000/weight", {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
+      const response = await axios.get(
+        "http://raspberrypisantos.local:5000/weight",
+        {
+          headers: { "ngrok-skip-browser-warning": "true" },
         }
-      });
-      const weightData = response.data.weight; // Suponiendo que el peso viene en el campo `weight`
-      setWeight(weightData); // Guardar el peso
+      );
+      setWeightKg(response.data.weight.kg);
+      setWeightLb(response.data.weight.lb);
     } catch (error) {
-      console.error("Error midiendo el peso:", error);
-      setError("Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde.");
+      setError(t(
+        "errors.errorp"
+      ));
     } finally {
       setLoading(false);
     }
   };
 
-  // Función para guardar los datos
   const handleSave = async () => {
     try {
-      const babyRef = doc(db, "bebe", babyId); // Referencia al documento del bebé en la colección 'bebe'
-
-      // Obtener los datos actuales del bebé
-      const babyDoc = await getDoc(babyRef);
-      if (babyDoc.exists()) {
-        const babyData = babyDoc.data();
-
-        // Crear nuevos campos incrementales para talla y peso
-        const newTallaField = `talla${Object.keys(babyData).filter(key => key.startsWith("talla")).length + 1}`;
-        const newPesoField = `peso${Object.keys(babyData).filter(key => key.startsWith("peso")).length + 1}`;
-
-        // Verificar si ya existen datos de peso y talla para el bebé
-        if (length !== null && weight !== null) {
-          // Actualizar los datos del bebé en la colección 'bebe'
-          await updateDoc(babyRef, {
-            [newTallaField]: length, // Guardar talla
-            [newPesoField]: weight, // Guardar peso
-          });
-          alert("Datos de medición guardados con éxito.");
-        } else {
-          alert("Debe ingresar tanto el peso como la talla para guardar los datos.");
-        }
+      if (length !== null && weightKg !== null && weightLb !== null) {
+        const reMedirCollection = collection(db, "remedir");
+        await addDoc(reMedirCollection, {
+          babyId,
+          lengthCm: length,
+          lengthM: length / 100,
+          weightKg,
+          weightLb,
+          timestamp: new Date().toISOString(),
+        });
+        alert(t("errors.data_saved"));
       } else {
-        console.error("No se encontró el documento del bebé.");
-        setError("No se pudo encontrar el bebé con el ID proporcionado.");
+        alert(t("errors.missing_data"));
       }
     } catch (error) {
-      console.error("Error añadiendo el documento: ", error);
-      setError("Hubo un problema al guardar los datos. Por favor, inténtalo de nuevo más tarde.");
+      setError(t(
+        "errors.errors"
+      ));
     }
   };
 
@@ -145,32 +142,57 @@ function ReMediciones({ babyId }) {
           </CardHeader>
           <CardContent>
             {error && <p className="text-red-500 mt-4">{error}</p>}
-            {distance !== null && length !== null && (
+            {length !== null && (
               <>
                 <p>
                   {t("dashboard.mediciones.size/length")}: {length.toFixed(2)}{" "}
-                  {t("dashboard.mediciones.rsl")} {/* En cm */}
+                  {t("dashboard.mediciones.rsl")}
                 </p>
                 <p>
                   {t("dashboard.mediciones.size/length")}:{" "}
-                  {(length / 100).toFixed(2)} {t("dashboard.mediciones.rls2")}{" "}
-                  {/* Mostrar en metros */}
+                  {(length / 100).toFixed(2)} {t("dashboard.mediciones.rls2")}
                 </p>
               </>
             )}
-            {weight !== null && (
-              <p>
-                {t("dashboard.mediciones.weight")}: {weight.toFixed(2)} kg
-              </p>
+            {weightKg !== null && weightLb !== null && (
+              <>
+                <p>
+                  {t("dashboard.mediciones.weight")}: {weightKg.toFixed(2)}{" "}
+                  {t("dashboard.mediciones.rw2")}
+                </p>
+                <p>
+                  {t("dashboard.mediciones.weight")}: {weightLb.toFixed(2)}{" "}
+                  {t("dashboard.mediciones.rw")}
+                </p>
+              </>
             )}
           </CardContent>
           <CardFooter>
-            <Button
-              onClick={handleSave}
-              disabled={length === null || weight === null} // Habilitar solo si hay datos de talla y peso
-            >
-              {t("dashboard.buttons.save")}
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  disabled={
+                    length === null || weightKg === null || weightLb === null
+                  }
+                >
+                  {t("dashboard.buttons.save")}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>{t("dialog.confirm.title")}</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {t("dialog.confirm.description")}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>{t("dialog.buttons.cancel")}</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleSave}>
+                    {t("dialog.buttons.confirm")}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </CardFooter>
         </Card>
       </div>

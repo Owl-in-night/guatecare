@@ -35,6 +35,10 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 
 export default function Registro() {
   const { t } = useTranslation("global");
+
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.register2")} | GuateCare`;
+  }, [t]);
   //Forms 1
   const [formData, setFormData] = useState({
     dpi: "",
@@ -361,7 +365,6 @@ export default function Registro() {
       setSelectedYearB(new Date().getFullYear());
       setSelectedMonthB(new Date().getMonth());
     } catch (error) {
-      console.error("Error al guardar en Firebase:", error);
       setError(t("dashboard.registro.errorMessage"));
     }
   };
@@ -391,7 +394,7 @@ export default function Registro() {
                 htmlFor="measurementId"
                 className="block text-sm font-medium"
               >
-                {t("dashboard.selectMeasurement")}
+                {t("dashboard.registro.selectMeasurement")}
               </label>
               <Select
                 id="measurementId"
@@ -402,7 +405,7 @@ export default function Registro() {
                 value={formDataB.measurementId || ""}
               >
                 <SelectTrigger className="w-full mt-1  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <SelectValue placeholder={t("dashboard.selectM")} />
+                  <SelectValue placeholder={t("dashboard.registro.selectM")} />
                 </SelectTrigger>
                 <SelectContent>
                   {measurements.length > 0 ? (
@@ -413,7 +416,7 @@ export default function Registro() {
                     ))
                   ) : (
                     <SelectItem disabled>
-                      {t("dashboard.noMeasurementsAvailable")}
+                      {t("dashboard.registro.noMeasurementsAvailable")}
                     </SelectItem>
                   )}
                 </SelectContent>

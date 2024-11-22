@@ -111,7 +111,7 @@ function Asidebar() {
         );
       }, 5 * 60 * 1000); // 5 minutos
     } catch (error) {
-      console.error("Error al marcar como leído:", error);
+      // console.error("Error al marcar como leído:", error);
     }
   };
 

@@ -22,8 +22,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTranslation } from "react-i18next";
 
 function ReportesRegistros() {
+  const { t } = useTranslation("global");
   const [reportes, setReportes] = useState([]);
   const [reporteSeleccionado, setReporteSeleccionado] = useState(null);
   const { id } = useParams(); // ID del bebé
@@ -34,6 +36,9 @@ function ReportesRegistros() {
   const [fechaActualizacion, setFechaActualizacion] = useState(""); // Fecha de actualización
   const [comentario, setComentario] = useState(""); // Comentario adicional para el reporte
 
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.reportar")} | GuateCare`;
+  }, [t]);
   // Estado para controlar el AlertDialog
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -115,7 +120,7 @@ function ReportesRegistros() {
 
     // Validación de campos obligatorios
     if (!reporteSeleccionado.prioridad || !reporteSeleccionado.estado) {
-      setError("Por favor, complete todos los campos obligatorios.");
+      setError(t("errors.todo"));
       return;
     }
 
@@ -124,7 +129,7 @@ function ReportesRegistros() {
       (key) => signosSeleccionados[key] // Solo los signos que están activos
     );
     if (signosSeleccionadosArray.length === 0) {
-      setError("Debe seleccionar al menos un signo de desnutrición aguda.");
+      setError(t("errors.todo"));
       return;
     }
 
@@ -149,7 +154,7 @@ function ReportesRegistros() {
       setAlertMessage("Cambios guardados exitosamente.");
       setIsAlertOpen(true);
     } catch (error) {
-      console.error("Error al guardar los cambios:", error);
+      // console.error("Error al guardar los cambios:", error);
       setAlertMessage("Hubo un error al guardar los datos.");
       setIsAlertOpen(true);
     }
@@ -175,12 +180,12 @@ function ReportesRegistros() {
     <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          Reporte del bebé {id}
+          {t("dashboard.report.title")} {id}
         </h2>
         <p className="mt-2 text-lg">
           {fechaUltimoSeguimiento
-            ? `Último seguimiento: ${fechaUltimoSeguimiento}`
-            : "No hay ninguna fecha guardada."}
+            ? `${t("dashboard.report.lastfollow")} ${fechaUltimoSeguimiento}`
+            : t("dashboard.report.none")}
         </p>
       </div>
 
@@ -198,7 +203,7 @@ function ReportesRegistros() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div className="space-y-4">
             <label htmlFor="prioridad" className="block text-sm font-medium">
-              Prioridad
+              {t("dashboard.report.prioridad")}
             </label>
             <Select
               id="prioridad"
@@ -226,7 +231,7 @@ function ReportesRegistros() {
 
           <div className="space-y-4">
             <label htmlFor="estado" className="block text-sm font-medium">
-              Estado de Desnutrición Aguda
+            {t("dashboard.report.estado")}
             </label>
             <Select
               id="estado"
@@ -257,7 +262,7 @@ function ReportesRegistros() {
         {/* Botones para los Signos de Desnutrición Aguda */}
         <div className="space-y-4 mt-6">
           <label htmlFor="signos" className="block text-sm font-medium">
-            Signos de Desnutrición Aguda
+          {t("dashboard.report.signos")}
           </label>
           <div className="flex flex-wrap gap-2">
             {SignosD.map((signo) => (
@@ -279,19 +284,19 @@ function ReportesRegistros() {
 
         {/* Textarea para comentario adicional */}
         <div className="space-y-4 mt-6">
-          <Label htmlFor="comentario">Observaciones nutricionales</Label>
+          <Label htmlFor="comentario">{t("dashboard.report.ver")}</Label>
           <Textarea
             id="comentario"
             value={comentario}
             onChange={handleComentarioChange}
-            placeholder="El niño presenta signos de desnutrición aguda..."
+            placeholder={t("dashboard.report.signosp")}
             rows={4}
           />
         </div>
 
         {/* Mostrar la hora actual */}
         <div className="mt-8 text-center ">
-          <p>Hora actual: {horaActual}</p>
+          <p>{t("dashboard.report.hora")} {horaActual}</p>
         </div>
 
         <div className="mt-10">
@@ -313,17 +318,17 @@ function ReportesRegistros() {
       <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
+            <AlertDialogTitle>{t("dashboard.report.pregunta")}</AlertDialogTitle>
             <AlertDialogDescription>
-              La acción se ha completado con éxito o ha fallado. Revisa los detalles.
+            {t("dashboard.report.description")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>
-              Cerrar
+            {t("dashboard.report.cerrar")}
             </AlertDialogCancel>
             <AlertDialogAction onClick={() => setIsAlertOpen(false)}>
-              Aceptar
+            {t("dashboard.report.aceptar")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -77,7 +77,7 @@
     "finish": "Finalización",
     "description4": "La presentación del producto estará siendo empaquetado para su presentación por medio de una caja de cartón.",
     "includes": "Incluye",
-    "description5": "1 Raspberry Pi, 1 sensor de distancia, 1 módulo combinatorio de carga, 1 módulo TF-LUNA LiDAR, cables de conexión de tipo UTP/Dupont (instalados), placa de conexiones, estructura armamble para las mediciones de talla/longitud, 1 plato y 1 báscula digital y un banco de energía.",
+    "description5": "1 Raspberry Pi, 1 sensor de distancia TF-LUNA LiDAR (instalada), 1 módulo HX711 (instalada), 1 sensor de peso, cables de conexión de tipo UTP/Dupont (instalados), placa de conexiones, estructura armable de playwood para las mediciones de talla/longitud, 1 estructura de playwood + 1 plataforma para colocar al bebé (instalada) y 1 banco de energía/powerbank.",
     "considerations": "Consideraciones",
     "description6": "Para obtener resultados más precisos, asegúrate de colocar el producto sobre una superficie plana. Tómate el tiempo para hacer las mediciones necesarias y recuerda mantener el producto fuera del alcance de los niños para su seguridad. ¡Gracias por tu atención a estos detalles!",
     "galeria": "La galería",
@@ -292,51 +292,66 @@
       "text1": "Total de alertas activas",
       "text2": "Posibles casos de desnutrición aguda: ",
       "text3": "casos",
-      "text4": "caso"
+      "text4": "caso",
+      "warningAlert": "¡Atención! Hay alertas activadas.",
+      "criticalAlert": "¡Alerta crítica! Muchas alertas activadas."
     },
     "card2": {
-      "text1": "Casos actuales",
-      "text2": "Casos del último mes: ",
-      "text3": "casos"
+      "text1": "Niños registrados este mes",
+      "text2": "niños",
+      "text3": "Niños registrados el mes pasado:"
     },
     "card3": {
-      "text1": "Peso medio actual",
-      "text2": "Promedio del último mes: ",
-      "text3": "libras"
+      "text1": "Niñas registrados este mes",
+      "text2": "niñas",
+      "text3": "Niñas registrados el mes pasado:"
     },
     "card4": {
-      "text1": "Promedio talla/longitud actual",
-      "text2": "Promedio del último mes: ",
-      "text3": "centímetros"
+      "text1": "Mediciones de este mes",
+      "text2": "mediciones",
+      "text3": "Mediciones registradas este mes:",
+      "text4": "Mediciones registradas el mes pasado:",
+      "text5": "Promedio de longitud (cm) este mes:",
+      "text6": "cm",
+      "text7": "Promedio de longitud (cm) el mes pasado:"
     },
     "card5": {
-      "text1": "IMC (Índice de Masa Corporal)",
-      "text2": "Promedio del último mes: ",
-      "text3": "kg/m"
+      "text1": "Mediciones de peso este mes",
+      "text2": "mediciones",
+      "text3": "Mediciones registradas este mes:",
+      "text4": "Mediciones registradas el mes pasado:",
+      "text5": "Promedio de peso (lb) este mes:",
+      "text6": "lb",
+      "text7": "Promedio de peso (lb) el mes pasado:"
     },
     "charts": {
-      "text1": "IMC promedio (índice de masa corporal)",
-      "text2": "Peso para la edad",
-      "text3": "Talla/Longitud para la edad",
-      "text4": "Administración del tiempo",
-      "text5": "min",
-      "text6": "hrs",
-      "text7": "día",
-      "text8": "días",
-      "text9": "Promedio diario",
-      "text10": "Tiempo promedio que se utilizó el sistema por día en la app de GuateCare"
+      "text1": "Bebés por comunidad lingüística",
+      "text2": "Cantidad de bebés por comunidad",
+      "text3": "Comunidad con más bebés:",
+      "text4": "Número de bebés:",
+      "text5": "Frecuencia de signos de desnutrición",
+      "text6": "Análisis de datos recopilados durante los últimos meses.",
+      "text7": "Reportes por mes",
+      "text8": "Reportes registrados",
+      "text9": "Total de reportes:"
     },
     "data": {
+      "text1": "Alertas activas",
       "title": "Datos",
       "description": "Recopilación de los datos captados en tiempo real",
-      "status": "Estado",
+      "status": "Estado del caso",
       "id": "Identificador",
-      "create": "Fecha de creación",
+      "create": "Fecha de emisión",
       "follow": "Fecha de seguimiento",
       "priority": "Prioridad",
       "view": "Visualizar",
       "edit": "Editar",
-      "alert":"Alertar",
+      "none": "No hay alertas",
+      "clean": "Limpiar filtros",
+      "alert": "Alertar",
+      "rasp": "Tiempo de actividad - Raspberry Pi 4B",
+      "rasp2": "Actividad de esta semana",
+      "rasp3": "Tiempo de actividad:",
       "dataStatus": {
         "new": "Nuevo",
         "inProgress": "En progreso",
@@ -367,7 +382,7 @@
     "filter": {
       "title": "Filtrar",
       "filterby": "Filtrar por:",
-      "status": "Estado",
+      "status": "Estado del caso",
       "id": "Identificador",
       "create": "Fecha de creación",
       "follow": "Fecha de seguimiento",
@@ -378,22 +393,28 @@
     }
   },
   "dashboard": {
-    "selectMeasurement":"Seleccione la medición",
-    "noMeasurementsAvailable":"No hay mediciones disponibles",
-    "selectM":"Escoja una medición",
     "navbar": {
       "register": "Registro del bebé",
+      "register2": "Registro",
       "monitoreo": "Monitoreo",
+      "mediciones":"Mediciones",
       "datos": "Datos",
       "alertas": "Alertas",
       "informes": "Informes",
       "account": "Mi cuenta",
       "settings": "Ajustes",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "editar":"Editar",
+      "leer":"Leer",
+      "remedir":"Remedir",
+      "reportar":"Reportar"
     },
     "registro": {
       "title": "Registro del encargado",
       "description": "Por favor llene todos los campos que se le solicita, el DPI (Documento Personal de Identificación) es importante.",
+      "selectMeasurement": "Seleccione la medición",
+      "noMeasurementsAvailable": "No hay mediciones disponibles",
+      "selectM": "Escoja una medición",
       "dpi": "DPI",
       "description1": "Ingrese el DPI",
       "name": "Nombre del encargado",
@@ -429,7 +450,30 @@
       "pueblodesc": "Seleccione el pueblo",
       "na": "No se indica",
       "others": "Otros",
-      "ni": "No indica"
+      "ni": "No indica",
+      "encargadoNotFound":"Encargado no encontrado",
+      "bebeNotFound":"Bebé no encontrado",
+      "errorLoading":"Error al cargar los datos",
+      "dateError":"Formato de fecha incorrecto"
+    },
+    "database": {
+      "title": "Datos",
+      "description1":"Seleccione el registro que desee Editar, Visualizar, Remedir, Crear, Reportar o Alertar",
+      "week": "Semana",
+      "month": "Mes",
+      "year": "Año",
+      "description2": "Visualizando datos según el filtro seleccionado",
+      "id":"Identificador",
+      "datecreate": "Fecha de creación",
+      "edit": "Editar",
+      "read": "Leer",
+      "remedy": "Remedir",
+      "report": "Reportar",
+      "alert": "Alertar",
+      "title2": "¿Deseas activar una alerta?",
+      "description3": "Esta acción activará una alerta en el registro seleccionado.",
+      "cancel": "Cancelar",
+      "active": "Activar"
     },
     "mediciones": {
       "title": "Medición del paciente",
@@ -446,8 +490,8 @@
       "rimc": "kg/m"
     },
     "alertas": {
-      "title": "Generar alerta",
-      "description": "Aquí podrás generar la alerta respectiva",
+      "title": "Alertas",
+      "description": "Visualice de manera clara la fecha, la prioridad, el estado del caso y las acciones disponibles para gestionar las alertas.",
       "datecreate": "Fecha de creación",
       "datetracking": "Fecha de seguimiento",
       "priority": "Prioridad",
@@ -457,18 +501,88 @@
         "moderate": "Moderado",
         "mild": "Leve"
       },
-      "status": "Estado",
+      "status": "Estado del caso",
       "statusdesc": "Nuevo",
       "statuss": {
         "new": "Nuevo",
-        "in_progress": "En progreso",
-        "in_review": "En revisión",
+        "inProgress": "En progreso",
+        "inReview": "En revisión",
         "resolved": "Resuelto"
       },
       "desc": "Descripción",
       "alertasdesc": "Añade una descripción médica",
       "notes": "Notas médicas",
-      "notasdesc": "El bebé carece de nutrientes..."
+      "notasdesc": "El bebé carece de nutrientes...",
+      "cleanp":"Limpiar prioridad",
+      "cleans":"Limpiar estado",
+      "cleanm":"Limpiar mes",
+      "cleany":"Limpiar año",
+      "date":"Fecha de emisión",
+      "actions":"Acciones",
+      "none":"No hay alertas",
+      "editr":"Editar reporte",
+      "title2":"¿Estás segura/o?",
+      "desc2":"Esta acción marcará la alerta como resuelta y la eliminará de la base de datos.",
+      "continues":"Continuar",
+      "confirm":"Confirmar eliminación",
+      "desc3":" Esta acción eliminará permanentemente la alerta de la base de datos. ¿Deseas continuar?",
+      "confirm2":"Confirmar"
+    },
+    "informes":{
+      "title": "Informes",
+      "enero":"Enero",
+      "febrero":"Febrero",
+      "marzo":"Marzo",
+      "abril":"Abril",
+      "mayo":"Mayo",
+      "junio":"Junio",
+      "julio":"Julio",
+      "agosto":"Agosto",
+      "septiembre":"Septiembre",
+      "octubre":"Octubre",
+      "noviembre":"Noviembre",
+      "diciembre":"Diciembre",
+      "description":"Informes generales de los pacientes registrados",
+      "total1":"Total niñez registrada",
+      "month":"Mes",
+      "year":"Año",
+      "loading":"Cargando...",
+      "empty":"No hay datos disponibles",
+      "total":"Total",
+      "display":"Mostrando datos de: ",
+      "total2":"Total de niños y niñas registrados este mes.",
+      "total3":"Distribución por comunidad lingüística",
+      "total4":"Signos más frecuentes",
+      "total5":"Género por comunidad",
+      "total6":"Cantidad de alertas por mes",
+      "alerts":"alertas"
+    },
+    "edit":{
+      "title":"Actualizar registros",
+      "description":"Modificar la información del encargado",
+      "description2":"Modificar la información del bebé",
+      "update":"Actualizar campos"
+    },
+    "read":{
+      "title":"Lectura de datos del encargado",
+      "description":"En este espacio encontrarás los datos relacionados al encargado",
+      "title2":"Lectura de datos del bebé",
+      "description2":"En este espacio encontrarás los datos relacionados al bebé"
+    },
+    "report":{
+      "title":"Reporte del bebé",
+      "lastfollow":"Último seguimiento: ",
+      "none":"No hay ninguna fecha guardada.",
+      "prioridad":"Prioridad",
+      "estado":"Estado del caso",
+      "signos":"Marque los signos de desnutrición aguda que presente el caso:",
+      "ver":"Observaciones nutricionales",
+      "signosp":"Actualmente el caso presenta...",
+      "hora":"Hora actual: ",
+      "pregunta":"Guardar reporte",
+      "description":"Al aceptar se guardarán los cambios en la base de datos.",
+      "cerrar":"Cerrar",
+      "aceptar":"Aceptar"
     },
     "settings": {
       "welcome": "¡Bienvenido! ",
@@ -482,11 +596,28 @@
       "alert": "Iniciar alerta"
     }
   },
+  "dialog": {
+    "confirm": {
+      "title": "¿Desea realziar esta acción?",
+      "description": "Al darle confirmar se guardarán todos los datos captados"
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    }
+  },
   "errors": {
     "notFound": "Página no encontrada",
     "sorry": "Lo sentimos, no pudimos encontrar la página que estás buscando.",
     "backhome": "Ir al inicio",
-    "contact": "Contactar con soporte"
+    "contact": "Contactar con soporte",
+    "errorp":"Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde.",
+    "errors":"Hubo un problema al guardar los datos. Por favor, inténtalo de nuevo más tarde.",
+    "errorl":"Hubo un problema al medir la distancia. Por favor, inténtalo de nuevo más tarde.",
+    "data_saved":"Los datos se han guardado correctamente.",
+    "missing_data":"Los datos son obligatorios.",
+    "todo":"Por favor, completa todos los campos.",
+    "todo2":"Debe de seleccionar al menos un signo de desnutrición aguda."
   },
   "ce": {
     "create": "Crear",

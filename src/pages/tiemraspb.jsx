@@ -26,7 +26,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/firebase";
-
+import { useTranslation } from "react-i18next";
 // Días de la semana en español
 const daysOfWeek = [
   "Lunes",
@@ -121,6 +121,7 @@ const saveDayDataToFirebase = async (uptimeSeconds, percentage, day, date) => {
 };
 
 function TiemRaspberry() {
+  const [t] = useTranslation("global");
   const [chartData, setChartData] = useState(
     daysOfWeek.map((day) => ({ day, visitors: 0, timeOn: "00:00:00" }))
   );
@@ -172,7 +173,7 @@ function TiemRaspberry() {
         )
       );
     } catch (error) {
-      console.error("Error al obtener los datos de la Raspberry Pi:", error);
+      // console.error("Error al obtener los datos de la Raspberry Pi:", error);
 
       // Si no se obtienen datos, cargar el último registro desde Firebase
       const today = getCurrentDay();
@@ -206,7 +207,7 @@ function TiemRaspberry() {
     const initializeData = async () => {
       const weekStartDate = getStartOfWeek(getCurrentDate()); // Obtener fecha de inicio de la semana
       const weekData = await getWeekDataFromFirebase(weekStartDate);
-      console.log("Semana cargada: ", weekData); // Debugging
+      // console.log("Semana cargada: ", weekData); // Debugging
       setChartData(weekData);
     };
 
@@ -217,14 +218,14 @@ function TiemRaspberry() {
   }, [lastDate]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center ">
       <Card className="lg:w-1/2 xl:w-4/5 2xl:w-5/6 shadow-lg rounded-lg m-2">
         <CardHeader>
           <CardTitle>
-            Gráfico de actividad de la Raspberry Pi por semana
+          {t("home.data.rasp")}
           </CardTitle>
           <CardDescription>
-            Tiempo de actividad de la Raspberry Pi esta semana
+          {t("home.data.rasp2")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -254,7 +255,7 @@ function TiemRaspberry() {
         <CardFooter className="flex-col items-start">
           <span className="text-lg font-bold">{currentDay}</span>
           <span>
-            Tiempo de actividad:{" "}
+          {t("home.data.rasp3")}{" "}
             {chartData.find((d) => d.day === currentDay)?.timeOn || "00:00:00"}
           </span>
         </CardFooter>

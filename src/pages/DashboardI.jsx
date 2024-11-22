@@ -185,7 +185,7 @@ export default function DashboardI() {
           femaleCountPrevMonth > 0 ? femaleCountPrevMonth : 0
         ); // Lo mismo para el mes anterior
       } catch (error) {
-        console.error("Error al obtener los datos de Firebase:", error);
+        // console.error("Error al obtener los datos de Firebase:", error);
       }
     };
 
@@ -263,7 +263,7 @@ export default function DashboardI() {
         setAvgLengthThisMonth(avgLengthCurrent);
         setAvgLengthLastMonth(avgLengthPrev);
       } catch (error) {
-        console.error("Error al obtener los datos de Firebase:", error);
+        // console.error("Error al obtener los datos de Firebase:", error);
       }
     };
 
@@ -380,10 +380,10 @@ export default function DashboardI() {
 
         setData4(formattedData); // Usamos setData4 para actualizar el estado
       } catch (error) {
-        console.error(
-          "Error al obtener los datos de bebés por comunidad:",
-          error
-        );
+        // console.error(
+        //   "Error al obtener los datos de bebés por comunidad:",
+        //   error
+        // );
       }
     };
 
@@ -437,7 +437,7 @@ export default function DashboardI() {
 
         setData3(formattedData);
       } catch (error) {
-        console.error("Error al obtener los datos:", error);
+        // console.error("Error al obtener los datos:", error);
       }
     };
 
@@ -457,19 +457,19 @@ export default function DashboardI() {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "alerta"));
-        console.log("Consulta de Firestore:", querySnapshot);
+        // console.log("Consulta de Firestore:", querySnapshot);
 
         const alertasPorDia = {}; // Agrupar por día
         const alertasPorHora = {}; // Agrupar por hora
 
         querySnapshot.forEach((doc) => {
           const { timestamp } = doc.data();
-          console.log("Timestamp del documento:", timestamp);
+          // console.log("Timestamp del documento:", timestamp);
 
           // Convertir la cadena de timestamp a Date (asumimos que el timestamp es ISO 8601)
           const fecha = new Date(timestamp); // Si la cadena es un formato ISO válido, debería funcionar correctamente
           if (isNaN(fecha)) {
-            console.error("Fecha no válida:", timestamp);
+            // console.error("Fecha no válida:", timestamp);
             return;
           }
 
@@ -492,8 +492,8 @@ export default function DashboardI() {
           alertasPorHora[horaKey] += 1;
         });
 
-        console.log("Alertas por día:", alertasPorDia);
-        console.log("Alertas por hora:", alertasPorHora);
+        // console.log("Alertas por día:", alertasPorDia);
+        // console.log("Alertas por hora:", alertasPorHora);
 
         // Convertir los datos agrupados por día en formato adecuado para el gráfico
         const chartDataDay = Object.entries(alertasPorDia).map(
@@ -527,7 +527,7 @@ export default function DashboardI() {
         );
         setTotalAlerts(total);
       } catch (error) {
-        console.error("Error al cargar los datos:", error);
+        // console.error("Error al cargar los datos:", error);
       }
     };
 
@@ -561,14 +561,8 @@ export default function DashboardI() {
                   <div className="mt-2 text-lg font-semibold text-red-600 flex items-center">
                     <span className="mr-2">🚨</span>
                     {activeAlerts > 10
-                      ? t(
-                          "home.card1.criticalAlert",
-                          "¡Alerta crítica! Muchas alertas activadas."
-                        )
-                      : t(
-                          "home.card1.warningAlert",
-                          "¡Atención! Hay alertas activadas."
-                        )}
+                      ? t("home.card1.criticalAlert")
+                      : t("home.card1.warningAlert")}
                   </div>
                 )}
               </CardContent>
@@ -579,18 +573,18 @@ export default function DashboardI() {
             <Card x-chunk="dashboard-05-chunk-1">
               <CardHeader className="pb-2">
                 <CardDescription className="text-lg">
-                  Cantidad de niños registrados este mes
+                  {t("home.card2.text1")}
                 </CardDescription>
                 <CardTitle className="text-4xl">
                   <span className="text-blue-500">{maleCountThisMonth}</span>{" "}
-                  niños
+                  {t("home.card2.text2")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                  Cantidad de niños registrados el mes pasado:{" "}
+                  {t("home.card2.text3")}{" "}
                   <span className="text-blue-500">{maleCountLastMonth}</span>{" "}
-                  niños
+                  {t("home.card2.text2")}
                 </div>
               </CardContent>
               <CardFooter>
@@ -602,18 +596,18 @@ export default function DashboardI() {
             <Card x-chunk="dashboard-05-chunk-2">
               <CardHeader className="pb-2">
                 <CardDescription className="text-lg">
-                  Cantidad de niñas registradas este mes
+                  {t("home.card3.text1")}
                 </CardDescription>
                 <CardTitle className="text-4xl">
                   <span className="text-pink-500">{femaleCountThisMonth}</span>{" "}
-                  niñas
+                  {t("home.card3.text2")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-md text-muted-foreground">
-                  Cantidad de niñas registradas el mes pasado:{" "}
+                  {t("home.card3.text3")}{" "}
                   <span className="text-pink-500">{maleCountLastMonth}</span>{" "}
-                  niñas
+                  {t("home.card3.text2")}
                 </div>
               </CardContent>
               <CardFooter>
@@ -624,43 +618,43 @@ export default function DashboardI() {
             <Card x-chunk="dashboard-05-chunk-1">
               <CardHeader className="pb-2">
                 <CardDescription className="text-lg">
-                  Cantidad de mediciones este mes
+                  {t("home.card4.text1")}
                 </CardDescription>
                 <CardTitle className="text-4xl">
                   <span className="text-blue-500">
                     {measurementsCountThisMonth}
                   </span>{" "}
-                  mediciones
+                  {t("home.card4.text2")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-md text-muted-foreground">
-                  Cantidad de mediciones registradas este mes:{" "}
+                {/* <div className="text-md text-muted-foreground">
+                {t("home.card4.text3")}{" "}
                   <span className="text-blue-500">
                     {measurementsCountThisMonth}
                   </span>{" "}
-                  mediciones
-                </div>
+                  {t("home.card4.text2")}
+                </div> */}
                 <div className="text-md text-muted-foreground">
-                  Cantidad de mediciones registradas el mes pasado:{" "}
+                  {t("home.card4.text4")}{" "}
                   <span className="text-blue-500">
                     {measurementsCountLastMonth}
                   </span>{" "}
-                  mediciones
+                  {t("home.card4.text2")}
                 </div>
                 <div className="text-md text-muted-foreground mt-2">
-                  Promedio de longitud (cm) este mes:{" "}
+                  {t("home.card4.text5")}{" "}
                   <span className="text-blue-500">
                     {avgLengthThisMonth.toFixed(2)}
                   </span>{" "}
-                  cm
+                  {t("home.card4.text6")}
                 </div>
                 <div className="text-md text-muted-foreground mt-2">
-                  Promedio de longitud (cm) el mes pasado:{" "}
+                  {t("home.card4.text7")}{" "}
                   <span className="text-blue-500">
                     {avgLengthLastMonth.toFixed(2)}
                   </span>{" "}
-                  cm
+                  {t("home.card4.text6")}
                 </div>
               </CardContent>
               <CardFooter>
@@ -671,43 +665,43 @@ export default function DashboardI() {
             <Card x-chunk="dashboard-05-chunk-1">
               <CardHeader className="pb-2">
                 <CardDescription className="text-lg">
-                  Cantidad de mediciones de peso este mes
+                  {t("home.card5.text1")}
                 </CardDescription>
                 <CardTitle className="text-4xl">
                   <span className="text-yellow-500">
                     {measurementsCountThisMonth}
                   </span>{" "}
-                  mediciones
+                  {t("home.card5.text2")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-md text-muted-foreground">
-                  Cantidad de mediciones registradas este mes:{" "}
+                {/* <div className="text-md text-muted-foreground">
+                {t("home.card5.text3")}{" "}
                   <span className="text-yellow-500">
                     {measurementsCountThisMonth}
                   </span>{" "}
                   mediciones
-                </div>
+                </div> */}
                 <div className="text-md text-muted-foreground">
-                  Cantidad de mediciones registradas el mes pasado:{" "}
+                  {t("home.card5.text4")}{" "}
                   <span className="text-yellow-500">
                     {measurementsCountLastMonth}
                   </span>{" "}
-                  mediciones
+                  {t("home.card5.text2")}
                 </div>
                 <div className="text-md text-muted-foreground mt-2">
-                  Promedio de peso (lb) este mes:{" "}
+                  {t("home.card5.text5")}{" "}
                   <span className="text-yellow-500">
                     {avgWeightThisMonth.toFixed(2)}
                   </span>{" "}
-                  lb
+                  {t("home.card5.text6")}
                 </div>
                 <div className="text-md text-muted-foreground mt-2">
-                  Promedio de peso (lb) el mes pasado:{" "}
+                  {t("home.card5.text7")}{" "}
                   <span className="text-yellow-500">
                     {avgWeightLastMonth.toFixed(2)}
                   </span>{" "}
-                  lb
+                  {t("home.card5.text6")}
                 </div>
               </CardContent>
               <CardFooter>
@@ -719,10 +713,10 @@ export default function DashboardI() {
             <Card className="flex flex-col shadow-lg">
               <CardHeader className="items-center pb-2">
                 <CardTitle className="text-lg sm:text-xl md:text-2xl">
-                  Bebés por comunidad lingüística
+                  {t("home.charts.text1")}
                 </CardTitle>
                 <CardDescription className="text-sm sm:text-base">
-                  Reporte mensual sobre la cantidad de bebés por comunidad
+                  {t("home.charts.text2")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-1 pb-4">
@@ -764,10 +758,11 @@ export default function DashboardI() {
               <CardFooter className="flex-col gap-2 text-sm">
                 {data4.length > 0 && (
                   <div className="font-medium text-base sm:text-lg">
-                    <strong>Comunidad con más bebés:</strong>{" "}
+                    <strong>{t("home.charts.text3")}</strong>{" "}
                     {maxCommunity.name}
                     <div>
-                      <strong>Número de bebés:</strong> {maxCommunity.value}
+                      <strong>{t("home.charts.text4")}</strong>{" "}
+                      {maxCommunity.value}
                     </div>
                   </div>
                 )}
@@ -778,10 +773,8 @@ export default function DashboardI() {
             {/* Chart 3 */}
             <Card>
               <CardHeader>
-                <CardTitle>Reportes por mes</CardTitle>
-                <CardDescription>
-                  Reporte mensual de la cantidad de reportes registradas
-                </CardDescription>
+                <CardTitle>{t("home.charts.text7")}</CardTitle>
+                <CardDescription>{t("home.charts.text8")}</CardDescription>
               </CardHeader>
               <CardContent>
                 {data3.length > 0 ? (
@@ -831,7 +824,7 @@ export default function DashboardI() {
                 )}
               </CardContent>
               <CardFooter className="flex-col gap-2 ">
-                <span>Total de reportes:</span>
+                <span>{t("home.charts.text9")}</span>
                 <span className="text-lg font-bold ml-2">
                   {" "}
                   {data3.length > 0

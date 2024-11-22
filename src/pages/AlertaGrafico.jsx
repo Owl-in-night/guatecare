@@ -25,8 +25,11 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { TrendingUp } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 
 function AlertaGrafico() {
+  const [t] = useTranslation("global");
   const [signosData, setSignosData] = useState([]);
 
   // Configuración del gráfico
@@ -59,7 +62,7 @@ function AlertaGrafico() {
 
         setSignosData(formattedData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -71,10 +74,10 @@ function AlertaGrafico() {
       {/* Encabezado */}
       <CardHeader>
         <CardTitle className="text-xl font-semibold text-center">
-          Frecuencia de signos de desnutrición
+        {t("home.charts.text5")}
         </CardTitle>
         <CardDescription>
-          Análisis de datos recopilados durante los últimos meses.
+        {t("home.charts.text6")}
         </CardDescription>
       </CardHeader>
 

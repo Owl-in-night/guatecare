@@ -33,8 +33,9 @@ import {
 // Importa el toast desde Shadcn
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns"; // Importamos la librería `date-fns`
-
+import { useTranslation } from "react-i18next";
 function Datos() {
+  const {t} = useTranslation("global");
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState("week");
@@ -42,6 +43,10 @@ function Datos() {
   const [selectedId, setSelectedId] = useState(null);
 
   const { toast } = useToast(); // Inicializa el hook de toast
+
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.datos")} | GuateCare`;
+  }, [t]);
 
   useEffect(() => {
     const savedFilter = localStorage.getItem("filter");
@@ -125,7 +130,7 @@ function Datos() {
 
         setAlertDialogOpen(false);
       } catch (error) {
-        console.error("Error al activar la alerta:", error);
+        // console.error("Error al activar la alerta:", error);
         setAlertDialogOpen(false);
       }
     }
@@ -135,11 +140,10 @@ function Datos() {
     <>
       <div className="mx-auto max-w-2xl text-center px-4">
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          Datos
+          {t("dashboard.database.title")}
         </h2>
         <p className="mt-2 text-lg/8">
-          Seleccione el registro que desee Editar, Visualizar, Remedir, Crear
-          reporte o Alertar
+        {t("dashboard.database.description1")}
         </p>
       </div>
 
@@ -150,22 +154,21 @@ function Datos() {
       >
         <TabsList className="flex flex-wrap justify-center">
           <TabsTrigger value="week" className="p-2 mx-1">
-            Semana
+          {t("dashboard.database.week")}
           </TabsTrigger>
           <TabsTrigger value="month" className="p-2 mx-1">
-            Mes
+          {t("dashboard.database.month")}
           </TabsTrigger>
           <TabsTrigger value="year" className="p-2 mx-1">
-            Año
+          {t("dashboard.database.year")}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value={filter}>
           <Card className="mt-4">
             <CardHeader>
-              <CardTitle>Datos</CardTitle>
               <CardDescription>
-                Visualizando datos según el filtro seleccionado
+                {t("dashboard.database.description2")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -173,13 +176,13 @@ function Datos() {
                 <Table className="w-full table-auto">
                   <TableHeader>
                     <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>Fecha de Creación</TableHead>
-                      <TableHead className="text-right">Editar</TableHead>
-                      <TableHead className="text-right">Leer</TableHead>
-                      <TableHead className="text-right">Remedir</TableHead>
-                      <TableHead className="text-right">Reportes</TableHead>
-                      <TableHead className="text-right">Alertar</TableHead>
+                      <TableHead>{t("dashboard.database.id")}</TableHead>
+                      <TableHead>{t("dashboard.database.datecreate")}</TableHead>
+                      <TableHead className="text-right">{t("dashboard.database.edit")}</TableHead>
+                      <TableHead className="text-right">{t("dashboard.database.read")}</TableHead>
+                      <TableHead className="text-right">{t("dashboard.database.remedy")}</TableHead>
+                      <TableHead className="text-right">{t("dashboard.database.report")}</TableHead>
+                      <TableHead className="text-right">{t("dashboard.database.alert")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -190,28 +193,28 @@ function Datos() {
                         <TableCell className="text-right">
                           <Link to={`/Panel/Editar/${item.id}`}>
                             <Button size="sm" variant="outline">
-                              Editar
+                            {t("dashboard.database.edit")}
                             </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Leer/${item.id}`}>
                             <Button size="sm" variant="outline">
-                              Leer
+                            {t("dashboard.database.read")}
                             </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Remedir/${item.id}`}>
                             <Button size="sm" variant="outline">
-                              Remedir
+                            {t("dashboard.database.remedy")}
                             </Button>
                           </Link>
                         </TableCell>
                         <TableCell className="text-right">
                           <Link to={`/Panel/Reportes/${item.id}`}>
                             <Button size="sm" variant="outline">
-                              Reportes
+                            {t("dashboard.database.report")}
                             </Button>
                           </Link>
                         </TableCell>
@@ -221,7 +224,7 @@ function Datos() {
                             variant="destructive"
                             onClick={() => handleAlertDialogOpen(item.id)}
                           >
-                            Alertar
+                            {t("dashboard.database.alert")}
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -238,17 +241,17 @@ function Datos() {
       <AlertDialog open={alertDialogOpen} onOpenChange={setAlertDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Deseas activar una alerta?</AlertDialogTitle>
+            <AlertDialogTitle>{t("dashboard.database.title2")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción activará una alerta en el registro seleccionado.
+            {t("dashboard.database.description3")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setAlertDialogOpen(false)}>
-              Cancelar
+            {t("dashboard.database.cancel")}
             </AlertDialogCancel>
             <AlertDialogAction onClick={handleAlert}>
-              Activar Alerta
+            {t("dashboard.database.active")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

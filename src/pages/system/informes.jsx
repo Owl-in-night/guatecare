@@ -22,13 +22,21 @@ import {
 import { Bar, BarChart, XAxis, YAxis, Tooltip, Legend, Cell } from "recharts";
 import { LineChart } from "lucide-react";
 import { Line } from "react-chartjs-2";
+import { parse } from "date-fns";
+import { es } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
 
 function Informes() {
+  const { t } = useTranslation("global");
   const [pieChartData, setPieChartData] = useState(null);
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [monthYear, setMonthYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState(""); // Nuevo estado para el mes seleccionado
   const [selectedYear, setSelectedYear] = useState("2024"); // Estado para el año seleccionado
+
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.informes")} | GuateCare`;
+  }, [t]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,26 +90,26 @@ function Informes() {
             { name: "Niñas", value: totalNinas, fill: "#FFB6C1" },
           ]);
         } else {
-          console.warn("No se encontraron registros de niños o niñas.");
+          // console.warn("No se encontraron registros de niños o niñas.");
           setPieChartData([]);
         }
         const monthNames = [
-          "Enero",
-          "Febrero",
-          "Marzo",
-          "Abril",
-          "Mayo",
-          "Junio",
-          "Julio",
-          "Agosto",
-          "Septiembre",
-          "Octubre",
-          "Noviembre",
-          "Diciembre",
+          t("dashboard.informes.enero"),
+          t("dashboard.informes.febrero"),
+          t("dashboard.informes.marzo"),
+          t("dashboard.informes.abril"),
+          t("dashboard.informes.mayo"),
+          t("dashboard.informes.junio"),
+          t("dashboard.informes.julio"),
+          t("dashboard.informes.agosto"),
+          t("dashboard.informes.septiembre"),
+          t("dashboard.informes.octubre"),
+          t("dashboard.informes.noviembre"),
+          t("dashboard.informes.diciembre"),
         ];
         setMonthYear(`${monthNames[selectedMonthIndex]} ${selectedYearValue}`);
       } catch (error) {
-        console.error("Error al obtener los datos de Firebase:", error);
+        // console.error("Error al obtener los datos de Firebase:", error);
       }
     };
     fetchData();
@@ -130,7 +138,7 @@ function Informes() {
 
         setBarChartData(formattedData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -168,7 +176,7 @@ function Informes() {
 
         setLineChartData(sortedData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -198,7 +206,7 @@ function Informes() {
 
         setSignosData(formattedData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -238,7 +246,7 @@ function Informes() {
 
         setData(formattedData);
       } catch (error) {
-        console.error("Error al obtener los datos:", error);
+        // console.error("Error al obtener los datos:", error);
       }
     };
 
@@ -280,7 +288,7 @@ function Informes() {
 
         setData2(formattedData); // Usamos setData2 aquí
       } catch (error) {
-        console.error("Error al obtener los datos:", error);
+        // console.error("Error al obtener los datos:", error);
       }
     };
 
@@ -288,7 +296,7 @@ function Informes() {
   }, []);
 
   //Alertas
-  const [data3, setData3] = useState([]); // Cambio aquí a data3 y setData3
+  const [data3, setData3] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -298,12 +306,20 @@ function Informes() {
 
         querySnapshot.forEach((doc) => {
           const { timestamp } = doc.data();
+
           if (timestamp) {
-            // Convertir el timestamp en un objeto Date
-            const fecha =
-              typeof timestamp === "string"
-                ? new Date(Date.parse(timestamp))
-                : timestamp.toDate();
+            // Convertir la cadena de texto en un objeto Date
+            const fecha = parse(
+              timestamp,
+              "dd/MM/yyyy, hh:mm a", // Formato del timestamp en tu colección
+              new Date(),
+              { locale: es } // Asegurarnos de usar el formato de español
+            );
+
+            if (isNaN(fecha)) {
+              console.error("Fecha no válida:", timestamp);
+              return;
+            }
 
             // Formatear como "Mes/Año"
             const monthYear = `${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
@@ -331,7 +347,7 @@ function Informes() {
           return yearA === yearB ? monthA - monthB : yearA - yearB;
         });
 
-        setData3(formattedData); // Usamos setData3 aquí
+        setData3(formattedData);
       } catch (error) {
         console.error("Error al obtener los datos de alertas:", error);
       }
@@ -364,10 +380,10 @@ function Informes() {
 
         setData4(formattedData); // Usamos setData4 para actualizar el estado
       } catch (error) {
-        console.error(
-          "Error al obtener los datos de bebés por comunidad:",
-          error
-        );
+        // console.error(
+        //   "Error al obtener los datos de bebés por comunidad:",
+        //   error
+        // );
       }
     };
 
@@ -413,10 +429,10 @@ function Informes() {
 
         setData5(formattedData); // Usamos setData5 para actualizar el estado con los datos procesados
       } catch (error) {
-        console.error(
-          "Error al obtener los datos de longitud promedio:",
-          error
-        );
+        // console.error(
+        //   "Error al obtener los datos de longitud promedio:",
+        //   error
+        // );
       }
     };
 
@@ -427,10 +443,10 @@ function Informes() {
     <>
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          Informes
+          {t("dashboard.informes.title")}
         </h2>
-        <p className="mt-2 text-lg/8 ">
-          Informes generales de los usuarios registrados
+        <p className="mt-2 mr-2 text-lg/4 ">
+        {t("dashboard.informes.description")}
         </p>
       </div>
       <div className="flex flex-wrap justify-center mb-4 mx-14">
@@ -438,12 +454,12 @@ function Informes() {
         {/* Chart1 */}
         <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-1/2 xl:w-1/3 2xl:w-1/4 shadow-lg rounded-lg">
           <CardHeader className="items-center pb-4">
-            <CardTitle>Total niñez registrada</CardTitle>
+            <CardTitle> {t("dashboard.informes.total1")}</CardTitle>
             <div className="flex flex-wrap gap-4 w-full justify-between">
               {/* Selector de mes */}
               <div className="flex-1 min-w-[120px]">
                 <Label htmlFor="mes" className="block">
-                  Mes
+                  {t("dashboard.informes.month")}
                 </Label>
                 <Select
                   id="mes"
@@ -479,7 +495,7 @@ function Informes() {
               {/* Selector de año */}
               <div className="flex-1 min-w-[120px]">
                 <Label htmlFor="anio" className="block">
-                  Año
+                {t("dashboard.informes.year")}
                 </Label>
                 <Select
                   id="anio"
@@ -511,9 +527,9 @@ function Informes() {
           </CardHeader>
           <CardContent className="flex-1 flex items-center justify-center pb-4">
             {pieChartData === null ? (
-              <p>Cargando datos...</p>
+              <p> {t("dashboard.informes.loading")}</p>
             ) : pieChartData.length === 0 ? (
-              <p>No hay datos para mostrar.</p>
+              <p> {t("dashboard.informes.empty")}</p>
             ) : (
               <PieChart
                 width={200}
@@ -549,7 +565,7 @@ function Informes() {
                               y={(viewBox.cy || 0) + 20}
                               className="fill-muted-foreground text-sm"
                             >
-                              Total
+                              {t("dashboard.informes.total")}
                             </tspan>
                           </text>
                         );
@@ -563,7 +579,7 @@ function Informes() {
           </CardContent>
           <CardFooter className="flex flex-col gap-2 text-sm">
             <div className="flex items-center gap-2 font-medium">
-              Mostrando datos de{" "}
+            {t("dashboard.informes.display")}{" "}
               {selectedMonth
                 ? `${
                     selectedMonth.charAt(0).toUpperCase() +
@@ -572,7 +588,7 @@ function Informes() {
                 : monthYear}
             </div>
             <div className="text-muted-foreground">
-              Total de niños y niñas registrados este mes
+            {t("dashboard.informes.total2")}
             </div>
           </CardFooter>
         </Card>
@@ -580,7 +596,7 @@ function Informes() {
         {/* COMUNIDADES */}
         <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
           <CardHeader className="text-center">
-            <CardTitle>Distribución por Comunidad Lingüística</CardTitle>
+            <CardTitle>{t("dashboard.informes.total3")}</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
             {barChartData.length > 0 ? (
@@ -603,7 +619,7 @@ function Informes() {
               </BarChart>
             ) : (
               <p className="text-center text-muted-foreground">
-                Cargando datos...
+                {t("dashboard.informes.loading")}
               </p>
             )}
           </CardContent>
@@ -611,7 +627,7 @@ function Informes() {
         {/* Chart 3 */}
         <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
           <CardHeader className="text-center">
-            <CardTitle>Frecuencia de Signos de Desnutrición</CardTitle>
+            <CardTitle>{t("dashboard.informes.total4")}</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
             {signosData.length > 0 ? (
@@ -634,7 +650,7 @@ function Informes() {
               </BarChart>
             ) : (
               <p className="text-center text-muted-foreground">
-                Cargando datos...
+               {t("dashboard.informes.loading")}
               </p>
             )}
           </CardContent>
@@ -643,7 +659,7 @@ function Informes() {
         <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
           <CardHeader className="text-center">
             <CardTitle>
-              Distribución de Género por Comunidad Lingüística
+            {t("dashboard.informes.total5")}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
@@ -668,7 +684,7 @@ function Informes() {
               </BarChart>
             ) : (
               <p className="text-center text-muted-foreground">
-                Cargando datos...
+                 {t("dashboard.informes.loading")}
               </p>
             )}
           </CardContent>
@@ -676,7 +692,7 @@ function Informes() {
         {/* Chart5 */}
         <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
           <CardHeader className="text-center">
-            <CardTitle>Número de Alertas por Mes</CardTitle>
+            <CardTitle>{t("dashboard.informes.total6")}</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
             {data3.length > 0 ? (
@@ -695,17 +711,17 @@ function Informes() {
                 <YAxis tickLine={false} axisLine={false} />
                 <Tooltip cursor={false} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Bar dataKey="alertas" fill="#FF5733" radius={[10, 10, 0, 0]} />
+                <Bar dataKey={t("dashboard.informes.alerts")} fill="#FF5733" radius={[10, 10, 0, 0]} />
               </BarChart>
             ) : (
               <p className="text-center text-muted-foreground">
-                Cargando datos...
+                 {t("dashboard.informes.loading")}
               </p>
             )}
           </CardContent>
         </Card>
         {/* Chart6 */}
-        <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
+        {/* <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
           <CardHeader className="text-center">
             <CardTitle>Bebés por Comunidad Lingüística</CardTitle>
           </CardHeader>
@@ -728,7 +744,7 @@ function Informes() {
                     />
                   ))}
                 </Pie>
-                <Tooltip  />
+                <Tooltip />
                 <Legend
                   layout="horizontal"
                   align="center" // Centra el texto en el mobile
@@ -745,7 +761,7 @@ function Informes() {
               </p>
             )}
           </CardContent>
-        </Card>
+        </Card> */}
         {/* Longitud Promedio por Mes */}
         {/*  */}
       </div>

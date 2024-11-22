@@ -37,7 +37,9 @@ import { Timestamp } from "firebase/firestore"; // Importa Timestamp para maneja
 export default function UpdateRegistro() {
   const { t } = useTranslation("global");
   const { id } = useParams();
-  
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.editar")} | GuateCare`;
+  }, [t]);
   // Estado para los datos
   const [formDataB, setFormDataB] = useState({
     gen: "",
@@ -57,20 +59,20 @@ export default function UpdateRegistro() {
   const [encargadoId, setEncargadoId] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  
+
   // Función para limpiar mensajes
   const clearMessages = () => {
     setError("");
     setSuccess("");
   };
-  
+
   // Cargar datos iniciales desde Firebase
   useEffect(() => {
     const fetchData = async () => {
       try {
         const docRefB = doc(db, "bebe", id);
         const docSnapB = await getDoc(docRefB);
-  
+
         if (docSnapB.exists()) {
           const bebeData = docSnapB.data();
           setFormDataB({
@@ -79,10 +81,10 @@ export default function UpdateRegistro() {
             pueblo: bebeData.pueblo || "",
           });
           setEncargadoId(bebeData.encargadoId); // Almacena encargadoId en el estado
-  
+
           const docRefE = doc(db, "encargado", bebeData.encargadoId);
           const docSnapE = await getDoc(docRefE);
-  
+
           if (docSnapE.exists()) {
             const encargadoData = docSnapE.data();
             setFormDataE({
@@ -106,14 +108,14 @@ export default function UpdateRegistro() {
           setTimeout(clearMessages, 10000); // Limpia el mensaje después de 10 segundos
         }
       } catch (error) {
-        console.error("Error obteniendo los datos:", error);
+        // console.error("Error obteniendo los datos:", error);
         setError(t("dashboard.registro.errorLoading"));
         setTimeout(clearMessages, 10000); // Limpia el mensaje después de 10 segundos
       }
     };
     fetchData();
   }, [id, t]);
-  
+
   // Manejar cambio de fecha en el calendario
   useEffect(() => {
     if (dateCreate) {
@@ -125,7 +127,7 @@ export default function UpdateRegistro() {
       }));
     }
   }, [dateCreate]);
-  
+
   const handleMonthChange = (value) => {
     setSelectedMonth(value);
     if (dateCreate) {
@@ -134,7 +136,7 @@ export default function UpdateRegistro() {
       setDateCreate(updatedDate);
     }
   };
-  
+
   const handleYearChange = (value) => {
     setSelectedYear(value);
     if (dateCreate) {
@@ -143,13 +145,13 @@ export default function UpdateRegistro() {
       setDateCreate(updatedDate);
     }
   };
-  
+
   const handleDateChange = (date) => {
     setDateCreate(date);
     setSelectedMonth(date.getMonth());
     setSelectedYear(date.getFullYear());
   };
-  
+
   // Función para actualizar todos los datos
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -160,7 +162,7 @@ export default function UpdateRegistro() {
         comunidadLinguistica: formDataB.comunidadLinguistica || "",
         pueblo: formDataB.pueblo || "",
       });
-  
+
       if (encargadoId) {
         const docRefE = doc(db, "encargado", encargadoId);
         await updateDoc(docRefE, {
@@ -173,27 +175,26 @@ export default function UpdateRegistro() {
           comunidadLing: formDataE.comunidadLing || "",
         });
       }
-  
+
       setSuccess(t("dashboard.registro.updateSuccess"));
       setError("");
       setTimeout(clearMessages, 10000); // Limpia el mensaje de éxito después de 10 segundos
     } catch (error) {
-      console.error("Error actualizando el documento:", error);
+      // console.error("Error actualizando el documento:", error);
       setError(t("dashboard.registro.errorUpdating"));
       setSuccess("");
       setTimeout(clearMessages, 10000); // Limpia el mensaje de error después de 10 segundos
     }
   };
-  
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center space-x-0 md:space-x-8">
       <Card className="max-w-sm">
         <CardHeader>
-          <CardTitle className="text-3xl">Actualizar registros</CardTitle>
-          <CardDescription>
-            Modificar la información del encargado
-          </CardDescription>
+          <CardTitle className="text-3xl">
+            {t("dashboard.edit.title")}
+          </CardTitle>
+          <CardDescription>{t("dashboard.edit.description")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {error && <p className="text-red-500">{error}</p>}
@@ -387,7 +388,9 @@ export default function UpdateRegistro() {
 
             {/* Bebe */}
             <div className="space-y-2"></div>
-            <CardDescription>Modificar la información del bebé</CardDescription>
+            <CardDescription>
+              {t("dashboard.edit.description2")}
+            </CardDescription>
             <div className="space-y-2"></div>
             <div className="space-y-2">
               <Label htmlFor="gen">{t("dashboard.registro.genere")}</Label>
@@ -491,7 +494,7 @@ export default function UpdateRegistro() {
               </Select>
             </div>
 
-            <Button type="submit">Actualizar campos</Button>
+            <Button type="submit">{t("dashboard.edit.update")}</Button>
           </form>
         </CardContent>
       </Card>

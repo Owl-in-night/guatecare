@@ -7,10 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Weight } from "lucide-react";
-import { Ruler } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Weight, Ruler } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { db } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -24,57 +34,61 @@ function Mediciones() {
   const [error, setError] = useState(null); // Para manejar errores
   const { t } = useTranslation("global"); // Traducción
 
-  // Obtener mediciones de distancia/longitud
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.mediciones")} | GuateCare`;
+  }, [t]);
   const handleMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get(
-        "https://deep-personally-pug.ngrok-free.app/sensor", {
+        "https://deep-personally-pug.ngrok-free.app/sensor",
+        {
           headers: {
-            "ngrok-skip-browser-warning": "true"
-          }
-        });
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
       const distanciaPromedio = response.data.distancia_promedio;
       const longitudPromedio = response.data.longitud_promedio;
 
       setDistance(distanciaPromedio); // Guardar distancia en cm
       setLength(longitudPromedio); // Guardar longitud en cm
     } catch (error) {
-      console.error("Error midiendo la distancia:", error);
-      setError(
-        "Hubo un problema al medir la distancia. Por favor, inténtalo de nuevo más tarde."
+      setError(t(
+        "errors.errorl"
+      )
       );
     } finally {
       setLoading(false);
     }
   };
 
-  // Obtener mediciones de peso
   const handleWeightMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get(
-        "https://deep-personally-pug.ngrok-free.app/weight", {
+        "https://deep-personally-pug.ngrok-free.app/weight",
+        {
           headers: {
-            "ngrok-skip-browser-warning": "true"
-          }
-        });
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
       const pesoData = response.data.data;
       setPesoKg(pesoData.kilograms); // Guardar peso en kg
       setPesoLb(pesoData.pounds); // Guardar peso en lb
     } catch (error) {
-      console.error("Error midiendo el peso:", error);
-      setError(
-        "Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde."
+      setError(t(
+        "errors.errorp"
+      )
       );
     } finally {
       setLoading(false);
     }
   };
 
-  // Guardar mediciones en Firebase
   const handleSave = async () => {
     try {
       await addDoc(collection(db, "measurements"), {
@@ -87,9 +101,9 @@ function Mediciones() {
       });
       alert("Datos guardados con éxito");
     } catch (error) {
-      console.error("Error añadiendo el documento: ", error);
-      setError(
-        "Hubo un problema al guardar los datos. Por favor, inténtalo de nuevo más tarde."
+      setError(t(
+        "errors.errors"
+      )
       );
     }
   };
@@ -137,38 +151,52 @@ function Mediciones() {
               <>
                 <p>
                   {t("dashboard.mediciones.size/length")} {length.toFixed(2)}{" "}
-                  {t("dashboard.mediciones.rsl")} {/* En cm */}
+                  {t("dashboard.mediciones.rsl")}
                 </p>
                 <p>
                   {t("dashboard.mediciones.size/length")}{" "}
-                  {(length / 100).toFixed(2)} {t("dashboard.mediciones.rls2")}{" "}
-                  {/* En metros */}
+                  {(length / 100).toFixed(2)} {t("dashboard.mediciones.rls2")}
                 </p>
               </>
             )}
             {pesoKg !== null && pesoLb !== null && (
               <>
-                <p>
-                  Peso en kg: {pesoKg.toFixed(2)} kg
-                </p>
-                <p>
-                  Peso en lb: {pesoLb.toFixed(2)} lb
-                </p>
+                <p>{t("dashboard.mediciones.weight")} {pesoKg.toFixed(2)} {t("dashboard.mediciones.rw2")}</p>
+                <p>{t("dashboard.mediciones.weight")} {pesoLb.toFixed(2)} {t("dashboard.mediciones.rw")}</p>
               </>
             )}
           </CardContent>
           <CardFooter>
-            <Button
-              onClick={handleSave}
-              disabled={
-                distance === null ||
-                length === null ||
-                pesoKg === null ||
-                pesoLb === null
-              }
-            >
-              {t("dashboard.buttons.save")}
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  disabled={
+                    distance === null ||
+                    length === null ||
+                    pesoKg === null ||
+                    pesoLb === null
+                  }
+                >
+                  {t("dashboard.buttons.save")}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    {t("dialog.confirm.title")}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {t("dialog.confirm.description")}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>{t("dialog.buttons.cancel")}</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleSave}>
+                    {t("dialog.buttons.confirm")}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </CardFooter>
         </Card>
       </div>

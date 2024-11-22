@@ -21,6 +21,9 @@ export default function ReadRegistro() {
   const { t } = useTranslation("global");
   const { id } = useParams();
 
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.leer")} | GuateCare`;
+  }, [t]);
   const [formData, setFormData] = useState({
     nameE: "",
     born: "",
@@ -75,7 +78,7 @@ export default function ReadRegistro() {
           setError(t("dashboard.registro.bebeNotFound"));
         }
       } catch (error) {
-        console.error("Error obteniendo los documentos:", error);
+        // console.error("Error obteniendo los documentos:", error);
         setError(t("dashboard.registro.errorLoading"));
       }
     };
@@ -89,11 +92,9 @@ export default function ReadRegistro() {
       <Card className="max-w-sm">
         <CardHeader>
           <CardTitle className="text-3xl">
-            Lectura de datos del encargado
+            {t("dashboard.read.title")}
           </CardTitle>
-          <CardDescription>
-            En este espacio encontrarás los datos relacionados al encargado
-          </CardDescription>
+          <CardDescription>{t("dashboard.read.description")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {error && <p className="text-red-500">{error}</p>}
@@ -153,10 +154,10 @@ export default function ReadRegistro() {
       {/* Forms 2 */}
       <Card className="max-w-sm">
         <CardHeader>
-          <CardTitle className="text-3xl">Lectura de datos del bebé</CardTitle>
-          <CardDescription>
-            En este espacio encontrarás los datos relacionados al bebé
-          </CardDescription>
+          <CardTitle className="text-3xl">
+            {t("dashboard.read.title2")}
+          </CardTitle>
+          <CardDescription>{t("dashboard.read.description2")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <form className="grid grid-cols-2 gap-4">

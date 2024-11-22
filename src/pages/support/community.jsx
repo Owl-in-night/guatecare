@@ -15,41 +15,25 @@ function Community() {
           <h2 className="text-amber-950 text-center text-lg font-semibold leading-8">
             {t("commuty.thanks")}
           </h2>
-          <div className="mx-auto mt-10 grid max-w-lg grid-cols-3 gap-8 sm:max-w-xl lg:max-w-none lg:grid-cols-3">
-            <img
-              src="/img/logo4.png"
-              className="max-h-auto w-full object-contain"
-            />
-            <img
-              src="/img/logo2.png"
-              className="max-h-auto w-full object-contain"
-            />
-            <img
-              src="/img/logo3.png"
-              className="max-h-auto w-full object-contain"
-            />
-            <img
-              src="/img/logo7.png"
-              className="max-h-auto w-full object-contain"
-            />
-            <img
-              src="/img/logo8.png"
-              className="max-h-auto w-full object-contain"
-            />
-            <img
-              src="/img/logo1.png"
-              className="max-h-auto w-full object-contain"
-            />
-
-            <img
-              src="/img/logo5.png"
-              className="max-h-auto w-full object-contain"
-            />
-            <img
-              src="/img/logo6.png"
-              className="max-h-auto w-full object-contain"
-            />
-            
+          <div className="mx-auto mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
+            {[
+              "/img/logo4.png",
+              "/img/logo2.png",
+              "/img/logo3.png",
+              "/img/logo7.png",
+              "/img/logo8.png",
+              "/img/logo1.png",
+              "/img/logo5.png",
+              "/img/logo6.png",
+            ].map((src, index) => (
+              <div key={index} className="aspect-square">
+                <img
+                  src={src}
+                  alt={`Logo ${index + 1}`}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>

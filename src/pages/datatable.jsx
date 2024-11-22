@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"; // Botones de ShadCN UI
 import { Link } from "react-router-dom"; // Usar Link de react-router-dom
 import { db } from "@/firebase"; // Firebase configuration
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore"; // Firebase operations
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"; // ShadCN UI alert components
+import { collection, getDocs } from "firebase/firestore"; // Firebase operations
 import {
   Table,
   TableBody,
@@ -21,18 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"; // ShadCN UI Select
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"; // ShadCN UI Alert Dialog
-import Spinner from "@/components/_partials/Spinner";
+import { useTranslation } from "react-i18next";
 
 export default function AlertasN() {
   const [alerts, setAlerts] = useState([]);
@@ -44,12 +32,7 @@ export default function AlertasN() {
     mes: "",
     año: "",
   });
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // Dialog de advertencia
-  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false); // Dialog de confirmación
-  const [alertIdToResolve, setAlertIdToResolve] = useState(null); // Alerta que se desea resolver
-  const [showDeleteButton, setShowDeleteButton] = useState(true); // Controlar visibilidad del botón para eliminar todas las alertas
 
-  // Fetch alerts from Firestore
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,7 +43,6 @@ export default function AlertasN() {
         }));
         setAlerts(alertsList);
 
-        // Fetch reportes (para poder obtener prioridad y estado)
         const querySnapshotReportes = await getDocs(collection(db, "reportes"));
         const reportesList = querySnapshotReportes.docs.map((doc) => ({
           id: doc.id,
@@ -77,41 +59,20 @@ export default function AlertasN() {
     fetchData();
   }, []);
 
-  // Handle marking an alert as resolved and removing it from Firestore
-  const handleResolve = async () => {
-    if (alertIdToResolve) {
-      try {
-        const alertRef = doc(db, "alerta", alertIdToResolve);
-        await deleteDoc(alertRef); // Eliminar la alerta completamente de Firestore
-        setAlerts((prev) =>
-          prev.filter((alert) => alert.id !== alertIdToResolve)
-        ); // Eliminamos de la tabla
-        setIsConfirmDialogOpen(false); // Cerrar el diálogo de confirmación después de eliminar
-      } catch (error) {
-        console.error("Error al resolver la alerta: ", error);
-      }
-    }
-  };
-
-  // Convertir la fecha en formato de cadena "11/11/2024, 02:17 PM" a un objeto Date
   const formatDate = (timestamp) => {
     if (!timestamp) return null;
 
-    // Separar la fecha y hora
     const [datePart, timePart] = timestamp.split(", ");
     const [day, month, year] = datePart.split("/").map(Number);
 
-    // Parsear la hora y convertir a formato 24 horas si es necesario
     let [time, meridian] = timePart.split(" ");
     let [hours, minutes] = time.split(":").map(Number);
     if (meridian === "PM" && hours < 12) hours += 12;
     if (meridian === "AM" && hours === 12) hours = 0;
 
-    // Crear el objeto Date
     return new Date(year, month - 1, day, hours, minutes);
   };
 
-  // Obtener los datos de prioridad y estado del reporte correspondiente
   const getPrioridadYEstado = (alertId) => {
     const reporte = reportes.find((reporte) => reporte.id === alertId);
     if (reporte) {
@@ -126,7 +87,6 @@ export default function AlertasN() {
     };
   };
 
-  // Función para obtener la clase de color según la prioridad
   const getPriorityClass = (prioridad) => {
     switch (prioridad) {
       case "Baja":
@@ -140,23 +100,21 @@ export default function AlertasN() {
     }
   };
 
-  // Función para obtener la clase de color según el estado
   const getStateClass = (estado) => {
     switch (estado) {
       case "Nuevo":
-        return "bg-gray-400"; // Gris claro
+        return "bg-gray-400";
       case "En progreso":
-        return "bg-blue-600"; // Azul
+        return "bg-blue-600";
       case "En revisión":
-        return "bg-yellow-500"; // Amarillo claro
+        return "bg-yellow-500";
       case "Resuelto":
-        return "bg-green-500"; // Verde
+        return "bg-green-500";
       default:
-        return "bg-gray-400"; // Gris por defecto
+        return "bg-gray-400";
     }
   };
 
-  // Filtrar alertas basadas en prioridad, estado o fecha (mes y año)
   const filteredAlerts = alerts.filter((alert) => {
     const { prioridad, estado } = getPrioridadYEstado(alert.id);
     const alertDate = formatDate(alert.timestamp);
@@ -164,7 +122,6 @@ export default function AlertasN() {
       filter.prioridad === "" || prioridad === filter.prioridad;
     const matchesEstado = filter.estado === "" || estado === filter.estado;
 
-    // Filtrar por mes y año
     const matchesFecha =
       (filter.mes === "" ||
         (alertDate && alertDate.getMonth() + 1 === parseInt(filter.mes))) &&
@@ -174,31 +131,27 @@ export default function AlertasN() {
     return matchesPrioridad && matchesEstado && matchesFecha;
   });
 
-  // Función para limpiar un filtro
-  const clearFilter = (filterType) => {
-    setFilter((prev) => ({
-      ...prev,
-      [filterType]: "", // Limpiar el filtro específico
-    }));
+  const clearFilters = () => {
+    setFilter({
+      prioridad: "",
+      estado: "",
+      mes: "",
+      año: "",
+    });
   };
 
-  // Eliminar todas las alertas
-
-  
+  const [t] = useTranslation("global");
 
   return (
     <>
       <div className="mx-auto max-w-2xl px-2 text-center">
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          Alertas activas
+          {t("home.data.text1")}
         </h2>
       </div>
 
-      {/* Filtros */}
       <div className="max-w-2xl mx-auto p-2">
-        {/* Filtros de la tabla */}
         <div className="flex flex-wrap gap-2 justify-center">
-          {/* Filtro de Prioridad */}
           <Select
             value={filter.prioridad}
             onValueChange={(value) =>
@@ -210,15 +163,14 @@ export default function AlertasN() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Prioridad</SelectLabel>
-                <SelectItem value="Baja">Baja</SelectItem>
-                <SelectItem value="Moderada">Moderada</SelectItem>
-                <SelectItem value="Alta">Alta</SelectItem>
+                <SelectLabel>{t("home.data.priority")}</SelectLabel>
+                <SelectItem value="Baja">{t("home.data.dataPriority.severe")}</SelectItem>
+                <SelectItem value="Moderada">{t("home.data.dataPriority.moderate")}</SelectItem>
+                <SelectItem value="Alta">{t("home.data.dataPriority.mild")}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
 
-          {/* Filtro de Estado */}
           <Select
             value={filter.estado}
             onValueChange={(value) => setFilter({ ...filter, estado: value })}
@@ -228,99 +180,47 @@ export default function AlertasN() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Estado</SelectLabel>
-                <SelectItem value="Nuevo">Nuevo</SelectItem>
-                <SelectItem value="En progreso">En progreso</SelectItem>
-                <SelectItem value="En revisión">En revisión</SelectItem>
-                <SelectItem value="Resuelto">Resuelto</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          {/* Filtro de Mes */}
-          <Select
-            value={filter.mes}
-            onValueChange={(value) => setFilter({ ...filter, mes: value })}
-          >
-            <SelectTrigger className="w-[160px] sm:w-[180px]">
-              <SelectValue placeholder="Mes" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Mes</SelectLabel>
-                {Array.from({ length: 12 }, (_, i) => (
-                  <SelectItem key={i} value={i + 1}>
-                    {new Date(0, i).toLocaleString("default", {
-                      month: "long",
-                    })}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          {/* Filtro de Año */}
-          <Select
-            value={filter.año}
-            onValueChange={(value) => setFilter({ ...filter, año: value })}
-          >
-            <SelectTrigger className="w-[160px] sm:w-[180px]">
-              <SelectValue placeholder="Año" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Año</SelectLabel>
-                {Array.from(
-                  { length: 5 },
-                  (_, i) => new Date().getFullYear() - i
-                ).map((year) => (
-                  <SelectItem key={year} value={year}>
-                    {year}
-                  </SelectItem>
-                ))}
+                <SelectLabel>{t("home.data.status")}</SelectLabel>
+                <SelectItem value="Nuevo">{t("home.data.dataStatus.new")}</SelectItem>
+                <SelectItem value="En progreso">{t("home.data.dataStatus.inProgress")}</SelectItem>
+                <SelectItem value="En revisión">{t("home.data.dataStatus.inReview")}</SelectItem>
+                <SelectItem value="Resuelto">{t("home.data.dataStatus.resolved")}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
-
-        {/* Limpiar filtros */}
-        <div className="flex justify-center gap-2 mt-2 flex-wrap">
-          <Button variant="outline" onClick={() => clearFilter("prioridad")}>
-            Limpiar Prioridad
-          </Button>
-          <Button variant="outline" onClick={() => clearFilter("estado")}>
-            Limpiar Estado
-          </Button>
-          <Button variant="outline" onClick={() => clearFilter("mes")}>
-            Limpiar Mes
-          </Button>
-          <Button variant="outline" onClick={() => clearFilter("año")}>
-            Limpiar Año
+        <div className="flex justify-center mt-4">
+          <Button onClick={clearFilters}>
+          {t("home.data.clean")}
           </Button>
         </div>
       </div>
 
-      {/* Tabla */}
       <div className="py-2 px-2">
         <Table className="w-full max-w-6xl mx-auto">
           <TableHeader>
             <TableRow>
-              <TableHead>Fecha</TableHead>
-              <TableHead>Prioridad</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead>ID</TableHead>
+              <TableHead>{t("home.data.create")}</TableHead>
+              <TableHead>{t("home.data.priority")}</TableHead>
+              <TableHead>{t("home.data.status")}</TableHead>
+              <TableHead>{t("home.data.id")}</TableHead>
+              <TableHead>{t("home.data.follow")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredAlerts.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center text-muted py-4">
-                  No hay alertas.
+                {t("home.data.none")}
                 </TableCell>
               </TableRow>
             ) : (
               filteredAlerts.map((alert) => {
                 const { prioridad, estado } = getPrioridadYEstado(alert.id);
+                const reporteRelacionado = reportes.find(
+                  (reporte) => reporte.id === alert.id
+                );
+                const fechaSeguimiento = reporteRelacionado?.timestamp;
 
                 return (
                   <TableRow key={alert.id}>
@@ -344,6 +244,11 @@ export default function AlertasN() {
                       {estado}
                     </TableCell>
                     <TableCell>{alert.id}</TableCell>
+                    <TableCell>
+                      {fechaSeguimiento
+                        ? new Date(fechaSeguimiento.seconds * 1000).toLocaleString()
+                        : "Sin seguimiento"}
+                    </TableCell>
                   </TableRow>
                 );
               })

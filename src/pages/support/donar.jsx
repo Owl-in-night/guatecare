@@ -45,14 +45,14 @@ function Donar() {
 
     emailjs.send('service_xw9e5bp', 'template_7l4zfbq', templateParams, 'TlqBmjkxT9eSiEEGq')
       .then((response) => {
-        console.log('Email sent:', response);
+        // console.log('Email sent:', response);
         setStatusMessage({
           type: "success",
           text: t("donar.thanks"),
         });
       })
       .catch((error) => {
-        console.log('Error:', error);
+        // console.log('Error:', error);
         setStatusMessage({
           type: "error",
           text: t("donar.error"),

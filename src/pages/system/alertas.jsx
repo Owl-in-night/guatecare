@@ -33,8 +33,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"; // ShadCN UI Alert Dialog
 import Spinner from "@/components/_partials/Spinner";
-
+import { useTranslation } from "react-i18next";
 export default function AlertasN() {
+  const { t } = useTranslation("global");
   const [alerts, setAlerts] = useState([]);
   const [reportes, setReportes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,11 @@ export default function AlertasN() {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false); // Dialog de confirmación
   const [alertIdToResolve, setAlertIdToResolve] = useState(null); // Alerta que se desea resolver
   const [showDeleteButton, setShowDeleteButton] = useState(true); // Controlar visibilidad del botón para eliminar todas las alertas
+
+  
+  useEffect(() => {
+    document.title = `${t("dashboard.navbar.alertas")} | GuateCare`;
+  }, [t]);
 
   // Fetch alerts from Firestore
   useEffect(() => {
@@ -68,7 +74,7 @@ export default function AlertasN() {
         }));
         setReportes(reportesList);
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        // console.error("Error fetching data: ", error);
       } finally {
         setLoading(false);
       }
@@ -88,7 +94,7 @@ export default function AlertasN() {
         ); // Eliminamos de la tabla
         setIsConfirmDialogOpen(false); // Cerrar el diálogo de confirmación después de eliminar
       } catch (error) {
-        console.error("Error al resolver la alerta: ", error);
+        // console.error("Error al resolver la alerta: ", error);
       }
     }
   };
@@ -190,7 +196,7 @@ export default function AlertasN() {
       setAlerts([]); // Limpiar las alertas en el estado
       setShowDeleteButton(false); // Ocultar el botón después de eliminar
     } catch (error) {
-      console.error("Error al eliminar todas las alertas: ", error);
+      // console.error("Error al eliminar todas las alertas: ", error);
     }
   };
 
@@ -202,11 +208,10 @@ export default function AlertasN() {
     <>
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          Alertas
+          {t("dashboard.alertas.title")}
         </h2>
         <p className="mt-2 p-6 text-lg/8">
-          Visualice de manera clara la fecha, la prioridad, el estado y las
-          acciones disponibles para gestionar las alertas.
+          {t("dashboard.alertas.description")}
         </p>
       </div>
 
@@ -222,14 +227,20 @@ export default function AlertasN() {
             }
           >
             <SelectTrigger className="w-[180px] sm:w-[220px]">
-              <SelectValue placeholder="Prioridad" />
+              <SelectValue placeholder={t("dashboard.alertas.priority")} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Prioridad</SelectLabel>
-                <SelectItem value="Baja">Baja</SelectItem>
-                <SelectItem value="Moderada">Moderada</SelectItem>
-                <SelectItem value="Alta">Alta</SelectItem>
+                <SelectLabel>{t("dashboard.alertas.priority")}</SelectLabel>
+                <SelectItem value="Baja">
+                  {t("dashboard.alertas.prioritys.mild")}
+                </SelectItem>
+                <SelectItem value="Moderada">
+                  {t("dashboard.alertas.prioritys.moderate")}
+                </SelectItem>
+                <SelectItem value="Alta">
+                  {t("dashboard.alertas.prioritys.severe")}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -240,15 +251,23 @@ export default function AlertasN() {
             onValueChange={(value) => setFilter({ ...filter, estado: value })}
           >
             <SelectTrigger className="w-[180px] sm:w-[220px]">
-              <SelectValue placeholder="Estado" />
+              <SelectValue placeholder={t("dashboard.alertas.status")} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Estado</SelectLabel>
-                <SelectItem value="Nuevo">Nuevo</SelectItem>
-                <SelectItem value="En progreso">En progreso</SelectItem>
-                <SelectItem value="En revisión">En revisión</SelectItem>
-                <SelectItem value="Resuelto">Resuelto</SelectItem>
+                <SelectLabel>{t("dashboard.alertas.status")}</SelectLabel>
+                <SelectItem value="Nuevo">
+                  {t("dashboard.alertas.statuss.new")}
+                </SelectItem>
+                <SelectItem value="En progreso">
+                  {t("dashboard.alertas.statuss.inProgress")}
+                </SelectItem>
+                <SelectItem value="En revisión">
+                  {t("dashboard.alertas.statuss.inReview")}
+                </SelectItem>
+                <SelectItem value="Resuelto">
+                  {t("dashboard.alertas.statuss.resolved")}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -263,7 +282,7 @@ export default function AlertasN() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Mes</SelectLabel>
+                <SelectLabel>{t("dashboard.database.month")}</SelectLabel>
                 {Array.from({ length: 12 }, (_, i) => (
                   <SelectItem key={i} value={i + 1}>
                     {new Date(0, i).toLocaleString("default", {
@@ -285,7 +304,7 @@ export default function AlertasN() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Año</SelectLabel>
+                <SelectLabel>{t("dashboard.database.year")}</SelectLabel>
                 {Array.from(
                   { length: 5 },
                   (_, i) => new Date().getFullYear() - i
@@ -302,16 +321,16 @@ export default function AlertasN() {
         {/* Limpiar filtros */}
         <div className="flex justify-center gap-4 mt-4 flex-wrap">
           <Button variant="outline" onClick={() => clearFilter("prioridad")}>
-            Limpiar Prioridad
+            {t("dashboard.alertas.cleanp")}
           </Button>
           <Button variant="outline" onClick={() => clearFilter("estado")}>
-            Limpiar Estado
+            {t("dashboard.alertas.cleans")}
           </Button>
           <Button variant="outline" onClick={() => clearFilter("mes")}>
-            Limpiar Mes
+            {t("dashboard.alertas.cleanm")}
           </Button>
           <Button variant="outline" onClick={() => clearFilter("año")}>
-            Limpiar Año
+            {t("dashboard.alertas.cleany")}
           </Button>
         </div>
 
@@ -330,18 +349,20 @@ export default function AlertasN() {
         <Table className="w-full max-w-6xl mx-auto">
           <TableHeader>
             <TableRow>
-              <TableHead>Fecha</TableHead>
-              <TableHead>Prioridad</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead>ID</TableHead>
-              <TableHead className="text-right">Acciones</TableHead>
+              <TableHead>{t("dashboard.alertas.date")}</TableHead>
+              <TableHead>{t("dashboard.alertas.priority")}</TableHead>
+              <TableHead>{t("dashboard.alertas.status")}</TableHead>
+              <TableHead>{t("dashboard.database.id")}</TableHead>
+              <TableHead className="text-right">
+                {t("dashboard.alertas.actions")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredAlerts.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center text-muted py-4">
-                  No hay alertas.
+                  {t("dashboard.alertas.none")}
                 </TableCell>
               </TableRow>
             ) : (
@@ -375,7 +396,7 @@ export default function AlertasN() {
                       <div className="flex gap-2 justify-end">
                         <Link to={`/Panel/Reportes/${alert.id}`}>
                           <Button variant="outline" size="sm">
-                            Editar reporte
+                            {t("dashboard.alertas.editr")}
                           </Button>
                         </Link>
 
@@ -396,29 +417,30 @@ export default function AlertasN() {
                                 setIsDialogOpen(true);
                               }}
                             >
-                              Resuelto
+                              {t("dashboard.alertas.statuss.resolved")}
                             </Button>
                           </AlertDialogTrigger>
 
                           <AlertDialogContent>
                             <AlertDialogHeader>
                               <AlertDialogTitle>
-                                ¿Estás seguro?
+                                {t("dashboard.alertas.title2")}
                               </AlertDialogTitle>
                               <AlertDialogDescription>
-                                Esta acción marcará la alerta como resuelta y la
-                                eliminará de la base de datos.
+                                {t("dashboard.alertas.desc2")}
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                              <AlertDialogCancel>
+                                {t("dashboard.database.cancel")}
+                              </AlertDialogCancel>
                               <AlertDialogAction
                                 onClick={() => {
                                   setIsDialogOpen(false);
                                   setIsConfirmDialogOpen(true); // Abre el dialogo de confirmación
                                 }}
                               >
-                                Continuar
+                                {t("dashboard.alertas.continues")}
                               </AlertDialogAction>
                             </AlertDialogFooter>
                           </AlertDialogContent>
@@ -432,17 +454,16 @@ export default function AlertasN() {
                           <AlertDialogContent>
                             <AlertDialogHeader>
                               <AlertDialogTitle>
-                                Confirmar Eliminación
+                                {t("dashboard.alertas.confirm")}
                               </AlertDialogTitle>
                               <AlertDialogDescription>
-                                Esta acción eliminará permanentemente la alerta
-                                de la base de datos. ¿Deseas continuar?
+                                {t("dashboard.alertas.desc3")}
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                               <AlertDialogCancel>Cancelar</AlertDialogCancel>
                               <AlertDialogAction onClick={handleResolve}>
-                                Confirmar
+                                {t("dashboard.alertas.confirm2")}
                               </AlertDialogAction>
                             </AlertDialogFooter>
                           </AlertDialogContent>
