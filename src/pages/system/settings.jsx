@@ -119,9 +119,22 @@ export function SettingsA() {
                               <NavigationMenuLink
                                 key={lang}
                                 onClick={() => changeLanguage(lang)}
-                                className="group inline-flex h-10 w-28 items-center justify-center rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
+                                className="group inline-flex h-10 w-32 items-center justify-between rounded-md py-2 font-medium hover:bg-gray-100 dark:bg-zinc-950 dark:hover:bg-gray-800"
                               >
-                                <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border shadow-lg">
+                                <span className="ml-2 text-left">
+                                  {/* Añade un margen a la izquierda */}
+                                  {lang === "en"
+                                    ? t("navbar.english")
+                                    : lang === "es"
+                                    ? t("navbar.spanish")
+                                    : lang === "fr"
+                                    ? t("navbar.french")
+                                    : lang === "hi"
+                                    ? t("navbar.hindi")
+                                    : t("navbar.chinese")}
+                                </span>
+                                {/* Aumenta el margen entre el texto y el avatar */}
+                                <Avatar className="w-8 h-8 flex items-center justify-center rounded-full border shadow-lg mr-4">
                                   <AvatarImage
                                     src={`https://flagcdn.com/${
                                       lang === "en"
@@ -138,9 +151,28 @@ export function SettingsA() {
                                     className="w-full h-full object-cover"
                                   />
                                 </Avatar>
-                                <span className="ml-2">
-                                  {" "}
-                                  {/* Añade un margen a la izquierda */}
+                              </NavigationMenuLink>
+                            ))}
+                          </NavigationMenuContent>
+                        </NavigationMenuItem>
+                      </NavigationMenuList>
+                    </NavigationMenu>
+
+                    <div className="flex-1 md:hidden">
+                      <Select onValueChange={(lang) => changeLanguage(lang)}>
+                        <SelectTrigger className="w-full flex items-center justify-start">
+                          <Earth className="h-6 w-6 mr-2" />
+                          <span>{t("navbar.selectLanguage")}</span>
+                        </SelectTrigger>
+                        <SelectContent className="w-full">
+                          <SelectGroup>
+                            {["en", "es", "fr", "hi", "ch"].map((lang) => (
+                              <SelectItem
+                                key={lang}
+                                value={lang}
+                                className="flex items-center space-x-3 justify-start py-2"
+                              >
+                                <span className="text-left">
                                   {lang === "en"
                                     ? t("navbar.english")
                                     : lang === "es"
@@ -151,27 +183,7 @@ export function SettingsA() {
                                     ? t("navbar.hindi")
                                     : t("navbar.chinese")}
                                 </span>
-                              </NavigationMenuLink>
-                            ))}
-                          </NavigationMenuContent>
-                        </NavigationMenuItem>
-                      </NavigationMenuList>
-                    </NavigationMenu>
-
-                    <div className="flex-1 ml-auto  md:hidden">
-                      <Select onValueChange={(lang) => changeLanguage(lang)}>
-                        <SelectTrigger className="w-full flex justify-center">
-                          <Earth className="h-6 w-6" />
-                        </SelectTrigger>
-                        <SelectContent className="w-8">
-                          <SelectGroup>
-                            {["en", "es", "fr", "hi", "ch"].map((lang) => (
-                              <SelectItem
-                                key={lang}
-                                value={lang}
-                                className="w-full"
-                              >
-                                <Avatar className="w-8 h-8 rounded-full border shadow-md">
+                                <Avatar className="w-8 h-8 rounded-full border shadow-lg">
                                   <AvatarImage
                                     src={`https://flagcdn.com/${
                                       lang === "en"
@@ -198,15 +210,6 @@ export function SettingsA() {
                                     className="rounded-full object-cover"
                                   />
                                 </Avatar>
-                                {lang === "en"
-                                  ? t("navbar.english")
-                                  : lang === "es"
-                                  ? t("navbar.spanish")
-                                  : lang === "fr"
-                                  ? t("navbar.french")
-                                  : lang === "hi"
-                                  ? t("navbar.hindi")
-                                  : t("navbar.chinese")}
                               </SelectItem>
                             ))}
                           </SelectGroup>

@@ -11,7 +11,8 @@
     "chinese": "Chino",
     "settings": "Ajustes",
     "signUp": "Registrarse",
-    "stadistics": "Estadísticas"
+    "stadistics": "Estadísticas",
+    "selectLanguage": "Seleccione un idioma"
   },
   "support": {
     "navbar": {
@@ -55,7 +56,9 @@
       "readmore": "Leer más...",
       "seemore": "Ver más...",
       "map": "Ir al mapa...",
-      "donate": "Donar..."
+      "donate": "Donar...",
+      "up": "Subir...",
+      "next": "Siguiente..."
     }
   },
   "mapa": {
@@ -153,7 +156,7 @@
     "step8": "8. Datos",
     "step8desc": "En el apartado de datos encontrará diversas acciones y visualizaciones, entre ellas se encuentran el ID, la fecha de creación y acciones importantes como editar, leer, remedir, reportes y alertar.",
     "step9": "9. Alertas",
-    "step9desc": "En este apartado encontrará todas las alertas emitidas desde el apartado de datos, donde podrá ver la fecha de emisión, prioridad, estado y el ID, así mismo podrá encontrar acciones tales como editar reporte y resuelto. Esto permitirá visualizar un seguimiento en tiempo real de los casos registrados.",
+    "step9desc": "En este apartado encontrará todas las alertas emitidas desde el apartado de datos, donde podrá ver la fecha de emisión, prioridad del caso, estado del caso, asimismo podrá encontrar acciones tales como editar reporte y resuelto. Esto permitirá visualizar un seguimiento en tiempo real de los casos registrados.",
     "step10": "10. Informes",
     "step10desc": "Los informes reflejan los datos procesados obtenidos desde los datos que se han proporcionado, reflejando hacía data importante para ser visualiza por la población.",
     "support": "Asistencia",
@@ -166,14 +169,121 @@
     "highlights5": "Informes"
   },
   "mainhome": {
-    "work": "¡Bienvenido a GuateCare!",
-    "workdesc": "Ve a \"Estadísticas\" si deseas visualizar la información actual o inicia sesión para acceder a todas las funcionalidades del sistema.",
+    "work": "¡Bienvenido a ",
+    "work2": "!",
+    "workdesc": "Tecnología que salva vidas: detección temprana de desnutrición infantil.",
     "button1": "Ir a estadísticas",
-    "button2": "Saber más sobre la desnutrición",
+    "button2": "La desnutrición",
     "title": "¿Qué es la desnutrición?",
-    "title2": "Definición",
+    "title1": "Definición de desnutrición aguda",
+    "titled": "Desnutrición Aguda",
+    "titlei": "Impacto y Soluciones",
+    "intro": "La desnutrición aguda es una condición grave que ocurre cuando el cuerpo no recibe suficientes nutrientes esenciales, como proteínas y calorías, durante un período corto de tiempo. Esto puede provocar un rápido deterioro de la salud y puede poner en riesgo la vida, especialmente en niños pequeños.",
+    "details": {
+      "causes": "La desnutrición aguda puede ser causada por factores como el hambre, la falta de acceso a alimentos nutritivos, enfermedades que dificultan la absorción de nutrientes o condiciones sociales y económicas precarias.",
+      "prevention": "Para combatir la desnutrición aguda, se necesita una acción combinada de gobiernos, organizaciones internacionales y comunidades locales."
+    },
+    "risk_factors": "Factores de riesgo:",
+    "symptoms": "Signos y síntomas:",
+    "treatment": "Tratamiento",
+    "prevention_title": "Prevención y soluciones",
+    "acuteMalnutrition": {
+      "subtitle": "Tipos de desnutrición aguda",
+      "description": "Dependiendo de la gravedad de la pérdida de peso y de los síntomas asociados, la desnutrición aguda se clasifica en dos tipos principales: desnutrición aguda moderada y desnutrición aguda severa.",
+      "types": {
+        "marasmus": {
+          "title": "Marasmo",
+          "description": "Se caracteriza por una pérdida de peso extrema y atrofia muscular debido a la falta de calorías y proteínas. Los niños afectados suelen tener una apariencia demacrada, piel arrugada y niveles de energía extremadamente bajos."
+        },
+        "kwashiorkor": {
+          "title": "Kwashiorkor",
+          "description": "Es causado principalmente por deficiencia severa de proteínas, a menudo acompañado de edema (hinchazón), piel seca con lesiones descamativas y cabello descolorido o quebradizo. Los niños pueden parecer hinchados debido al edema, pero tienen músculos débiles."
+        },
+        "mixed": {
+          "title": "Mixto",
+          "description": "Una combinación de marasmo y kwashiorkor, donde los niños presentan características de ambos tipos. Esto incluye pérdida de peso severa junto con edema y deficiencias múltiples de nutrientes."
+        }
+      },
+      "prevention": {
+        "title": "Prevención de la desnutrición aguda",
+        "description": "Es esencial prevenir la desnutrición aguda mediante lactancia materna, una dieta adecuada y cuidados de salud.",
+        "lactancia": {
+          "title": "Lactancia materna",
+          "description": "La lactancia materna exclusiva en los primeros seis meses previene la desnutrición."
+        },
+        "diet": {
+          "title": "Dieta equilibrada",
+          "description": "Una dieta balanceada con micronutrientes es fundamental para prevenir la desnutrición."
+        },
+        "healthcare": {
+          "title": "Acceso a servicios de salud",
+          "description": "El acceso a cuidados médicos adecuados es crucial para la prevención."
+        }
+      },
+      "impact": {
+        "title": "Impacto de la desnutrición aguda",
+        "description": "La desnutrición aguda tiene un impacto significativo en la sociedad, la economía y la humanidad.",
+        "social": {
+          "title": "Impacto social",
+          "description": "La desnutrición contribuye a la marginación social y la exclusión."
+        },
+        "economic": {
+          "title": "Impacto económico",
+          "description": "La desnutrición reduce la productividad laboral y aumenta los costos de atención médica."
+        },
+        "human": {
+          "title": "Impacto humano",
+          "description": "Las consecuencias humanas de la desnutrición son devastadoras para las personas y sus familias."
+        }
+      },
+      "causes": {
+        "title": "Causas de la desnutrición aguda",
+        "description": "La desnutrición aguda es el resultado de una combinación de factores socioeconómicos, ambientales y biológicos. Las principales causas incluyen la pobreza, los conflictos, las enfermedades, la falta de acceso a servicios de salud y la malnutrición materna.",
+        "poverty": {
+          "title": "Pobreza",
+          "description": "La falta de recursos económicos para adquirir alimentos suficientes y nutritivos es una de las causas principales de la desnutrición aguda. La pobreza limita el acceso a alimentos, atención médica y servicios básicos, lo que aumenta la vulnerabilidad de los niños a la desnutrición."
+        },
+        "conflict": {
+          "title": "Conflictos y emergencias",
+          "description": "Las guerras y los conflictos pueden interrumpir la producción y distribución de alimentos, desplazando a las familias y dificultando el acceso a servicios esenciales. Las emergencias humanitarias agravan la situación de la desnutrición, especialmente en las zonas afectadas."
+        },
+        "disease": {
+          "title": "Enfermedades",
+          "description": "Las enfermedades como la diarrea, el VIH/SIDA y las infecciones respiratorias afectan la capacidad del cuerpo para absorber los nutrientes. Los niños pequeños son especialmente vulnerables a estas enfermedades, lo que empeora la desnutrición y dificulta su recuperación."
+        },
+        "ignorance": {
+          "title": "Falta de educación y conocimientos sobre nutrición",
+          "description": "La falta de educación sobre la importancia de una dieta equilibrada y la nutrición adecuada contribuye a los altos niveles de desnutrición. Las familias pueden desconocer cómo preparar alimentos nutritivos o los beneficios de la lactancia materna exclusiva en los primeros meses de vida."
+        },
+        "healthcare": {
+          "title": "Acceso limitado a servicios de salud",
+          "description": "El acceso insuficiente a servicios de salud de calidad puede agravar las condiciones de desnutrición. La falta de atención médica adecuada, especialmente en áreas rurales o remotas, impide que los niños reciban el tratamiento necesario para prevenir y tratar la desnutrición."
+        },
+        "maternal": {
+          "title": "Malnutrición materna",
+          "description": "La malnutrición de las madres durante el embarazo y la lactancia afecta directamente la salud y el desarrollo de los niños. Las mujeres malnutridas tienen mayor riesgo de tener hijos con bajo peso al nacer, lo que aumenta las probabilidades de desnutrición infantil."
+        }
+      },
+      "consequences": {
+        "title": "Consecuencias de la desnutrición aguda",
+        "description": "La desnutrición aguda tiene efectos negativos en el crecimiento, el sistema inmunológico y el desarrollo cognitivo.",
+        "growth": {
+          "title": "Crecimiento físico",
+          "description": "Los niños desnutridos no crecen adecuadamente y enfrentan retrasos en su desarrollo físico."
+        },
+        "immunity": {
+          "title": "Sistema inmunológico",
+          "description": "La desnutrición debilita el sistema inmunológico, aumentando la vulnerabilidad a infecciones."
+        },
+        "development": {
+          "title": "Desarrollo cognitivo",
+          "description": "La desnutrición afecta el desarrollo cerebral, lo que resulta en dificultades en el aprendizaje."
+        }
+      }
+    },
+    "title2": "Definición de desnutrición aguda",
     "description": "Es un estado patológico que surge de una ingesta inadecuada de nutrientes o un exceso catabólico, y se manifiesta con alteraciones clínicas, bioquímicas y problemas en las medidas corporales.",
-    "title3": "Tipos",
+    "title3": "Conozcamos los tipos de desnutrición aguda",
     "description2-1": "Desnutrición aguda",
     "description2-2": "Desnutrición crónica",
     "description2-3": "Desnutrición mixta",
@@ -289,61 +399,61 @@
   },
   "home": {
     "card1": {
-      "text1": "Total de alertas activas",
-      "text2": "Posibles casos de desnutrición aguda: ",
-      "text3": "casos",
-      "text4": "caso",
+      "text1": "Alertas sobre desnutrición aguda",
+      "text2": "Total de alertas nutricionales activas sobre desnutrición aguda: ",
+      "text3": "casos activos",
+      "text4": "caso activo",
       "warningAlert": "¡Atención! Hay alertas activadas.",
       "criticalAlert": "¡Alerta crítica! Muchas alertas activadas."
     },
     "card2": {
-      "text1": "Niños registrados este mes",
+      "text1": "Cantidad de niños registrados en el sistema este mes:",
       "text2": "niños",
-      "text3": "Niños registrados el mes pasado:"
+      "text3": "Niños registrados en el sistema el mes pasado:"
     },
     "card3": {
-      "text1": "Niñas registrados este mes",
+      "text1": "Cantidad de niñas registradas en el sistema este mes:",
       "text2": "niñas",
-      "text3": "Niñas registrados el mes pasado:"
+      "text3": "Niñas registradas en el sistema el mes pasado:"
     },
     "card4": {
-      "text1": "Mediciones de este mes",
+      "text1": "Total de mediciones de talla/longitud y peso realizadas este mes en el sistema:",
       "text2": "mediciones",
       "text3": "Mediciones registradas este mes:",
-      "text4": "Mediciones registradas el mes pasado:",
-      "text5": "Promedio de longitud (cm) este mes:",
+      "text4": "Mediciones registradas de talla/longitud y peso en el sistema el mes pasado:",
+      "text5": "Promedio de las mediciones de longitud (en cm) realizadas por el sensor TF-Luna este mes:",
       "text6": "cm",
-      "text7": "Promedio de longitud (cm) el mes pasado:"
+      "text7": "Promedio de las mediciones de longitud (en cm) realizadas por el sensor TF-Luna el mes pasado:"
     },
     "card5": {
       "text1": "Mediciones de peso este mes",
       "text2": "mediciones",
       "text3": "Mediciones registradas este mes:",
       "text4": "Mediciones registradas el mes pasado:",
-      "text5": "Promedio de peso (lb) este mes:",
+      "text5": "Promedio de las mediciones de peso (en lb) realizada por el sensor de carga este mes:",
       "text6": "lb",
-      "text7": "Promedio de peso (lb) el mes pasado:"
+      "text7": "Promedio de las mediciones de peso (en lb) realizada por el sensor de carga el mes pasado:"
     },
     "charts": {
-      "text1": "Bebés por comunidad lingüística",
+      "text1": "Filtrado de bebés por comunidad lingüística registrados en el sistema:",
       "text2": "Cantidad de bebés por comunidad",
       "text3": "Comunidad con más bebés:",
       "text4": "Número de bebés:",
-      "text5": "Frecuencia de signos de desnutrición",
+      "text5": "Frecuencia de signos de desnutrición registrados en el sistema por reportes nutricionales",
       "text6": "Análisis de datos recopilados durante los últimos meses.",
-      "text7": "Reportes por mes",
+      "text7": "Total de reportes nutricionales realizadas en el sistema",
       "text8": "Reportes registrados",
       "text9": "Total de reportes:"
     },
     "data": {
-      "text1": "Alertas activas",
+      "text1": "Registro de reportes y alertas nutricionales en el sistema",
       "title": "Datos",
       "description": "Recopilación de los datos captados en tiempo real",
       "status": "Estado del caso",
       "id": "Identificador",
       "create": "Fecha de emisión",
       "follow": "Fecha de seguimiento",
-      "priority": "Prioridad",
+      "priority": "Prioridad del caso",
       "view": "Visualizar",
       "edit": "Editar",
       "none": "No hay alertas",
@@ -353,10 +463,10 @@
       "rasp2": "Actividad de esta semana",
       "rasp3": "Tiempo de actividad:",
       "dataStatus": {
-        "new": "Nuevo",
-        "inProgress": "En progreso",
-        "inReview": "En revisión",
-        "resolved": "Resuelto"
+        "new": "Caso nuevo",
+        "inProgress": "Caso en progreso",
+        "inReview": "Caso en revisión",
+        "resolved": "Caso resuelto"
       },
       "dataPriority": {
         "severe": "Severo",
@@ -386,7 +496,7 @@
       "id": "Identificador",
       "create": "Fecha de creación",
       "follow": "Fecha de seguimiento",
-      "priority": "Prioridad"
+      "priority": "Prioridad del caso"
     },
     "export": {
       "title": "Exportar"
@@ -397,17 +507,18 @@
       "register": "Registro del bebé",
       "register2": "Registro",
       "monitoreo": "Monitoreo",
-      "mediciones":"Mediciones",
+      "mediciones": "Mediciones",
       "datos": "Datos",
       "alertas": "Alertas",
       "informes": "Informes",
       "account": "Mi cuenta",
       "settings": "Ajustes",
       "logout": "Cerrar sesión",
-      "editar":"Editar",
-      "leer":"Leer",
-      "remedir":"Remedir",
-      "reportar":"Reportar"
+      "editar": "Editar caso",
+      "leer": "Leer caso",
+      "remedir": "Remedir caso",
+      "reportar": "Reportar caso",
+      "poweroff": "Apagar Raspberry Pi"
     },
     "registro": {
       "title": "Registro del encargado",
@@ -419,7 +530,7 @@
       "description1": "Ingrese el DPI",
       "name": "Nombre del encargado",
       "description2": "Nombre completo",
-      "born": "Fecha de nacimiento",
+      "born": "Fecha de nacimiento del encargado",
       "month": "Seleccione el mes",
       "year": "Seleccione el año",
       "description3": "Dirección",
@@ -440,7 +551,7 @@
       "name2": "Nombre del bebé",
       "description6": "Ingrese el CUI",
       "dpiError": "Formato incorrecto",
-      "born2": "Nacimiento del bebé",
+      "born2": "Fecha de nacimiento del bebé",
       "directionborn": "Lugar de nacimiento",
       "genere": "Género",
       "generedesc": "Seleccione el género",
@@ -451,25 +562,34 @@
       "na": "No se indica",
       "others": "Otros",
       "ni": "No indica",
-      "encargadoNotFound":"Encargado no encontrado",
-      "bebeNotFound":"Bebé no encontrado",
-      "errorLoading":"Error al cargar los datos",
-      "dateError":"Formato de fecha incorrecto"
+      "encargadoNotFound": "Encargado no encontrado",
+      "bebeNotFound": "Bebé no encontrado",
+      "errorLoading": "Error al cargar los datos",
+      "dateError": "Formato de fecha incorrecto",
+      "longitud_cm": "Talla/Longitud del bebé en cm",
+      "longitud_m": "Talla/Longitud del bebé en m",
+      "peso_kg": "Peso del bebé en kg",
+      "peso_lb": "Peso del bebé en lb",
+      "no_data": "No hay datos disponibles",
+      "rlongitud_cm": "Remedición de talla/longitud del bebé en cm",
+      "rlongitud_m": "Remedición de talla/longitud del bebé en m",
+      "rpeso_kg": "Remedición de peso del bebé en kg",
+      "rpeso_lb": "Remedición de peso del bebé en lb"
     },
     "database": {
       "title": "Datos",
-      "description1":"Seleccione el registro que desee Editar, Visualizar, Remedir, Crear, Reportar o Alertar",
+      "description1": "Seleccione el registro que desee Editar, Visualizar, Remedir, Crear, Reportar o Alertar",
       "week": "Semana",
       "month": "Mes",
       "year": "Año",
       "description2": "Visualizando datos según el filtro seleccionado",
-      "id":"Identificador",
+      "id": "Identificador",
       "datecreate": "Fecha de creación",
-      "edit": "Editar",
-      "read": "Leer",
-      "remedy": "Remedir",
-      "report": "Reportar",
-      "alert": "Alertar",
+      "edit": "Editar caso",
+      "read": "Leer caso",
+      "remedy": "Remedir caso",
+      "report": "Reportar caso",
+      "alert": "Alertar caso",
       "title2": "¿Deseas activar una alerta?",
       "description3": "Esta acción activará una alerta en el registro seleccionado.",
       "cancel": "Cancelar",
@@ -494,95 +614,95 @@
       "description": "Visualice de manera clara la fecha, la prioridad, el estado del caso y las acciones disponibles para gestionar las alertas.",
       "datecreate": "Fecha de creación",
       "datetracking": "Fecha de seguimiento",
-      "priority": "Prioridad",
+      "priority": "Prioridad del caso",
       "prioritysdesc": "Leve",
       "prioritys": {
-        "severe": "Severo",
-        "moderate": "Moderado",
-        "mild": "Leve"
+        "severe": "Caso severo",
+        "moderate": "Caso moderado",
+        "mild": "Caso leve"
       },
       "status": "Estado del caso",
       "statusdesc": "Nuevo",
       "statuss": {
-        "new": "Nuevo",
-        "inProgress": "En progreso",
-        "inReview": "En revisión",
-        "resolved": "Resuelto"
+        "new": "Caso nuevo",
+        "inProgress": "Caso en progreso",
+        "inReview": "Caso en revisión",
+        "resolved": "Caso resuelto"
       },
       "desc": "Descripción",
       "alertasdesc": "Añade una descripción médica",
       "notes": "Notas médicas",
       "notasdesc": "El bebé carece de nutrientes...",
-      "cleanp":"Limpiar prioridad",
-      "cleans":"Limpiar estado",
-      "cleanm":"Limpiar mes",
-      "cleany":"Limpiar año",
-      "date":"Fecha de emisión",
-      "actions":"Acciones",
-      "none":"No hay alertas",
-      "editr":"Editar reporte",
-      "title2":"¿Estás segura/o?",
-      "desc2":"Esta acción marcará la alerta como resuelta y la eliminará de la base de datos.",
-      "continues":"Continuar",
-      "confirm":"Confirmar eliminación",
-      "desc3":" Esta acción eliminará permanentemente la alerta de la base de datos. ¿Deseas continuar?",
-      "confirm2":"Confirmar"
+      "cleanp": "Limpiar prioridad",
+      "cleans": "Limpiar estado",
+      "cleanm": "Limpiar mes",
+      "cleany": "Limpiar año",
+      "date": "Fecha de emisión",
+      "actions": "Acciones",
+      "none": "No hay alertas",
+      "editr": "Editar reporte",
+      "title2": "¿Estás segura/o?",
+      "desc2": "Esta acción marcará la alerta como resuelta y la eliminará de la base de datos.",
+      "continues": "Continuar",
+      "confirm": "Confirmar eliminación",
+      "desc3": " Esta acción eliminará permanentemente la alerta de la base de datos. ¿Deseas continuar?",
+      "confirm2": "Confirmar"
     },
-    "informes":{
+    "informes": {
       "title": "Informes",
-      "enero":"Enero",
-      "febrero":"Febrero",
-      "marzo":"Marzo",
-      "abril":"Abril",
-      "mayo":"Mayo",
-      "junio":"Junio",
-      "julio":"Julio",
-      "agosto":"Agosto",
-      "septiembre":"Septiembre",
-      "octubre":"Octubre",
-      "noviembre":"Noviembre",
-      "diciembre":"Diciembre",
-      "description":"Informes generales de los pacientes registrados",
-      "total1":"Total niñez registrada",
-      "month":"Mes",
-      "year":"Año",
-      "loading":"Cargando...",
-      "empty":"No hay datos disponibles",
-      "total":"Total",
-      "display":"Mostrando datos de: ",
-      "total2":"Total de niños y niñas registrados este mes.",
-      "total3":"Distribución por comunidad lingüística",
-      "total4":"Signos más frecuentes",
-      "total5":"Género por comunidad",
-      "total6":"Cantidad de alertas por mes",
-      "alerts":"alertas"
+      "enero": "Enero",
+      "febrero": "Febrero",
+      "marzo": "Marzo",
+      "abril": "Abril",
+      "mayo": "Mayo",
+      "junio": "Junio",
+      "julio": "Julio",
+      "agosto": "Agosto",
+      "septiembre": "Septiembre",
+      "octubre": "Octubre",
+      "noviembre": "Noviembre",
+      "diciembre": "Diciembre",
+      "description": "Informes generales de los pacientes registrados",
+      "total1": "Total niñez registrada",
+      "month": "Mes",
+      "year": "Año",
+      "loading": "Cargando...",
+      "empty": "No hay datos disponibles",
+      "total": "Total",
+      "display": "Mostrando datos de: ",
+      "total2": "Total de niños y niñas registrados este mes.",
+      "total3": "Distribución por comunidad lingüística",
+      "total4": "Signos más frecuentes",
+      "total5": "Género por comunidad",
+      "total6": "Cantidad de alertas por mes",
+      "alerts": "alertas"
     },
-    "edit":{
-      "title":"Actualizar registros",
-      "description":"Modificar la información del encargado",
-      "description2":"Modificar la información del bebé",
-      "update":"Actualizar campos"
+    "edit": {
+      "title": "Actualizar registros",
+      "description": "Modificar la información del encargado",
+      "description2": "Modificar la información del bebé",
+      "update": "Actualizar campos"
     },
-    "read":{
-      "title":"Lectura de datos del encargado",
-      "description":"En este espacio encontrarás los datos relacionados al encargado",
-      "title2":"Lectura de datos del bebé",
-      "description2":"En este espacio encontrarás los datos relacionados al bebé"
+    "read": {
+      "title": "Lectura de datos del encargado",
+      "description": "En este espacio encontrarás los datos relacionados al encargado",
+      "title2": "Lectura de datos del bebé",
+      "description2": "En este espacio encontrarás los datos relacionados al bebé"
     },
-    "report":{
-      "title":"Reporte del bebé",
-      "lastfollow":"Último seguimiento: ",
-      "none":"No hay ninguna fecha guardada.",
-      "prioridad":"Prioridad",
-      "estado":"Estado del caso",
-      "signos":"Marque los signos de desnutrición aguda que presente el caso:",
-      "ver":"Observaciones nutricionales",
-      "signosp":"Actualmente el caso presenta...",
-      "hora":"Hora actual: ",
-      "pregunta":"Guardar reporte",
-      "description":"Al aceptar se guardarán los cambios en la base de datos.",
-      "cerrar":"Cerrar",
-      "aceptar":"Aceptar"
+    "report": {
+      "title": "Reporte del bebé",
+      "lastfollow": "Último seguimiento: ",
+      "none": "No hay ninguna fecha guardada.",
+      "prioridad": "Prioridad del caso",
+      "estado": "Estado del caso",
+      "signos": "Marque los signos de desnutrición aguda que presente el caso:",
+      "ver": "Observaciones nutricionales",
+      "signosp": "Actualmente el caso presenta...",
+      "hora": "Hora actual: ",
+      "pregunta": "Guardar reporte",
+      "description": "Al aceptar se guardarán los cambios en la base de datos.",
+      "cerrar": "Cerrar",
+      "aceptar": "Aceptar"
     },
     "settings": {
       "welcome": "¡Bienvenido! ",
@@ -611,13 +731,13 @@
     "sorry": "Lo sentimos, no pudimos encontrar la página que estás buscando.",
     "backhome": "Ir al inicio",
     "contact": "Contactar con soporte",
-    "errorp":"Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde.",
-    "errors":"Hubo un problema al guardar los datos. Por favor, inténtalo de nuevo más tarde.",
-    "errorl":"Hubo un problema al medir la distancia. Por favor, inténtalo de nuevo más tarde.",
-    "data_saved":"Los datos se han guardado correctamente.",
-    "missing_data":"Los datos son obligatorios.",
-    "todo":"Por favor, completa todos los campos.",
-    "todo2":"Debe de seleccionar al menos un signo de desnutrición aguda."
+    "errorp": "Hubo un problema al medir el peso. Por favor, inténtalo de nuevo más tarde.",
+    "errors": "Hubo un problema al guardar los datos. Por favor, inténtalo de nuevo más tarde.",
+    "errorl": "Hubo un problema al medir la distancia. Por favor, inténtalo de nuevo más tarde.",
+    "data_saved": "Los datos se han guardado correctamente.",
+    "missing_data": "Los datos son obligatorios.",
+    "todo": "Por favor, completa todos los campos.",
+    "todo2": "Debe de seleccionar al menos un signo de desnutrición aguda."
   },
   "ce": {
     "create": "Crear",
@@ -626,6 +746,54 @@
     "view": "Editar",
     "view2": "Edite los datos facilmente.",
     "view3": "Dele un seguimiento oportuno a los casos detectados con el objetivo de darle la atención adecuada al paciente."
+  },
+  "privacyPolicy": {
+    "title": "Políticas de Privacidad",
+    "description": "En esta página web, la información capturada, ingresada o procesada será utilizada exclusivamente con fines educativos y de salud. Garantizamos la confidencialidad y seguridad de tus datos.",
+    "sections": {
+      "useOfInformation": {
+        "title": "Uso de la Información",
+        "content": "La información proporcionada será utilizada para fines educativos y para promover iniciativas relacionadas con la salud. Nunca se compartirá con terceros sin tu consentimiento."
+      },
+      "securityAndConfidentiality": {
+        "title": "Seguridad y Confidencialidad",
+        "content": "Implementamos medidas de seguridad avanzadas para proteger tus datos de accesos no autorizados, asegurando su confidencialidad en todo momento."
+      },
+      "contact": {
+        "title": "Contacto",
+        "content": "Si tienes preguntas o inquietudes sobre nuestras políticas de privacidad, por favor contáctanos a través de nuestro formulario de contacto."
+      }
+    }
+  },
+  "termsAndConditions": {
+    "title": "Términos y Condiciones",
+    "description": "Bienvenido a nuestra plataforma. Por favor, lee atentamente estos términos y condiciones antes de utilizar nuestros servicios. Al acceder o usar este sitio web, aceptas los términos descritos a continuación.",
+    "sections": {
+      "purpose": {
+        "title": "1. Propósito de la Plataforma",
+        "content": "Este sitio web está diseñado para fines educativos y de salud. Toda la información proporcionada debe ser utilizada con responsabilidad, y no reemplaza el consejo médico profesional."
+      },
+      "acceptableUse": {
+        "title": "2. Uso Aceptable",
+        "content": [
+          "Utilizar la información con fines educativos y no comerciales.",
+          "No compartir, distribuir ni modificar contenido sin autorización previa.",
+          "Respetar las leyes aplicables y evitar actividades malintencionadas."
+        ]
+      },
+      "liabilityLimitation": {
+        "title": "3. Limitación de Responsabilidad",
+        "content": "La información proporcionada en este sitio se ofrece \"tal cual\" y no garantiza su exactitud, completitud o relevancia para todas las circunstancias."
+      },
+      "modifications": {
+        "title": "4. Modificaciones de los Términos",
+        "content": "Nos reservamos el derecho de actualizar estos términos y condiciones en cualquier momento. Te recomendamos revisar esta página periódicamente para estar al tanto de los cambios."
+      },
+      "contact": {
+        "title": "5. Contacto",
+        "content": "Si tienes preguntas o inquietudes sobre estos términos, contáctanos a través del formulario de contacto en nuestra página principal."
+      }
+    }
   },
   "footer": {
     "logo": {

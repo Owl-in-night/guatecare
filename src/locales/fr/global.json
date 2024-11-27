@@ -11,9 +11,10 @@
     "chinese": "Chinois",
     "settings": "Paramètres",
     "signUp": "S'inscrire",
-    "stadistics": "Statistiques"
-},
- "gallery": {
+    "stadistics": "Statistiques",
+    "selectLanguage": "Sélectionner une langue"
+  },
+  "gallery": {
     "build": "La Construction",
     "description": "Plongez dans notre galerie d'images et vivez chaque moment fascinant du processus de création de GuateCare ! Du premier croquis au produit final, nous vous invitons à explorer chaque étape et à être témoin de la transformation de notre vision en réalité. Ne manquez pas cette expérience visuelle unique et révélatrice !",
     "autor": "Auteur",
@@ -30,15 +31,15 @@
     "description6": "Pour des résultats plus précis, assurez-vous de placer le produit sur une surface plane. Prenez votre temps pour effectuer les mesures nécessaires et n'oubliez pas de garder le produit hors de portée des enfants pour leur sécurité. Merci de prêter attention à ces détails !",
     "galeria": "La Galerie",
     "watch": "Voir l'image"
-},
- "mapa": {
+  },
+  "mapa": {
     "title1": "Carte",
     "title": "Emplacement du projet",
     "description": "Bonjour à tous ! Nous sommes heureux d'annoncer que le projet GuateCare est en cours au Hotel Jared, l'actuel Centre de Soins Permanents (CAP). Si vous souhaitez voir le système en action, nous vous invitons à visiter cet emplacement.",
     "description1": "Ne manquez pas l'opportunité de voir de première main comment ce projet passionnant se développe ! Votre visite vous permettra non seulement de voir le système en fonctionnement, mais aussi de vivre de près les progrès et les améliorations mises en place dans cet emplacement important.",
     "locate": "Hotel Jared (actuel CAP)"
-},
- "errors": {
+  },
+  "errors": {
     "notFound": "Page non trouvée",
     "sorry": "Désolé, nous n'avons pas pu trouver la page que vous recherchez.",
     "backhome": "Retour à l'accueil",
@@ -83,8 +84,7 @@
     "highlights3": "Données",
     "highlights4": "Alertes",
     "highlights5": "Rapports"
-}
-,
+  },
   "donar": {
     "title1": "Dons",
     "title": "Soutenez notre cause",
@@ -97,7 +97,7 @@
     "none": "Veuillez remplir tous les champs.",
     "thanks": "Nous vous contacterons bientôt.",
     "error": "Erreur lors de l'envoi de l'email."
-},
+  },
   "contact": {
     "title": "Nous sommes heureux de vous aider",
     "description": "Bonjour ! Si vous avez des questions ou des doutes, vous pouvez nous contacter via ce formulaire. Nous sommes ravis de vous aider.",
@@ -110,7 +110,7 @@
     "none": "Veuillez remplir tous les champs.",
     "thanks": "Nous vous contacterons bientôt.",
     "error": "Erreur lors de l'envoi de l'email."
-},
+  },
   "problems": {
     "titleP": "Problèmes fréquents",
     "angryip": "Téléchargez Angry IP Scanner",
@@ -133,37 +133,124 @@
     "desprom7": "Si un composant est physiquement endommagé, demandez de l'assistance en appelant le (+502) 5383-2898 pour un support immédiat.",
     "problem8": "Les paramètres ne fonctionnent pas",
     "desprom8": "Si les modifications ne s'appliquent pas dans les paramètres, assurez-vous que vous êtes authentifié. Si vous êtes authentifié, rechargez la page web, et sinon, demandez de l'assistance pour obtenir de l'aide."
-}
-,
- "commuty": {
+  },
+  "commuty": {
     "thanks": "Nous tenons à exprimer notre sincère gratitude à toutes les institutions, organisations et entités qui ont soutenu ce projet. Leur précieux soutien et engagement ont été essentiels pour atteindre nos objectifs et faire avancer cette mission."
-  }
-,
+  },
   "mainhome": {
-    "work": "Bienvenue sur GuateCare!",
-    "workdesc": "Allez dans \"Statistiques\" si vous souhaitez voir les informations actuelles ou connectez-vous pour accéder à toutes les fonctionnalités du système.",
-    "button1": "Aller aux statistiques",
-    "button2": "En savoir plus sur la malnutrition",
+    "work": "Bienvenue à ",
+    "work2": "!",
+    "workdesc": "Technologie qui sauve des vies : détection précoce de la malnutrition infantile.",
+    "button1": "Accéder aux statistiques",
+    "button2": "La malnutrition",
     "title": "Qu'est-ce que la malnutrition ?",
-    "title2": "Définition",
-    "description": "Il s'agit d'un état pathologique qui résulte d'une ingestion inadéquate de nutriments ou d'un excès catabolique, et il se manifeste par des altérations cliniques, biochimiques et des problèmes dans les mesures corporelles.",
-    "title3": "Types",
-    "description2-1": "Malnutrition aiguë",
-    "description2-2": "Malnutrition chronique",
-    "description2-3": "Malnutrition mixte",
-    "title4": "Causes",
-    "description3-1": "Pauvreté : Manque d'accès à des aliments suffisants et nutritifs.",
-    "description3-2": "Conflits et urgences : Situations perturbant la production et la distribution des aliments.",
-    "description3-3": "Maladies : Conditions affectant la capacité du corps à absorber les nutriments.",
-    "description3-4": "Éducation et connaissances : Manque d'information sur une nutrition adéquate.",
-    "title5": "Conséquences",
-    "description4": "La malnutrition détériore la santé et la qualité de vie, perpétue la pauvreté et réduit la productivité.",
-    "title6": "Prévention",
-    "description5": "Les programmes de nutrition scolaire améliorent la santé et la performance académique, et l'éducation nutritionnelle optimise l'alimentation et la production locale.",
-    "title7": "Impact",
-    "description6": "La malnutrition infantile freine le développement cognitif, augmente l'inégalité sociale, affaiblit la cohésion communautaire, perpétue la pauvreté et augmente la criminalité."
-}
-,
+    "title1": "Définition de la malnutrition aiguë",
+    "titled": "Malnutrition aiguë",
+    "titlei": "Impact et solutions",
+    "intro": "La malnutrition aiguë est une condition grave qui survient lorsque le corps ne reçoit pas assez de nutriments essentiels, comme des protéines et des calories, sur une courte période. Cela peut entraîner une détérioration rapide de la santé et mettre la vie en danger, en particulier chez les jeunes enfants.",
+    "details": {
+      "causes": "La malnutrition aiguë peut être causée par des facteurs tels que la faim, le manque d'accès à des aliments nutritifs, des maladies empêchant l'absorption des nutriments ou des conditions sociales et économiques précaires.",
+      "prevention": "Pour lutter contre la malnutrition aiguë, une action conjointe des gouvernements, des organisations internationales et des communautés locales est nécessaire."
+    },
+    "risk_factors": "Facteurs de risque :",
+    "symptoms": "Signes et symptômes :",
+    "treatment": "Traitement",
+    "prevention_title": "Prévention et solutions",
+    "acuteMalnutrition": {
+      "subtitle": "Types de malnutrition aiguë",
+      "description": "En fonction de la gravité de la perte de poids et des symptômes associés, la malnutrition aiguë est classée en deux types principaux : la malnutrition aiguë modérée et la malnutrition aiguë sévère.",
+      "types": {
+        "marasmus": {
+          "title": "Marasme",
+          "description": "Caractérisé par une perte de poids extrême et un amaigrissement musculaire dû à un manque de calories et de protéines. Les enfants affectés semblent souvent émaciés, avec une peau ridée et des niveaux d'énergie extrêmement bas."
+        },
+        "kwashiorkor": {
+          "title": "Kwashiorkor",
+          "description": "Principalement causé par une carence sévère en protéines, souvent accompagnée d'œdème (gonflement), de peau sèche avec des lésions squameuses, et de cheveux décolorés ou cassants. Les enfants peuvent paraître gonflés à cause de l'œdème, mais ils ont des muscles faibles."
+        },
+        "mixed": {
+          "title": "Mixte",
+          "description": "Une combinaison de marasme et de kwashiorkor, où les enfants présentent des caractéristiques des deux types, incluant une perte de poids sévère accompagnée d'œdème et de multiples carences nutritionnelles."
+        }
+      },
+      "prevention": {
+        "title": "Prévention de la malnutrition aiguë",
+        "description": "Il est essentiel de prévenir la malnutrition aiguë grâce à l'allaitement maternel, une alimentation adéquate et des soins de santé.",
+        "lactancia": {
+          "title": "Allaitement maternel",
+          "description": "L'allaitement maternel exclusif pendant les six premiers mois prévient la malnutrition."
+        },
+        "diet": {
+          "title": "Alimentation équilibrée",
+          "description": "Une alimentation équilibrée avec des micronutriments est cruciale pour prévenir la malnutrition."
+        },
+        "healthcare": {
+          "title": "Accès aux services de santé",
+          "description": "L'accès à des soins médicaux adéquats est essentiel pour la prévention."
+        }
+      },
+      "impact": {
+        "title": "Impact de la malnutrition aiguë",
+        "description": "La malnutrition aiguë a un impact significatif sur la société, l'économie et l'humanité.",
+        "social": {
+          "title": "Impact social",
+          "description": "La malnutrition contribue à la marginalisation sociale et à l'exclusion."
+        },
+        "economic": {
+          "title": "Impact économique",
+          "description": "La malnutrition réduit la productivité du travail et augmente les coûts des soins de santé."
+        },
+        "human": {
+          "title": "Impact humain",
+          "description": "Les conséquences humaines de la malnutrition sont dévastatrices pour les individus et leurs familles."
+        }
+      },
+      "causes": {
+        "title": "Causes de la malnutrition aiguë",
+        "description": "La malnutrition aiguë résulte d'une combinaison de facteurs socio-économiques, environnementaux et biologiques. Les principales causes incluent la pauvreté, les conflits, les maladies, le manque d'accès aux soins de santé et la malnutrition maternelle.",
+        "poverty": {
+          "title": "Pauvreté",
+          "description": "Le manque de ressources économiques pour acquérir des aliments suffisants et nutritifs est l'une des principales causes de la malnutrition aiguë. La pauvreté limite l'accès à la nourriture, aux soins de santé et aux services de base, augmentant la vulnérabilité des enfants à la malnutrition."
+        },
+        "conflict": {
+          "title": "Conflits et urgences",
+          "description": "Les guerres et les conflits peuvent perturber la production et la distribution alimentaire, déplacer les familles et entraver l'accès aux services essentiels. Les urgences humanitaires aggravent la situation de la malnutrition, en particulier dans les zones touchées."
+        },
+        "disease": {
+          "title": "Maladies",
+          "description": "Les maladies comme la diarrhée, le VIH/SIDA et les infections respiratoires affectent la capacité du corps à absorber les nutriments. Les jeunes enfants sont particulièrement vulnérables à ces maladies, ce qui aggrave la malnutrition et complique leur récupération."
+        },
+        "ignorance": {
+          "title": "Manque d'éducation et de connaissances sur la nutrition",
+          "description": "Le manque d'éducation sur l'importance d'une alimentation équilibrée et d'une bonne nutrition contribue aux niveaux élevés de malnutrition. Les familles peuvent ignorer comment préparer des repas nutritifs ou les bienfaits de l'allaitement maternel exclusif durant les premiers mois de vie."
+        },
+        "healthcare": {
+          "title": "Accès limité aux soins de santé",
+          "description": "Un accès insuffisant à des soins de santé de qualité peut aggraver les conditions de malnutrition. Le manque de soins médicaux adéquats, en particulier dans les zones rurales ou éloignées, empêche les enfants de recevoir le traitement nécessaire pour prévenir et traiter la malnutrition."
+        },
+        "maternal": {
+          "title": "Malnutrition maternelle",
+          "description": "La malnutrition des mères pendant la grossesse et l'allaitement affecte directement la santé et le développement des enfants. Les femmes malnutries ont un risque accru d'avoir des bébés de faible poids à la naissance, augmentant les chances de malnutrition infantile."
+        }
+      },
+      "consequences": {
+        "title": "Conséquences de la malnutrition aiguë",
+        "description": "La malnutrition aiguë affecte négativement la croissance, le système immunitaire et le développement cognitif.",
+        "growth": {
+          "title": "Croissance physique",
+          "description": "Les enfants malnutris ne grandissent pas correctement et subissent des retards dans leur développement physique."
+        },
+        "immunity": {
+          "title": "Système immunitaire",
+          "description": "La malnutrition affaiblit le système immunitaire, augmentant la vulnérabilité aux infections."
+        },
+        "development": {
+          "title": "Développement cognitif",
+          "description": "La malnutrition affecte le développement cérébral, entraînant des difficultés d'apprentissage."
+        }
+      }
+    }
+  },
   "about": {
     "title": "L'innovation qui transforme",
     "description1": "Au Guatemala, une équipe multidisciplinaire s'est réunie dans le but de lutter contre la malnutrition infantile grâce à la technologie et à l'expertise en santé.",
@@ -184,8 +271,7 @@
     "ourteam": "L'équipe",
     "ourteamdesc": "Le développeur derrière GuateCare",
     "developer": "Développeur"
-}
-,
+  },
   "history": {
     "title": "L'Histoire du Projet : GuateCare",
     "description1": "Au cœur du Guatemala, où la richesse culturelle et l'espoir coexistent avec des défis profonds, une équipe multidisciplinaire de visionnaires s'est réunie dans un but commun : lutter contre la malnutrition infantile. Cette équipe, animée par une passion infatigable et un dévouement exemplaire, a conçu un projet révolutionnaire qui combine la dernière technologie avec l'expertise en santé pour résoudre l'un des problèmes les plus critiques auxquels sont confrontées les communautés vulnérables.",
@@ -198,8 +284,7 @@
     "reward": "Reconnaissance",
     "rf": "Reconnaissance et Avenir",
     "description5": "Nous sommes fiers de partager que notre projet a été reconnu au niveau national comme l'un des deux projets les plus remarquables présentés par Enactus UVG Altiplano. Cette reconnaissance, en remportant la première place lors de la compétition nationale, valide l'efficacité et le potentiel de notre approche. À mesure que nous avançons, notre vision est d'étendre cette solution à davantage de communautés, non seulement au Guatemala, mais dans toute la région."
-}
-,
+  },
   "signIn": {
     "pageTitle": "Se connecter",
     "description": "Veuillez vous connecter avec votre compte.",
@@ -226,8 +311,7 @@
       "resetPasswordSuccess": "Un email de réinitialisation de mot de passe a été envoyé.",
       "emailRequired": "Veuillez entrer votre email."
     }
-  }
-,
+  },
   "signUp": {
     "pageTitle": "Créer un compte",
     "description": "Inscrivez-vous pour commencer.",
@@ -256,8 +340,7 @@
     "networkError": "Erreur de réseau. Vérifiez votre connexion internet.",
     "unknownError": "Une erreur inattendue est survenue. Veuillez réessayer plus tard.",
     "acceptTerms": "Acceptez les termes et conditions"
-  }
-,
+  },
   "support": {
     "navbar": {
       "aboutus": "À propos de nous",
@@ -267,41 +350,43 @@
       "manual": "Manuel",
       "pp": "Politique de confidentialité"
     },
-   "page": {
+    "page": {
       "welcome": "Bonjour. Comment pouvons-nous vous aider ?",
       "description": "Nous vous recommandons de visiter notre manuel pour une meilleure expérience.",
       "title1": "Manuel",
       "description1": "Tout ce que vous devez savoir pour commencer à utiliser le système GuateCare.",
       "title2": "Gestion des données",
       "description2": "Voyons comment créer et éditer les données capturées par le système.",
-      "title3": "Des problèmes ? Résolvons-le.",
-      "description3": "Si vous avez des problèmes avec le système, nous ferons quelques étapes ensemble pour le résoudre.",
+      "title3": "Des problèmes ? Résolvons-les.",
+      "description3": "Si vous avez un problème avec le système, nous ferons quelques étapes ensemble pour le résoudre.",
       "title4": "Besoin de plus d'aide ? Contactez-nous.",
-      "description4": "Si vous avez des questions ou avez besoin d'aide personnalisée, n'hésitez pas à nous contacter.",
+      "description4": "Si vous avez des questions ou besoin d'aide personnalisée, n'hésitez pas à nous contacter.",
       "title5": "Communauté",
-      "description5": "Institutions, organisations et entités jointes à cette cause.",
+      "description5": "Institutions, organisations et entités soutenant cette cause.",
       "title6": "À propos de nous",
       "subtitle6": "Qui sommes-nous ?",
-      "description6": "Nous sommes une équipe multidisciplinaire passionnée et dédiée à transformer la vie des enfants guatémaltèques et mondiaux. Avec des technologies de pointe et les connaissances des spécialistes de la santé, notre engagement est de créer un impact positif et durable sur le bien-être des enfants.",
+      "description6": "Nous sommes une équipe multidisciplinaire passionnée et dédiée, concentrée sur la transformation de la vie des enfants guatémaltèques et mondiaux. Avec une technologie de pointe et des spécialistes de la santé, notre engagement est de créer un impact positif et durable sur le bien-être des enfants.",
       "title7": "Notre histoire",
-      "subtitle7": "Comment GuateCare est-il né ?",
+      "subtitle7": "Comment GuateCare est né ?",
       "description7": "Au cœur du Guatemala, une équipe multidisciplinaire passionnée révolutionne la lutte contre la malnutrition infantile avec un projet innovant qui combine les dernières technologies avec l'expertise en santé.",
       "title8": "Galerie",
       "subtitle8": "Revivez le processus",
-      "description8": "Les histoires les plus mémorables prennent vie à travers les souvenirs. Explorez notre galerie d'images et découvrez chaque étape passionnante du processus de création de GuateCare.",
-      "title9": "Emplacement",
+      "description8": "Les histoires les plus mémorables prennent vie à travers les souvenirs. Explorez notre galerie d'images et découvrez chaque étape excitante du processus de création de GuateCare.",
+      "title9": "Localisation",
       "subtitle9": "Trouvez-nous",
       "description9": "Rejoignez-nous et vivez l'expérience GuateCare comme jamais auparavant ! Partez à l'aventure avec notre équipe et faites partie de quelque chose d'extraordinaire. Votre participation rendra l'expérience inoubliable. Ne manquez pas ça !",
       "title10": "Dons",
       "subtitle10": "Rejoignez-nous et aidez-nous",
-      "description10": "Votre don fait la différence. Avec votre soutien, nous acquerrons plus de matériel médical pour atteindre davantage de communautés et de départements dans le besoin urgent d'aide. Chaque contribution étend notre portée et améliore des vies. Faites en sorte que votre impact soit grand !"
-},
+      "description10": "Votre don fait la différence. Avec votre soutien, nous acquerrons plus d'équipements de santé pour atteindre plus de communautés et de départements qui ont besoin d'une aide urgente. Chaque contribution étend notre portée et améliore des vies. Faites grandir votre impact !"
+    },
     "others": {
       "readmore": "Lire la suite...",
       "seemore": "Voir plus...",
       "map": "Aller à la carte...",
-      "donate": "Faire un don..."
-}
+      "donate": "Faire un don...",
+      "up": "Monter...",
+      "next": "Suivant..."
+    }
   },
   "modetoggle": {
     "dark": "Sombre",
@@ -310,79 +395,79 @@
   },
   "home": {
     "card1": {
-      "text1": "Alertes actives totales",
-      "text2": "Cas possibles de malnutrition aiguë :",
-      "text3": "cas",
-      "text4": "cas",
-      "warningAlert": "Attention ! Il y a des alertes activées.",
-      "criticalAlert": "Alerte critique ! Beaucoup d'alertes activées."
+      "text1": "Alertes sur la malnutrition aiguë",
+      "text2": "Nombre total d'alertes nutritionnelles actives sur la malnutrition aiguë : ",
+      "text3": "cas actifs",
+      "text4": "cas actif",
+      "warningAlert": "Attention ! Des alertes sont activées.",
+      "criticalAlert": "Alerte critique ! De nombreuses alertes activées."
     },
     "card2": {
-      "text1": "Enfants enregistrés ce mois-ci",
-      "text2": "enfants",
-      "text3": "Enfants enregistrés le mois dernier :"
+      "text1": "Nombre de garçons enregistrés dans le système ce mois-ci :",
+      "text2": "garçons",
+      "text3": "Garçons enregistrés dans le système le mois dernier :"
     },
     "card3": {
-      "text1": "Filles enregistrées ce mois-ci",
+      "text1": "Nombre de filles enregistrées dans le système ce mois-ci :",
       "text2": "filles",
-      "text3": "Filles enregistrées le mois dernier :"
+      "text3": "Filles enregistrées dans le système le mois dernier :"
     },
     "card4": {
-      "text1": "Mesures ce mois-ci",
+      "text1": "Total des mesures de taille/longueur et de poids effectuées ce mois-ci dans le système :",
       "text2": "mesures",
       "text3": "Mesures enregistrées ce mois-ci :",
-      "text4": "Mesures enregistrées le mois dernier :",
-      "text5": "Longueur moyenne (cm) ce mois-ci :",
+      "text4": "Mesures de taille/longueur et de poids enregistrées dans le système le mois dernier :",
+      "text5": "Moyenne des mesures de longueur (en cm) effectuées par le capteur TF-Luna ce mois-ci :",
       "text6": "cm",
-      "text7": "Longueur moyenne (cm) le mois dernier :"
+      "text7": "Moyenne des mesures de longueur (en cm) effectuées par le capteur TF-Luna le mois dernier :"
     },
     "card5": {
       "text1": "Mesures de poids ce mois-ci",
       "text2": "mesures",
       "text3": "Mesures enregistrées ce mois-ci :",
       "text4": "Mesures enregistrées le mois dernier :",
-      "text5": "Poids moyen (lb) ce mois-ci :",
+      "text5": "Moyenne des mesures de poids (en lb) effectuées par le capteur de charge ce mois-ci :",
       "text6": "lb",
-      "text7": "Poids moyen (lb) le mois dernier :"
+      "text7": "Moyenne des mesures de poids (en lb) effectuées par le capteur de charge le mois dernier :"
     },
     "charts": {
-      "text1": "Bébés par communauté linguistique",
+      "text1": "Filtrage des bébés par communauté linguistique enregistrés dans le système :",
       "text2": "Nombre de bébés par communauté",
       "text3": "Communauté avec le plus de bébés :",
       "text4": "Nombre de bébés :",
-      "text5": "Fréquence des signes de malnutrition",
-      "text6": "Analyse des données collectées au cours des derniers mois.",
-      "text7": "Rapports par mois",
+      "text5": "Fréquence des signes de malnutrition enregistrés dans le système à partir des rapports nutritionnels",
+      "text6": "Analyse des données recueillies au cours des derniers mois.",
+      "text7": "Total des rapports nutritionnels réalisés dans le système",
       "text8": "Rapports enregistrés",
       "text9": "Total des rapports :"
     },
     "data": {
-      "text1": "Alertes actives",
+      "text1": "Journal des rapports et des alertes nutritionnelles dans le système",
       "title": "Données",
-      "description": "Collecte des données captées en temps réel",
+      "description": "Compilation des données captées en temps réel",
       "status": "État du cas",
       "id": "Identifiant",
       "create": "Date d'émission",
       "follow": "Date de suivi",
-      "priority": "Priorité",
+      "priority": "Priorité du cas",
       "view": "Voir",
       "edit": "Modifier",
       "none": "Aucune alerte",
-      "clean": "Nettoyer les filtres",
+      "clean": "Effacer les filtres",
       "alert": "Alerter",
-      "rasp": "Temps d'activité - Raspberry Pi 4B",
+      "rasp": "Temps de fonctionnement - Raspberry Pi 4B",
       "rasp2": "Activité de cette semaine",
-      "rasp3": "Temps d'activité :",
+      "rasp3": "Temps de fonctionnement :",
       "dataStatus": {
-        "new": "Nouveau",
-        "inProgress": "En cours",
-        "inReview": "En révision",
-        "resolved": "Résolu"
+        "new": "Nouveau cas",
+        "inProgress": "Cas en cours",
+        "inReview": "Cas en révision",
+        "resolved": "Cas résolu"
       },
       "dataPriority": {
-        "severe": "Sévère",
+        "severe": "Grave",
         "moderate": "Modéré",
-        "mild": "Légère"
+        "mild": "Léger"
       }
     },
     "days": {
@@ -407,13 +492,12 @@
       "id": "Identifiant",
       "create": "Date de création",
       "follow": "Date de suivi",
-      "priority": "Priorité"
+      "priority": "Priorité du cas"
     },
     "export": {
       "title": "Exporter"
     }
-  }
-,
+  },
   "dashboard": {
     "navbar": {
       "register": "Enregistrement du bébé",
@@ -426,14 +510,15 @@
       "account": "Mon compte",
       "settings": "Paramètres",
       "logout": "Déconnexion",
-      "editar": "Modifier",
-      "leer": "Lire",
-      "remedir": "Mesurer à nouveau",
-      "reportar": "Signaler"
+      "editar": "Modifier le cas",
+      "leer": "Lire le cas",
+      "remedir": "Re-mesurer le cas",
+      "reportar": "Signaler le cas",
+      "poweroff": "Éteindre le Raspberry Pi"
     },
     "registro": {
       "title": "Enregistrement du responsable",
-      "description": "Veuillez remplir tous les champs requis, le DPI (Document d'Identification Personnel) est important.",
+      "description": "Veuillez remplir tous les champs demandés, le DPI (Document Personnel d'Identification) est important.",
       "selectMeasurement": "Sélectionnez la mesure",
       "noMeasurementsAvailable": "Aucune mesure disponible",
       "selectM": "Choisissez une mesure",
@@ -441,12 +526,12 @@
       "description1": "Entrez le DPI",
       "name": "Nom du responsable",
       "description2": "Nom complet",
-      "born": "Date de naissance",
+      "born": "Date de naissance du responsable",
       "month": "Sélectionnez le mois",
       "year": "Sélectionnez l'année",
       "description3": "Adresse",
-      "direction": "Département, municipalité, communauté et rue",
-      "description4": "Numéro de téléphone du responsable",
+      "direction": "Département, Municipalité, communauté et rue",
+      "description4": "Téléphone du responsable",
       "phonenumber": "(+502) 4532-4515",
       "fallecio": "Décédé",
       "falleciop": "Sélectionnez une option",
@@ -458,7 +543,7 @@
       "errorMessage": "Erreur lors de l'enregistrement des données",
       "title2": "Enregistrement du bébé",
       "cui": "CUI",
-      "description5": "Veuillez remplir tous les champs requis, le CUI (Code Unique d'Identification) est important.",
+      "description5": "Veuillez remplir tous les champs demandés, le CUI (Code Unique d'Identification) est important.",
       "name2": "Nom du bébé",
       "description6": "Entrez le CUI",
       "dpiError": "Format incorrect",
@@ -470,30 +555,39 @@
       "famale": "Femme",
       "pueblo": "Peuple",
       "pueblodesc": "Sélectionnez le peuple",
-      "na": "Non indiqué",
+      "na": "Non spécifié",
       "others": "Autres",
       "ni": "Non indiqué",
       "encargadoNotFound": "Responsable non trouvé",
       "bebeNotFound": "Bébé non trouvé",
-      "errorLoading": "Erreur lors du chargement des données",
-      "dateError": "Format de date incorrect"
+      "errorLoading": "Erreur de chargement des données",
+      "dateError": "Format de date incorrect",
+      "longitud_cm": "Taille/longueur du bébé en cm",
+      "longitud_m": "Taille/longueur du bébé en m",
+      "peso_kg": "Poids du bébé en kg",
+      "peso_lb": "Poids du bébé en lb",
+      "no_data": "Aucune donnée disponible",
+      "rlongitud_cm": "Re-mesure de la taille/longueur du bébé en cm",
+      "rlongitud_m": "Re-mesure de la taille/longueur du bébé en m",
+      "rpeso_kg": "Re-mesure du poids du bébé en kg",
+      "rpeso_lb": "Re-mesure du poids du bébé en lb"
     },
     "database": {
       "title": "Données",
-      "description1": "Sélectionnez l'enregistrement que vous souhaitez modifier, afficher, mesurer à nouveau, créer, signaler ou alerter",
+      "description1": "Sélectionnez l'enregistrement que vous souhaitez modifier, visualiser, remesurer, créer, signaler ou alerter",
       "week": "Semaine",
       "month": "Mois",
       "year": "Année",
       "description2": "Affichage des données selon le filtre sélectionné",
       "id": "Identifiant",
       "datecreate": "Date de création",
-      "edit": "Modifier",
-      "read": "Lire",
-      "remedy": "Mesurer à nouveau",
-      "report": "Signaler",
-      "alert": "Alerter",
+      "edit": "Modifier le cas",
+      "read": "Lire le cas",
+      "remedy": "Re-mesurer le cas",
+      "report": "Signaler le cas",
+      "alert": "Alerter le cas",
       "title2": "Voulez-vous activer une alerte ?",
-      "description3": "Cette action activera une alerte sur l'enregistrement sélectionné.",
+      "description3": "Cette action activera une alerte pour l'enregistrement sélectionné.",
       "cancel": "Annuler",
       "active": "Activer"
     },
@@ -516,20 +610,20 @@
       "description": "Affichez clairement la date, la priorité, l'état du cas et les actions disponibles pour gérer les alertes.",
       "datecreate": "Date de création",
       "datetracking": "Date de suivi",
-      "priority": "Priorité",
+      "priority": "Priorité du cas",
       "prioritysdesc": "Légère",
       "prioritys": {
-        "severe": "Sévère",
-        "moderate": "Modéré",
-        "mild": "Légère"
+        "severe": "Cas sévère",
+        "moderate": "Cas modéré",
+        "mild": "Cas léger"
       },
       "status": "État du cas",
       "statusdesc": "Nouveau",
       "statuss": {
-        "new": "Nouveau",
-        "inProgress": "En cours",
-        "inReview": "En révision",
-        "resolved": "Résolu"
+        "new": "Cas nouveau",
+        "inProgress": "Cas en cours",
+        "inReview": "Cas en révision",
+        "resolved": "Cas résolu"
       },
       "desc": "Description",
       "alertasdesc": "Ajoutez une description médicale",
@@ -541,10 +635,10 @@
       "cleany": "Nettoyer l'année",
       "date": "Date d'émission",
       "actions": "Actions",
-      "none": "Pas d'alertes",
+      "none": "Aucune alerte",
       "editr": "Modifier le rapport",
       "title2": "Êtes-vous sûr(e) ?",
-      "desc2": "Cette action marquera l'alerte comme résolue et la supprimera de la base de données.",
+      "desc2": "Cette action marquera l'alerte comme résolue et l'éliminera de la base de données.",
       "continues": "Continuer",
       "confirm": "Confirmer la suppression",
       "desc3": "Cette action supprimera définitivement l'alerte de la base de données. Voulez-vous continuer ?",
@@ -572,7 +666,7 @@
       "empty": "Aucune donnée disponible",
       "total": "Total",
       "display": "Affichage des données de : ",
-      "total2": "Total des enfants enregistrés ce mois-ci.",
+      "total2": "Total des enfants enregistrés ce mois.",
       "total3": "Répartition par communauté linguistique",
       "total4": "Signes les plus fréquents",
       "total5": "Genre par communauté",
@@ -587,27 +681,27 @@
     },
     "read": {
       "title": "Lecture des données du responsable",
-      "description": "Dans cet espace, vous trouverez les données relatives au responsable",
+      "description": "Ici vous trouverez les informations relatives au responsable",
       "title2": "Lecture des données du bébé",
-      "description2": "Dans cet espace, vous trouverez les données relatives au bébé"
+      "description2": "Ici vous trouverez les informations relatives au bébé"
     },
     "report": {
       "title": "Rapport du bébé",
-      "lastfollow": "Dernier suivi : ",
+      "lastfollow": "Dernière suivie : ",
       "none": "Aucune date enregistrée.",
-      "prioridad": "Priorité",
+      "prioridad": "Priorité du cas",
       "estado": "État du cas",
-      "signos": "Cochez les signes de malnutrition aiguë présents dans ce cas :",
+      "signos": "Cochez les signes de malnutrition aiguë présents dans le cas :",
       "ver": "Observations nutritionnelles",
-      "signosp": "Ce cas présente actuellement...",
+      "signosp": "Le cas présente actuellement...",
       "hora": "Heure actuelle : ",
       "pregunta": "Enregistrer le rapport",
-      "description": "En acceptant, les modifications seront enregistrées dans la base de données.",
+      "description": "En confirmant, les changements seront enregistrés dans la base de données.",
       "cerrar": "Fermer",
       "aceptar": "Accepter"
     },
     "settings": {
-      "welcome": "Bienvenue ! ",
+      "welcome": "Bienvenue !",
       "language": "Langue",
       "language2": "Sélectionnez la langue de votre choix.",
       "theme": "Thème",
@@ -615,19 +709,19 @@
     },
     "buttons": {
       "save": "Enregistrer les données",
-      "alert": "Démarrer une alerte"
+      "alert": "Démarrer l'alerte"
     }
-}
-, "dialog": {
-  "confirm": {
-    "title": "Voulez-vous effectuer cette action ?",
-    "description": "En confirmant, toutes les données collectées seront enregistrées."
   },
-  "buttons": {
-    "cancel": "Annuler",
-    "confirm": "Confirmer"
-  }
-},
+  "dialog": {
+    "confirm": {
+      "title": "Voulez-vous effectuer cette action ?",
+      "description": "En confirmant, toutes les données collectées seront enregistrées."
+    },
+    "buttons": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    }
+  },
   "ce": {
     "create": "Créer",
     "create2": "Capturez des données facilement d'un simple clic.",
@@ -635,6 +729,54 @@
     "view": "Modifier",
     "view2": "Modifiez facilement les données.",
     "view3": "Suivez les cas détectés en temps utile pour fournir les soins appropriés au patient."
+  },
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "description": "Sur ce site web, les informations capturées, saisies ou traitées seront utilisées exclusivement à des fins éducatives et de santé. Nous garantissons la confidentialité et la sécurité de vos données.",
+    "sections": {
+      "useOfInformation": {
+        "title": "Utilisation des Informations",
+        "content": "Les informations fournies seront utilisées à des fins éducatives et pour promouvoir des initiatives liées à la santé. Elles ne seront jamais partagées avec des tiers sans votre consentement."
+      },
+      "securityAndConfidentiality": {
+        "title": "Sécurité et Confidentialité",
+        "content": "Nous mettons en œuvre des mesures de sécurité avancées pour protéger vos données contre tout accès non autorisé, garantissant leur confidentialité à tout moment."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "Si vous avez des questions ou des préoccupations concernant nos politiques de confidentialité, veuillez nous contacter via notre formulaire de contact."
+      }
+    }
+  },
+  "termsAndConditions": {
+    "title": "Termes et Conditions",
+    "description": "Bienvenue sur notre plateforme. Veuillez lire attentivement ces termes et conditions avant d'utiliser nos services. En accédant ou en utilisant ce site web, vous acceptez les termes décrits ci-dessous.",
+    "sections": {
+      "purpose": {
+        "title": "1. Objectif de la Plateforme",
+        "content": "Ce site web est conçu à des fins éducatives et de santé. Toutes les informations fournies doivent être utilisées de manière responsable et ne remplacent pas les conseils médicaux professionnels."
+      },
+      "acceptableUse": {
+        "title": "2. Utilisation Acceptable",
+        "content": [
+          "Utiliser les informations à des fins éducatives et non commerciales.",
+          "Ne pas partager, distribuer ou modifier le contenu sans autorisation préalable.",
+          "Respecter les lois applicables et éviter les activités malveillantes."
+        ]
+      },
+      "liabilityLimitation": {
+        "title": "3. Limitation de Responsabilité",
+        "content": "Les informations fournies sur ce site sont offertes 'en l'état' et ne garantissent pas leur exactitude, leur exhaustivité ou leur pertinence dans toutes les circonstances."
+      },
+      "modifications": {
+        "title": "4. Modifications des Termes",
+        "content": "Nous nous réservons le droit de mettre à jour ces termes et conditions à tout moment. Nous vous recommandons de consulter cette page régulièrement pour rester informé des changements."
+      },
+      "contact": {
+        "title": "5. Contact",
+        "content": "Si vous avez des questions ou des préoccupations concernant ces termes, contactez-nous via le formulaire de contact sur notre page principale."
+      }
+    }
   },
   "footer": {
     "logo": {

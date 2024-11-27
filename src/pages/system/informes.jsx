@@ -711,7 +711,7 @@ function Informes() {
                 <YAxis tickLine={false} axisLine={false} />
                 <Tooltip cursor={false} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Bar dataKey={t("dashboard.informes.alerts")} fill="#FF5733" radius={[10, 10, 0, 0]} />
+                <Bar dataKey="alertas" fill="#FF5733" radius={[10, 10, 0, 0]} />
               </BarChart>
             ) : (
               <p className="text-center text-muted-foreground">
@@ -720,50 +720,6 @@ function Informes() {
             )}
           </CardContent>
         </Card>
-        {/* Chart6 */}
-        {/* <Card className="flex flex-col m-4 p-4 w-full max-w-md lg:w-2/3 xl:w-1/2 2xl:w-1/3 shadow-lg rounded-lg">
-          <CardHeader className="text-center">
-            <CardTitle>Bebés por Comunidad Lingüística</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center text-center">
-            {data4.length > 0 ? (
-              <PieChart width={300} height={300} className="max-w-full">
-                <Pie
-                  data={data4}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  fill="#8884d8"
-                >
-                  {data4.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend
-                  layout="horizontal"
-                  align="center" // Centra el texto en el mobile
-                  verticalAlign="bottom"
-                  wrapperStyle={{
-                    fontSize: 12,
-                    textAlign: "center", // Asegura que el texto de los legendas también esté centrado
-                  }}
-                />
-              </PieChart>
-            ) : (
-              <p className="text-center text-muted-foreground">
-                Cargando datos...
-              </p>
-            )}
-          </CardContent>
-        </Card> */}
-        {/* Longitud Promedio por Mes */}
-        {/*  */}
       </div>
     </>
   );

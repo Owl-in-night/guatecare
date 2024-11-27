@@ -11,8 +11,8 @@ import { Weight, Ruler } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { db } from "../../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/firebase";
+import { collection, addDoc, query, where, orderBy, limit, getDocs, updateDoc, setDoc, doc } from "firebase/firestore";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,8 +24,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useParams } from "react-router-dom";
 
-function ReMediciones({ babyId }) {
+function ReMediciones() {
   const [distance, setDistance] = useState(null);
   const [length, setLength] = useState(null);
   const [weightKg, setWeightKg] = useState(null);
@@ -33,76 +34,105 @@ function ReMediciones({ babyId }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { t } = useTranslation("global");
+  const { id } = useParams(); // ID del bebé
 
   useEffect(() => {
     document.title = `${t("dashboard.navbar.remedir")} | GuateCare`;
   }, [t]);
-
+  
   const handleMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get(
-        "http://raspberrypisantos.local:5000/sensor",
-        {
-          headers: { "ngrok-skip-browser-warning": "true" },
-        }
+        "https://deep-personally-pug.ngrok-free.app/sensor",
+        { headers: { "ngrok-skip-browser-warning": "true" } }
       );
       setDistance(response.data.distancia_promedio);
       setLength(response.data.longitud_promedio);
     } catch (error) {
-      setError(t(
-        "errors.errorl"
-      ));
+      console.error("Error obteniendo medidas:", error);
+      setError(t("errors.errorl"));
     } finally {
       setLoading(false);
     }
   };
-
+  
   const handleWeightMeasure = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get(
-        "http://raspberrypisantos.local:5000/weight",
-        {
-          headers: { "ngrok-skip-browser-warning": "true" },
-        }
+        "https://deep-personally-pug.ngrok-free.app/weight",
+        { headers: { "ngrok-skip-browser-warning": "true" } }
       );
-      setWeightKg(response.data.weight.kg);
-      setWeightLb(response.data.weight.lb);
+  
+      const weightData = response.data.data || {};
+      setWeightKg(weightData.kilograms || 0);
+      setWeightLb(weightData.pounds || 0);
     } catch (error) {
-      setError(t(
-        "errors.errorp"
-      ));
+      console.error("Error obteniendo peso:", error);
+      setError(t("errors.errorp"));
     } finally {
       setLoading(false);
     }
   };
-
+  
   const handleSave = async () => {
+    setError(null);
+    setLoading(true);
+  
     try {
-      if (length !== null && weightKg !== null && weightLb !== null) {
-        const reMedirCollection = collection(db, "remedir");
-        await addDoc(reMedirCollection, {
-          babyId,
-          lengthCm: length,
-          lengthM: length / 100,
-          weightKg,
-          weightLb,
+      if (length === null || weightKg === null || weightLb === null) {
+        alert(t("errors.missing_data"));
+        return;
+      }
+  
+      // Colección de remediciones
+      const reMedirCollection = collection(db, "remedir");
+  
+      // Crear una referencia al documento con el ID del bebé
+      const docRef = doc(reMedirCollection, id); // Usar el ID del bebé como ID del documento
+  
+      // Consulta para encontrar registros con el mismo idBebe
+      const q = query(
+        reMedirCollection,
+        where("idBebe", "==", id) // Filtrar por el campo idBebe
+      );
+  
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        // Si existe un documento, actualízalo
+        const docSnap = querySnapshot.docs[0];
+        await updateDoc(docSnap.ref, {
+          rlongitud_cm: [...(docSnap.data().rlongitud_cm || []), length],
+          rlongitud_m: [...(docSnap.data().rlongitud_m || []), length / 100],
+          rpeso_kg: [...(docSnap.data().rpeso_kg || []), weightKg],
+          rpeso_lb: [...(docSnap.data().rpeso_lb || []), weightLb],
+          timestamp: new Date().toISOString(), // Actualiza el timestamp
+        });
+      } else {
+        // Si no existe, crea un nuevo registro con el ID del bebé
+        await setDoc(docRef, {
+          idBebe: id, // Relaciona el ID del bebé
+          rlongitud_cm: [length],
+          rlongitud_m: [length / 100],
+          rpeso_kg: [weightKg],
+          rpeso_lb: [weightLb],
           timestamp: new Date().toISOString(),
         });
-        alert(t("errors.data_saved"));
-      } else {
-        alert(t("errors.missing_data"));
       }
+  
+      alert(t("errors.data_saved"));
     } catch (error) {
-      setError(t(
-        "errors.errors"
-      ));
+      console.error("Error al guardar remediciones:", error);
+      setError(t("errors.errors"));
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   return (
     <>
       <div className="flex flex-col items-center justify-center mb-4">
@@ -145,11 +175,11 @@ function ReMediciones({ babyId }) {
             {length !== null && (
               <>
                 <p>
-                  {t("dashboard.mediciones.size/length")}: {length.toFixed(2)}{" "}
+                  {t("dashboard.mediciones.size/length")} {length.toFixed(2)}{" "}
                   {t("dashboard.mediciones.rsl")}
                 </p>
                 <p>
-                  {t("dashboard.mediciones.size/length")}:{" "}
+                  {t("dashboard.mediciones.size/length")}{" "}
                   {(length / 100).toFixed(2)} {t("dashboard.mediciones.rls2")}
                 </p>
               </>
@@ -157,11 +187,11 @@ function ReMediciones({ babyId }) {
             {weightKg !== null && weightLb !== null && (
               <>
                 <p>
-                  {t("dashboard.mediciones.weight")}: {weightKg.toFixed(2)}{" "}
+                  {t("dashboard.mediciones.weight")} {weightKg.toFixed(2)}{" "}
                   {t("dashboard.mediciones.rw2")}
                 </p>
                 <p>
-                  {t("dashboard.mediciones.weight")}: {weightLb.toFixed(2)}{" "}
+                  {t("dashboard.mediciones.weight")} {weightLb.toFixed(2)}{" "}
                   {t("dashboard.mediciones.rw")}
                 </p>
               </>
@@ -180,13 +210,17 @@ function ReMediciones({ babyId }) {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>{t("dialog.confirm.title")}</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    {t("dialog.confirm.title")}
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
                     {t("dialog.confirm.description")}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>{t("dialog.buttons.cancel")}</AlertDialogCancel>
+                  <AlertDialogCancel>
+                    {t("dialog.buttons.cancel")}
+                  </AlertDialogCancel>
                   <AlertDialogAction onClick={handleSave}>
                     {t("dialog.buttons.confirm")}
                   </AlertDialogAction>

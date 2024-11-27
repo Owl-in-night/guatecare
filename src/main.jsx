@@ -23,7 +23,7 @@ i18next
   .use(initReactI18next)
   .use(Backend)
   .init({
-    debug: true,
+    debug: false,
     lng: "es",
     fallbackLng: "es",
     resources: {

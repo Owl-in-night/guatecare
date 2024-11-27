@@ -49,6 +49,7 @@ import { BellRing } from "lucide-react";
 import { Home } from "lucide-react";
 import { ChartLine } from "lucide-react";
 import { LogIn } from "lucide-react";
+import { Power } from "lucide-react";
 
 function Asidebar() {
   const { theme } = useTheme();
@@ -207,6 +208,18 @@ function Asidebar() {
                   </TooltipContent>
                 </Tooltip>
               </Link>
+              {/* Power offf */}
+              {/* <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-lg">
+                    <Power className="size-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right" sideOffset={5}>
+                  {t("dashboard.navbar.poweroff")}
+                </TooltipContent>
+              </Tooltip> */}
+              {/* Power offf */}
             </TooltipProvider>
           </nav>
           <nav className="mt-auto grid gap-1 p-2">
@@ -245,7 +258,10 @@ function Asidebar() {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col block md:hidden lg:hidden xl:hidden 2xl:hidden">
+            <SheetContent
+              side="left"
+              className="flex flex-col block md:hidden lg:hidden xl:hidden 2xl:hidden"
+            >
               <nav className="grid gap-2 text-lg font-medium">
                 <Link
                   to={`/`}
@@ -282,6 +298,12 @@ function Asidebar() {
                   <ClipboardPlus className="h-10 w-10 px-2" />
                   {t("dashboard.navbar.informes")}
                 </Link>
+                {/* Power off */}
+                {/* <Link className="flex w-full items-center py-2 text-lg font-semibold">
+                  <Power className="h-10 w-10 px-2" />
+                  {t("dashboard.navbar.poweroff")}
+                </Link> */}
+                {/* Power off */}
                 <Link
                   to={`/Soporte`}
                   className="flex w-full items-center py-2 text-lg font-semibold"

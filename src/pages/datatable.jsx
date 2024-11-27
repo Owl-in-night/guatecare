@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"; // Botones de ShadCN UI
 import { Link } from "react-router-dom"; // Usar Link de react-router-dom
+import { flexRender } from "@tanstack/react-table"; // Asegúrate de tener instalada esta librería.
 import { db } from "@/firebase"; // Firebase configuration
 import { collection, getDocs } from "firebase/firestore"; // Firebase operations
 import {
@@ -89,11 +90,11 @@ export default function AlertasN() {
 
   const getPriorityClass = (prioridad) => {
     switch (prioridad) {
-      case "Baja":
+      case "Caso bajo":
         return "bg-green-500";
-      case "Moderada":
+      case "Caso moderado":
         return "bg-orange-500";
-      case "Alta":
+      case "Caso alto":
         return "bg-red-500";
       default:
         return "bg-gray-500";
@@ -102,13 +103,13 @@ export default function AlertasN() {
 
   const getStateClass = (estado) => {
     switch (estado) {
-      case "Nuevo":
+      case "Caso nuevo":
         return "bg-gray-400";
-      case "En progreso":
+      case "Caso en progreso":
         return "bg-blue-600";
-      case "En revisión":
+      case "Caso en revisión":
         return "bg-yellow-500";
-      case "Resuelto":
+      case "Caso resuelto":
         return "bg-green-500";
       default:
         return "bg-gray-400";
@@ -144,14 +145,8 @@ export default function AlertasN() {
 
   return (
     <>
-      <div className="mx-auto max-w-2xl px-2 text-center">
-        <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          {t("home.data.text1")}
-        </h2>
-      </div>
-
-      <div className="max-w-2xl mx-auto p-2">
-        <div className="flex flex-wrap gap-2 justify-center">
+      <div className="max-w-2xl mx-auto p-4">
+        <div className="flex flex-wrap gap-4 justify-center mb-4">
           <Select
             value={filter.prioridad}
             onValueChange={(value) =>
@@ -159,14 +154,20 @@ export default function AlertasN() {
             }
           >
             <SelectTrigger className="w-[160px] sm:w-[180px]">
-              <SelectValue placeholder="Prioridad" />
+              <SelectValue placeholder={t("home.data.priority")} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>{t("home.data.priority")}</SelectLabel>
-                <SelectItem value="Baja">{t("home.data.dataPriority.severe")}</SelectItem>
-                <SelectItem value="Moderada">{t("home.data.dataPriority.moderate")}</SelectItem>
-                <SelectItem value="Alta">{t("home.data.dataPriority.mild")}</SelectItem>
+                <SelectItem value="Caso bajo">
+                  {t("home.data.dataPriority.severe")}
+                </SelectItem>
+                <SelectItem value="Caso moderado">
+                  {t("home.data.dataPriority.moderate")}
+                </SelectItem>
+                <SelectItem value="Caso alto">
+                  {t("home.data.dataPriority.mild")}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -176,85 +177,117 @@ export default function AlertasN() {
             onValueChange={(value) => setFilter({ ...filter, estado: value })}
           >
             <SelectTrigger className="w-[160px] sm:w-[180px]">
-              <SelectValue placeholder="Estado" />
+              <SelectValue placeholder={t("home.data.status")} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>{t("home.data.status")}</SelectLabel>
-                <SelectItem value="Nuevo">{t("home.data.dataStatus.new")}</SelectItem>
-                <SelectItem value="En progreso">{t("home.data.dataStatus.inProgress")}</SelectItem>
-                <SelectItem value="En revisión">{t("home.data.dataStatus.inReview")}</SelectItem>
-                <SelectItem value="Resuelto">{t("home.data.dataStatus.resolved")}</SelectItem>
+                <SelectItem value="Caso nuevo">
+                  {t("home.data.dataStatus.new")}
+                </SelectItem>
+                <SelectItem value="Caso en progreso">
+                  {t("home.data.dataStatus.inProgress")}
+                </SelectItem>
+                <SelectItem value="Caso en revisión">
+                  {t("home.data.dataStatus.inReview")}
+                </SelectItem>
+                <SelectItem value="Caso resuelto">
+                  {t("home.data.dataStatus.resolved")}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
-        <div className="flex justify-center mt-4">
-          <Button onClick={clearFilters}>
-          {t("home.data.clean")}
+
+        <div className="flex justify-center mt-6">
+          <Button
+            onClick={clearFilters}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg"
+          >
+            {t("home.data.clean")}
           </Button>
         </div>
       </div>
 
-      <div className="py-2 px-2">
-        <Table className="w-full max-w-6xl mx-auto">
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t("home.data.create")}</TableHead>
-              <TableHead>{t("home.data.priority")}</TableHead>
-              <TableHead>{t("home.data.status")}</TableHead>
-              <TableHead>{t("home.data.id")}</TableHead>
-              <TableHead>{t("home.data.follow")}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredAlerts.length === 0 ? (
+      <div className="py-6 px-4">
+        <div
+          className={`w-full max-w-6xl mx-auto border-separate border border-gray-300 dark:border-zinc-700 rounded-lg shadow-md dark:bg-zinc-900 ${
+            filteredAlerts.length > 4 ? "max-h-96 overflow-y-auto" : ""
+          }`}
+        >
+          <Table className="w-full">
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted py-4">
-                {t("home.data.none")}
-                </TableCell>
+                <TableHead className="bg-gray-200 dark:bg-zinc-700 text-zinc-700 dark:text-white">
+                  {t("home.data.create")}
+                </TableHead>
+                <TableHead className="bg-gray-200 dark:bg-zinc-700 text-zinc-700 dark:text-white">
+                  {t("home.data.priority")}
+                </TableHead>
+                <TableHead className="bg-gray-200 dark:bg-zinc-700 text-zinc-700 dark:text-white">
+                  {t("home.data.status")}
+                </TableHead>
+                <TableHead className="bg-gray-200 dark:bg-zinc-700 text-zinc-700 dark:text-white">
+                  {t("home.data.follow")}
+                </TableHead>
               </TableRow>
-            ) : (
-              filteredAlerts.map((alert) => {
-                const { prioridad, estado } = getPrioridadYEstado(alert.id);
-                const reporteRelacionado = reportes.find(
-                  (reporte) => reporte.id === alert.id
-                );
-                const fechaSeguimiento = reporteRelacionado?.timestamp;
+            </TableHeader>
+            <TableBody>
+              {filteredAlerts.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="text-center text-muted py-4"
+                  >
+                    {t("home.data.none")}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredAlerts.map((alert) => {
+                  const { prioridad, estado } = getPrioridadYEstado(alert.id);
+                  const reporteRelacionado = reportes.find(
+                    (reporte) => reporte.id === alert.id
+                  );
+                  const fechaSeguimiento = reporteRelacionado?.timestamp;
 
-                return (
-                  <TableRow key={alert.id}>
-                    <TableCell>
-                      {formatDate(alert.timestamp)?.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
-                          prioridad
-                        )}`}
-                      ></span>
-                      {prioridad}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
-                          estado
-                        )}`}
-                      ></span>
-                      {estado}
-                    </TableCell>
-                    <TableCell>{alert.id}</TableCell>
-                    <TableCell>
-                      {fechaSeguimiento
-                        ? new Date(fechaSeguimiento.seconds * 1000).toLocaleString()
-                        : "Sin seguimiento"}
-                    </TableCell>
-                  </TableRow>
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
+                  return (
+                    <TableRow
+                      key={alert.id}
+                      className="hover:bg-gray-50 dark:hover:bg-zinc-700"
+                    >
+                      <TableCell className="border-t border-gray-200 dark:border-zinc-700 px-4 py-2">
+                        {formatDate(alert.timestamp)?.toLocaleString()}
+                      </TableCell>
+                      <TableCell className="border-t border-gray-200 dark:border-zinc-700 px-4 py-2">
+                        <span
+                          className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
+                            prioridad
+                          )}`}
+                        ></span>
+                        {prioridad}
+                      </TableCell>
+                      <TableCell className="border-t border-gray-200 dark:border-zinc-700 px-4 py-2">
+                        <span
+                          className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
+                            estado
+                          )}`}
+                        ></span>
+                        {estado}
+                      </TableCell>
+                      <TableCell className="border-t border-gray-200 dark:border-zinc-700 px-4 py-2">
+                        {fechaSeguimiento
+                          ? new Date(
+                              fechaSeguimiento.seconds * 1000
+                            ).toLocaleString()
+                          : "Sin seguimiento"}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </>
   );

@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/alert-dialog"; // ShadCN UI Alert Dialog
 import Spinner from "@/components/_partials/Spinner";
 import { useTranslation } from "react-i18next";
+
 export default function AlertasN() {
   const { t } = useTranslation("global");
   const [alerts, setAlerts] = useState([]);
@@ -50,7 +51,6 @@ export default function AlertasN() {
   const [alertIdToResolve, setAlertIdToResolve] = useState(null); // Alerta que se desea resolver
   const [showDeleteButton, setShowDeleteButton] = useState(true); // Controlar visibilidad del botón para eliminar todas las alertas
 
-  
   useEffect(() => {
     document.title = `${t("dashboard.navbar.alertas")} | GuateCare`;
   }, [t]);
@@ -135,11 +135,11 @@ export default function AlertasN() {
   // Función para obtener la clase de color según la prioridad
   const getPriorityClass = (prioridad) => {
     switch (prioridad) {
-      case "Baja":
+      case "Caso bajo":
         return "bg-green-500";
-      case "Moderada":
+      case "Caso moderado":
         return "bg-orange-500";
-      case "Alta":
+      case "Caso alto":
         return "bg-red-500";
       default:
         return "bg-gray-500";
@@ -149,13 +149,13 @@ export default function AlertasN() {
   // Función para obtener la clase de color según el estado
   const getStateClass = (estado) => {
     switch (estado) {
-      case "Nuevo":
+      case "Caso nuevo":
         return "bg-gray-400"; // Gris claro
-      case "En progreso":
+      case "Caso en progreso":
         return "bg-blue-600"; // Azul
-      case "En revisión":
+      case "Caso en revisión":
         return "bg-yellow-500"; // Amarillo claro
-      case "Resuelto":
+      case "Caso resuelto":
         return "bg-green-500"; // Verde
       default:
         return "bg-gray-400"; // Gris por defecto
@@ -232,13 +232,13 @@ export default function AlertasN() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>{t("dashboard.alertas.priority")}</SelectLabel>
-                <SelectItem value="Baja">
+                <SelectItem value="Caso bajo">
                   {t("dashboard.alertas.prioritys.mild")}
                 </SelectItem>
-                <SelectItem value="Moderada">
+                <SelectItem value="Caso moderado">
                   {t("dashboard.alertas.prioritys.moderate")}
                 </SelectItem>
-                <SelectItem value="Alta">
+                <SelectItem value="Caso alto">
                   {t("dashboard.alertas.prioritys.severe")}
                 </SelectItem>
               </SelectGroup>
@@ -346,136 +346,165 @@ export default function AlertasN() {
 
       {/* Tabla */}
       <div className="py-4 px-6">
-        <Table className="w-full max-w-6xl mx-auto">
-          <TableHeader>
-            <TableRow>
-              <TableHead>{t("dashboard.alertas.date")}</TableHead>
-              <TableHead>{t("dashboard.alertas.priority")}</TableHead>
-              <TableHead>{t("dashboard.alertas.status")}</TableHead>
-              <TableHead>{t("dashboard.database.id")}</TableHead>
-              <TableHead className="text-right">
-                {t("dashboard.alertas.actions")}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredAlerts.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted py-4">
-                  {t("dashboard.alertas.none")}
-                </TableCell>
-              </TableRow>
-            ) : (
-              filteredAlerts.map((alert) => {
-                const { prioridad, estado } = getPrioridadYEstado(alert.id);
-
-                return (
-                  <TableRow key={alert.id}>
-                    <TableCell>
-                      {formatDate(alert.timestamp)?.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
-                          prioridad
-                        )}`}
-                      ></span>
-                      {prioridad}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
-                          estado
-                        )}`}
-                      ></span>
-                      {estado}
-                    </TableCell>
-                    <TableCell>{alert.id}</TableCell>
-                    <TableCell>{alert.message}</TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex gap-2 justify-end">
-                        <Link to={`/Panel/Reportes/${alert.id}`}>
-                          <Button variant="outline" size="sm">
-                            {t("dashboard.alertas.editr")}
-                          </Button>
-                        </Link>
-
-                        {/* Botón Resuelto (Verde) */}
-                        <AlertDialog
-                          open={isDialogOpen}
-                          onOpenChange={setIsDialogOpen}
-                        >
-                          <AlertDialogTrigger asChild>
-                            <Button
-                              style={{
-                                backgroundColor: "#00A36C",
-                                color: "white",
-                              }}
-                              size="sm"
-                              onClick={() => {
-                                setAlertIdToResolve(alert.id);
-                                setIsDialogOpen(true);
-                              }}
-                            >
-                              {t("dashboard.alertas.statuss.resolved")}
-                            </Button>
-                          </AlertDialogTrigger>
-
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                {t("dashboard.alertas.title2")}
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                {t("dashboard.alertas.desc2")}
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>
-                                {t("dashboard.database.cancel")}
-                              </AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => {
-                                  setIsDialogOpen(false);
-                                  setIsConfirmDialogOpen(true); // Abre el dialogo de confirmación
-                                }}
-                              >
-                                {t("dashboard.alertas.continues")}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-
-                        {/* Botón rojo para eliminar alerta */}
-                        <AlertDialog
-                          open={isConfirmDialogOpen}
-                          onOpenChange={setIsConfirmDialogOpen}
-                        >
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                {t("dashboard.alertas.confirm")}
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                {t("dashboard.alertas.desc3")}
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                              <AlertDialogAction onClick={handleResolve}>
-                                {t("dashboard.alertas.confirm2")}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
+        <div className="w-full max-w-6xl mx-auto border border-gray-300 dark:border-zinc-900 rounded-lg overflow-hidden">
+          {/* Contenedor para el scrollbar */}
+          <div
+            className={`overflow-y-auto ${
+              filteredAlerts.length > 20 ? "max-h-96" : ""
+            }`}
+          >
+            <Table className="w-full border-separate">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="bg-gray-200 text-gray-700 dark:bg-zinc-900 dark:text-white">
+                    {t("dashboard.alertas.date")}
+                  </TableHead>
+                  <TableHead className="bg-gray-200 text-gray-700 dark:bg-zinc-900 dark:text-white">
+                    {t("dashboard.alertas.priority")}
+                  </TableHead>
+                  <TableHead className="bg-gray-200 text-gray-700 dark:bg-zinc-900 dark:text-white">
+                    {t("dashboard.alertas.status")}
+                  </TableHead>
+                  <TableHead className="bg-gray-200 text-gray-700 dark:bg-zinc-900 dark:text-white">
+                    {t("dashboard.database.id")}
+                  </TableHead>
+                  <TableHead className="text-right bg-gray-200 text-gray-700 dark:bg-zinc-900 dark:text-white">
+                    {t("dashboard.alertas.actions")}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredAlerts.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={6}
+                      className="text-center text-muted py-4"
+                    >
+                      {t("dashboard.alertas.none")}
                     </TableCell>
                   </TableRow>
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
+                ) : (
+                  filteredAlerts.map((alert) => {
+                    const { prioridad, estado } = getPrioridadYEstado(alert.id);
+
+                    return (
+                      <TableRow
+                        key={alert.id}
+                        className="hover:bg-gray-50 dark:hover:bg-zinc-900"
+                      >
+                        <TableCell className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                          {formatDate(alert.timestamp)?.toLocaleString()}
+                        </TableCell>
+                        <TableCell className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                          <span
+                            className={`inline-block w-2 h-2 mx-2 rounded-full ${getPriorityClass(
+                              prioridad
+                            )}`}
+                          ></span>
+                          {prioridad}
+                        </TableCell>
+                        <TableCell className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                          <span
+                            className={`inline-block w-2 h-2 mx-2 rounded-full ${getStateClass(
+                              estado
+                            )}`}
+                          ></span>
+                          {estado}
+                        </TableCell>
+                        <TableCell className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                          {alert.id}
+                        </TableCell>
+                        <TableCell className="border-t border-gray-200 dark:border-gray-700 text-right px-4 py-2">
+                          <div className="flex gap-2 justify-end">
+                            <Link to={`/Panel/Reportes/${alert.id}`}>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-gray-700 dark:text-white"
+                              >
+                                {t("dashboard.alertas.editr")}
+                              </Button>
+                            </Link>
+
+                            {/* Botón Resuelto */}
+                            <AlertDialog
+                              open={isDialogOpen}
+                              onOpenChange={setIsDialogOpen}
+                            >
+                              <AlertDialogTrigger asChild>
+                                <Button
+                                  style={{
+                                    backgroundColor: "#00A36C",
+                                    color: "white",
+                                  }}
+                                  size="sm"
+                                  onClick={() => {
+                                    setAlertIdToResolve(alert.id);
+                                    setIsDialogOpen(true);
+                                  }}
+                                >
+                                  {t("dashboard.alertas.statuss.resolved")}
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    {t("dashboard.alertas.title2")}
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    {t("dashboard.alertas.desc2")}
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>
+                                    {t("dashboard.database.cancel")}
+                                  </AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => {
+                                      setIsDialogOpen(false);
+                                      setIsConfirmDialogOpen(true);
+                                    }}
+                                  >
+                                    {t("dashboard.alertas.continues")}
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+
+                            {/* Botón rojo para eliminar alerta */}
+                            <AlertDialog
+                              open={isConfirmDialogOpen}
+                              onOpenChange={setIsConfirmDialogOpen}
+                            >
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>
+                                    {t("dashboard.alertas.confirm")}
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    {t("dashboard.alertas.desc3")}
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>
+                                    Cancelar
+                                  </AlertDialogCancel>
+                                  <AlertDialogAction onClick={handleResolve}>
+                                    {t("dashboard.alertas.confirm2")}
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
       </div>
 
       <div className="min-h-screen"></div>

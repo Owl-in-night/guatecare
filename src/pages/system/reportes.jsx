@@ -35,7 +35,8 @@ function ReportesRegistros() {
   const [horaActual, setHoraActual] = useState(""); // Hora actual para mostrarla en el label
   const [fechaActualizacion, setFechaActualizacion] = useState(""); // Fecha de actualización
   const [comentario, setComentario] = useState(""); // Comentario adicional para el reporte
-
+  const [measurements, setMeasurements] = useState([]);
+  
   useEffect(() => {
     document.title = `${t("dashboard.navbar.reportar")} | GuateCare`;
   }, [t]);
@@ -217,9 +218,9 @@ function ReportesRegistros() {
               </SelectTrigger>
               <SelectContent>
                 {[
-                  { value: "Alta", label: "Alta" },
-                  { value: "Moderada", label: "Moderada" },
-                  { value: "Baja", label: "Baja" },
+                  { value: "Caso alto", label: "Caso alto" },
+                  { value: "Caso moderado", label: "Caso moderado" },
+                  { value: "Caso bajo", label: "Caso bajo" },
                 ].map((opcion) => (
                   <SelectItem key={opcion.value} value={opcion.value}>
                     {opcion.label}
@@ -245,10 +246,10 @@ function ReportesRegistros() {
               </SelectTrigger>
               <SelectContent>
                 {[
-                  { value: "Nuevo", label: "Nuevo" },
-                  { value: "En progreso", label: "En progreso" },
-                  { value: "En revisión", label: "En revisión" },
-                  { value: "Resuelto", label: "Resuelto" },
+                  { value: "Caso nuevo", label: "Caso nuevo" },
+                  { value: "Caso en progreso", label: "Caso en progreso" },
+                  { value: "Caso en revisión", label: "Caso en revisión" },
+                  { value: "Caso resuelto", label: "Caso resuelto" },
                 ].map((opcion) => (
                   <SelectItem key={opcion.value} value={opcion.value}>
                     {opcion.label}

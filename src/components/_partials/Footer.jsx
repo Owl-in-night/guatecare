@@ -21,8 +21,8 @@ export default function Footer() {
     { href: "https://tailwindcss.com/", text: t("footer.resources.links.1.name") },
     { href: "https://github.com/Owl-in-night?tab=repositories", text: t("footer.followUs.links.0.name") },
     { href: "https://discord.gg/RY7N6wgH", text: t("footer.followUs.links.1.name") },
-    { href: "/privacy-policy", text: t("footer.legal.links.0.name") },
-    { href: "/terms&conditions", text: t("footer.legal.links.1.name") },
+    { href: "/Privacidad", text: t("footer.legal.links.0.name") },
+    { href: "/Terminos", text: t("footer.legal.links.1.name") },
   ];
 
   return (

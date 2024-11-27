@@ -12,6 +12,7 @@ import {
   LineChart,
   Rectangle,
   ReferenceLine,
+  ResponsiveContainer,
   Sector,
   XAxis,
   YAxis,
@@ -45,6 +46,12 @@ import { Legend } from "chart.js";
 import DataTable from "./datatable";
 import TiemRaspberry from "./tiemraspb";
 import AlertaGrafico from "./AlertaGrafico";
+import {
+  BookOpen,
+  CircleChevronDown,
+  CircleChevronUp,
+  CircleFadingArrowUp,
+} from "lucide-react";
 
 // Función para generar etiquetas de meses dinámicamente
 const generateMonthYearLabel = (data) => {
@@ -534,316 +541,637 @@ export default function DashboardI() {
     fetchData();
   }, []);
 
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault(); // Evita el comportamiento por defecto del <a>
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth", // Desplazamiento suave
+        block: "start", // Desplazarse al principio de la sección
+      });
+    }
+  };
+
+  const [signosData, setSignosData] = useState([]);
+
+  // Configuración del gráfico
+  const chartConfig3 = {
+    signos: {
+      label: "Signos de Desnutrición",
+      color: "#ff0000", // Color rojo en hexadecimal
+    },
+  };
+
+  // Fetch de datos desde Firestore
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "reportes"));
+        const signosCounts = {};
+
+        querySnapshot.forEach((doc) => {
+          const { signosDesnutricionAguda } = doc.data();
+          if (Array.isArray(signosDesnutricionAguda)) {
+            signosDesnutricionAguda.forEach((signo) => {
+              signosCounts[signo] = (signosCounts[signo] || 0) + 1;
+            });
+          }
+        });
+
+        const formattedData = Object.entries(signosCounts).map(
+          ([name, value]) => ({ name, value })
+        );
+
+        setSignosData(formattedData);
+      } catch (error) {
+        // console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <>
-      <main className="grid flex-1 items-center gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-1 xl:grid-cols-2">
-        <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-          <div className="flex justify-center items-center">
-            <Card className="lg:w-1/2 xl:w-auto 2xl:w-5/6 h-auto">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-lg">
-                  {t("home.card1.text1")}
-                </CardDescription>
-                <CardTitle className="flex items-center">
-                  <span className="text-red-500 text-6xl font-bold">
-                    {activeAlerts}
-                  </span>{" "}
-                  <span className="ml-4">
-                    {activeAlerts === 1
-                      ? t("home.card1.text4") // Caso cuando hay 1 alerta
-                      : t("home.card1.text3")}{" "}
-                    {/* Casos cuando hay más de 1 alerta */}
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+    <div className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+      <div
+        id="section1"
+        className="absolute inset-0 -z-10 overflow-hidden"
+      ></div>
+      <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+        <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+          <div className="lg:pr-4">
+            <div className="lg:max-w-lg">
+              <p className="text-xl font-semibold text-indigo-600"> </p>
+              <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
+                {t("home.card1.text2")}
+              </h1>
+              <p className="mt-6 text-6xl lg:text-9xl md:text-4xl xl:text-9xl text-red-500 font-bold ">
+                {activeAlerts}{" "}
+                {activeAlerts === 1
+                  ? t("home.card1.text4") // Caso cuando hay 1 alerta
+                  : t("home.card1.text3")}{" "}
+              </p>
+              <p>
                 {activeAlerts > 0 && (
-                  <div className="mt-2 text-lg font-semibold text-red-600 flex items-center">
+                  <div className="mt-2 text-xl lg:text-9xl md:text-4xl xl:text-3xl font-semibold text-red-500 flex items-center">
                     <span className="mr-2">🚨</span>
                     {activeAlerts > 10
                       ? t("home.card1.criticalAlert")
                       : t("home.card1.warningAlert")}
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </p>
+            </div>
           </div>
-          <div className="grid gap-4 md:items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-            {/* Tarjeta para mostrar la cantidad de niños registrados este mes */}
-            <Card x-chunk="dashboard-05-chunk-1">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-lg">
+        </div>
+        <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+          <img
+            alt=""
+            src="/img/alertasfondo.png"
+            className="w-[48rem] max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+          />
+          <div className="flex items-center space-x-4 mt-4">
+            <a
+              href="#section2"
+              onClick={(e) => scrollToSection(e, "section2")}
+              className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+            >
+              <CircleChevronDown className="ml-2 size-20" />
+            </a>
+            <a
+              href="#section10"
+              onClick={(e) => scrollToSection(e, "section10")}
+              className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+            >
+              <CircleFadingArrowUp className="ml-2 size-20 rotate-180" />
+            </a>
+          </div>
+        </div>
+      </div>
+      {/* Section2 */}
+      <div
+        id="section2"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
                   {t("home.card2.text1")}
-                </CardDescription>
-                <CardTitle className="text-4xl">
-                  <span className="text-blue-500">{maleCountThisMonth}</span>{" "}
-                  {t("home.card2.text2")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-md text-muted-foreground">
-                  {t("home.card2.text3")}{" "}
-                  <span className="text-blue-500">{maleCountLastMonth}</span>{" "}
-                  {t("home.card2.text2")}
-                </div>
-              </CardContent>
-              <CardFooter>
-                {/* Puedes agregar un progreso si lo deseas */}
-              </CardFooter>
-            </Card>
-
-            {/* Tarjeta para mostrar la cantidad de niñas registradas este mes */}
-            <Card x-chunk="dashboard-05-chunk-2">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-lg">
-                  {t("home.card3.text1")}
-                </CardDescription>
-                <CardTitle className="text-4xl">
-                  <span className="text-pink-500">{femaleCountThisMonth}</span>{" "}
-                  {t("home.card3.text2")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-md text-muted-foreground">
-                  {t("home.card3.text3")}{" "}
-                  <span className="text-pink-500">{maleCountLastMonth}</span>{" "}
-                  {t("home.card3.text2")}
-                </div>
-              </CardContent>
-              <CardFooter>
-                {/* Puedes agregar un progreso si lo deseas */}
-              </CardFooter>
-            </Card>
-            {/* Tarjeta para mostrar la cantidad de mediciones este mes */}
-            <Card x-chunk="dashboard-05-chunk-1">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-lg">
-                  {t("home.card4.text1")}
-                </CardDescription>
-                <CardTitle className="text-4xl">
-                  <span className="text-blue-500">
-                    {measurementsCountThisMonth}
-                  </span>{" "}
-                  {t("home.card4.text2")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {/* <div className="text-md text-muted-foreground">
-                {t("home.card4.text3")}{" "}
-                  <span className="text-blue-500">
-                    {measurementsCountThisMonth}
-                  </span>{" "}
-                  {t("home.card4.text2")}
-                </div> */}
-                <div className="text-md text-muted-foreground">
-                  {t("home.card4.text4")}{" "}
-                  <span className="text-blue-500">
-                    {measurementsCountLastMonth}
-                  </span>{" "}
-                  {t("home.card4.text2")}
-                </div>
-                <div className="text-md text-muted-foreground mt-2">
-                  {t("home.card4.text5")}{" "}
-                  <span className="text-blue-500">
-                    {avgLengthThisMonth.toFixed(2)}
-                  </span>{" "}
-                  {t("home.card4.text6")}
-                </div>
-                <div className="text-md text-muted-foreground mt-2">
-                  {t("home.card4.text7")}{" "}
-                  <span className="text-blue-500">
-                    {avgLengthLastMonth.toFixed(2)}
-                  </span>{" "}
-                  {t("home.card4.text6")}
-                </div>
-              </CardContent>
-              <CardFooter>
-                {/* Puedes agregar un progreso si lo deseas */}
-              </CardFooter>
-            </Card>
-            {/* Peso */}
-            <Card x-chunk="dashboard-05-chunk-1">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-lg">
-                  {t("home.card5.text1")}
-                </CardDescription>
-                <CardTitle className="text-4xl">
-                  <span className="text-yellow-500">
-                    {measurementsCountThisMonth}
-                  </span>{" "}
-                  {t("home.card5.text2")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {/* <div className="text-md text-muted-foreground">
-                {t("home.card5.text3")}{" "}
-                  <span className="text-yellow-500">
-                    {measurementsCountThisMonth}
-                  </span>{" "}
-                  mediciones
-                </div> */}
-                <div className="text-md text-muted-foreground">
-                  {t("home.card5.text4")}{" "}
-                  <span className="text-yellow-500">
-                    {measurementsCountLastMonth}
-                  </span>{" "}
-                  {t("home.card5.text2")}
-                </div>
-                <div className="text-md text-muted-foreground mt-2">
-                  {t("home.card5.text5")}{" "}
-                  <span className="text-yellow-500">
-                    {avgWeightThisMonth.toFixed(2)}
-                  </span>{" "}
-                  {t("home.card5.text6")}
-                </div>
-                <div className="text-md text-muted-foreground mt-2">
-                  {t("home.card5.text7")}{" "}
-                  <span className="text-yellow-500">
-                    {avgWeightLastMonth.toFixed(2)}
-                  </span>{" "}
-                  {t("home.card5.text6")}
-                </div>
-              </CardContent>
-              <CardFooter>
-                {/* Puedes agregar un progreso si lo deseas */}
-              </CardFooter>
-            </Card>
+                </h1>
+                <p className="mt-6 text-6xl lg:text-9xl md:text-4xl xl:text-9xl text-blue-500 font-bold ">
+                  {maleCountThisMonth} {t("home.card2.text2")}
+                </p>
+                <p className="mt-2 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-semibold flex items-center">
+                  {t("home.card2.text3")}
+                </p>
+                <span className="text-blue-500 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-bold">
+                  {maleCountLastMonth} {t("home.card2.text2")}
+                </span>{" "}
+              </div>
+            </div>
           </div>
-          <div className="grid gap-4 md:items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            <Card className="flex flex-col shadow-lg">
-              <CardHeader className="items-center pb-2">
-                <CardTitle className="text-lg sm:text-xl md:text-2xl">
+          <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img
+              alt=""
+              src="/img/niño.png"
+              className="w-[48rem] max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+            />
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section3"
+                onClick={(e) => scrollToSection(e, "section3")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section1"
+                onClick={(e) => scrollToSection(e, "section1")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* End section2 */}
+      <div
+        id="section3"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
+                  {t("home.card3.text1")}
+                </h1>
+                <p className="mt-6 text-6xl lg:text-9xl md:text-4xl xl:text-9xl text-pink-500 font-bold ">
+                  {femaleCountThisMonth} {t("home.card3.text2")}
+                </p>
+                <p className="mt-2 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-semibold flex items-center">
+                  {t("home.card3.text3")}{" "}
+                </p>
+                <span className="text-pink-500 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-bold">
+                  {femaleCountLastMonth} {t("home.card3.text2")}
+                </span>{" "}
+              </div>
+            </div>
+          </div>
+          <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img
+              alt=""
+              src="/img/niña.png"
+              className="w-[48rem] max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+            />
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section4"
+                onClick={(e) => scrollToSection(e, "section4")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section2"
+                onClick={(e) => scrollToSection(e, "section2")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* End section3 */}
+      {/* Section4 */}
+      <div
+        id="section4"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
+                  {t("home.card4.text1")}
+                </h1>
+                <p className="mt-6 text-6xl lg:text-7xl md:text-4xl xl:text-8xl text-indigo-800 font-bold ">
+                  {measurementsCountThisMonth} {t("home.card4.text2")}
+                </p>
+                <p className="mt-2 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-semibold flex items-center">
+                  {t("home.card4.text4")}{" "}
+                </p>
+                <span className="text-indigo-800 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-bold">
+                  {measurementsCountLastMonth} {t("home.card4.text2")}
+                </span>{" "}
+              </div>
+            </div>
+          </div>
+          <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img
+              alt=""
+              src="/img/tallapeso.png"
+              className="w-[48rem] max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+            />
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section5"
+                onClick={(e) => scrollToSection(e, "section5")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section3"
+                onClick={(e) => scrollToSection(e, "section3")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Section5 */}
+      <div
+        id="section5"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
+                  {t("home.card4.text5")}
+                </h1>
+                <p className="mt-6 text-6xl lg:text-7xl md:text-4xl xl:text-8xl text-emerald-700 font-bold ">
+                  {avgLengthThisMonth.toFixed(2)} {t("home.card4.text6")}
+                </p>
+                <p className="mt-2 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-semibold flex items-center">
+                  {t("home.card4.text7")}{" "}
+                </p>
+                <span className="text-emerald-700 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-bold">
+                  {avgLengthLastMonth.toFixed(2)} {t("home.card4.text6")}
+                </span>{" "}
+              </div>
+            </div>
+          </div>
+          <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img
+              alt=""
+              src="/img/talla.png"
+              className="w-[48rem] max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+            />
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section6"
+                onClick={(e) => scrollToSection(e, "section6")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section4"
+                onClick={(e) => scrollToSection(e, "section4")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Section6 */}
+      <div
+        id="section6"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
+                  {t("home.card5.text5")}
+                </h1>
+                <p className="mt-6 text-6xl lg:text-7xl md:text-4xl xl:text-8xl text-orange-600 font-bold ">
+                  {avgWeightThisMonth.toFixed(2)} {t("home.card5.text6")}
+                </p>
+                <p className="mt-2 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-semibold flex items-center">
+                  {t("home.card5.text7")}{" "}
+                </p>
+                <span className="text-orange-600 text-xl lg:text-9xl md:text-4xl xl:text-4xl font-bold">
+                  {avgWeightLastMonth.toFixed(2)} {t("home.card5.text6")}
+                </span>{" "}
+              </div>
+            </div>
+          </div>
+          <div className="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            <img
+              alt=""
+              src="/img/peso.png"
+              className="w-[48rem] max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+            />
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section7"
+                onClick={(e) => scrollToSection(e, "section7")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section5"
+                onClick={(e) => scrollToSection(e, "section5")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Section7 */}
+      <div
+        id="section7"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
                   {t("home.charts.text1")}
-                </CardTitle>
-                <CardDescription className="text-sm sm:text-base">
-                  {t("home.charts.text2")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1 pb-4">
-                {data4.length > 0 ? (
-                  <ChartContainer
-                    config={chartConfig}
-                    className="mx-auto aspect-square w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px]"
+                </h1>
+                {/* Aquí agregas el <p> con las etiquetas dinámicas */}
+                <p className="mt-6 text-6xl lg:text-7xl md:text-4xl xl:text-6xl text-orange-600 font-bold">
+                  {data4.map((entry, index) => {
+                    // Obtenemos el color de la celda
+                    const color = COLORS[index % COLORS.length];
+
+                    return (
+                      <span key={index} style={{ color }}>
+                        {entry.name}: {entry.value} <br />
+                      </span>
+                    );
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="-mt-12  lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            {/* Chart */}
+            {data4.length > 0 ? (
+              <ChartContainer
+                config={chartConfig}
+                className="mx-auto aspect-square w-full h-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px]"
+              >
+                <PieChart>
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Pie
+                    data={data4}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius="70%"
+                    innerRadius="40%"
+                    strokeWidth={4}
                   >
-                    <PieChart width={300} height={300}>
-                      <ChartTooltip
-                        cursor={false}
-                        content={<ChartTooltipContent hideLabel />}
+                    {data4.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
                       />
-                      <Pie
-                        data={data4}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius="70%"
-                        innerRadius="40%"
-                        strokeWidth={4}
-                      >
-                        {data4.map((entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                      <Legend />
-                    </PieChart>
-                  </ChartContainer>
-                ) : (
-                  <p className="text-center text-gray-500">Cargando datos...</p>
-                )}
-              </CardContent>
-              <CardFooter className="flex-col gap-2 text-sm">
-                {data4.length > 0 && (
-                  <div className="font-medium text-base sm:text-lg">
-                    <strong>{t("home.charts.text3")}</strong>{" "}
-                    {maxCommunity.name}
-                    <div>
-                      <strong>{t("home.charts.text4")}</strong>{" "}
-                      {maxCommunity.value}
-                    </div>
-                  </div>
-                )}
-              </CardFooter>
-            </Card>
-            {/* Chart 2 */}
-            <AlertaGrafico />
-            {/* Chart 3 */}
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("home.charts.text7")}</CardTitle>
-                <CardDescription>{t("home.charts.text8")}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {data3.length > 0 ? (
-                  <ChartContainer config={chartConfig2}>
-                    <BarChart
-                      data={data3}
-                      width={500}
-                      height={300}
-                      accessibilityLayer
-                    >
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ChartContainer>
+            ) : (
+              <p className="text-center text-gray-500">Cargando datos...</p>
+            )}
+            {/* Chart */}
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section8"
+                onClick={(e) => scrollToSection(e, "section8")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section6"
+                onClick={(e) => scrollToSection(e, "section6")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Section8 */}
+      <div
+        id="section8"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <p className="mt-6 text-4xl lg:text-7xl md:text-4xl xl:text-7xl  font-bold ">
+                  {t("home.charts.text7")}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="-ml-12 -mt-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            {/* Chart */}
+            {data3.length > 0 ? (
+              <ChartContainer
+                config={chartConfig2}
+                className="mx-auto aspect-square w-full h-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px]"
+              >
+                <BarChart
+                  data={data3}
+                  width={500}
+                  height={500}
+                  accessibilityLayer
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="monthYear"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) =>
+                      chartConfig2[value] ? chartConfig2[value] : value
+                    }
+                  />
+                  <YAxis />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Bar
+                    dataKey="reportes"
+                    strokeWidth={2}
+                    radius={8}
+                    activeIndex={2}
+                    activeBar={({ ...props }) => {
+                      return (
+                        <Rectangle
+                          {...props}
+                          fillOpacity={0.8}
+                          stroke={props.payload.fill}
+                          strokeDasharray={4}
+                          strokeDashoffset={4}
+                        />
+                      );
+                    }}
+                  />
+                </BarChart>
+              </ChartContainer>
+            ) : (
+              <p>Cargando datos...</p> // Aquí puedes usar un spinner si lo prefieres
+            )}
+            {/* Chart */}
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section9"
+                onClick={(e) => scrollToSection(e, "section9")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section7"
+                onClick={(e) => scrollToSection(e, "section7")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Section9 */}
+      <div
+        id="section9"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <p className="mt-6 text-4xl lg:text-7xl md:text-4xl xl:text-7xl  font-bold ">
+                  {t("home.charts.text5")}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="-ml-12 -mt-12 lg:p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            {/* Chart */}
+            {signosData.length > 0 ? (
+              <div className="w-auto">
+                <ChartContainer config={chartConfig}>
+                  <ResponsiveContainer>
+                    <BarChart data={signosData}>
                       <CartesianGrid vertical={false} />
                       <XAxis
-                        dataKey="monthYear"
+                        dataKey="name"
+                        tick={{ fill: "#4A5568" }}
                         tickLine={false}
-                        tickMargin={10}
                         axisLine={false}
-                        tickFormatter={(value) =>
-                          chartConfig2[value] ? chartConfig2[value] : value
-                        }
                       />
-                      <YAxis />
+                      <YAxis
+                        tick={{ fill: "#4A5568" }}
+                        tickLine={false}
+                        axisLine={false}
+                      />
                       <ChartTooltip
                         cursor={false}
                         content={<ChartTooltipContent hideLabel />}
                       />
                       <Bar
-                        dataKey="reportes"
-                        strokeWidth={2}
-                        radius={8}
-                        activeIndex={2}
-                        activeBar={({ ...props }) => {
-                          return (
-                            <Rectangle
-                              {...props}
-                              fillOpacity={0.8}
-                              stroke={props.payload.fill}
-                              strokeDasharray={4}
-                              strokeDashoffset={4}
-                            />
-                          );
-                        }}
-                      />
+                        dataKey="value"
+                        fill="#ffac51" // Cambiamos el color a rojo
+                      >
+                        <LabelList position="top" className="fill-foreground" />
+                      </Bar>
                     </BarChart>
-                  </ChartContainer>
-                ) : (
-                  <p>Cargando datos...</p> // Aquí puedes usar un spinner si lo prefieres
-                )}
-              </CardContent>
-              <CardFooter className="flex-col gap-2 ">
-                <span>{t("home.charts.text9")}</span>
-                <span className="text-lg font-bold ml-2">
-                  {" "}
-                  {data3.length > 0
-                    ? data3.reduce((total, item) => total + item.reportes, 0)
-                    : 0}
-                </span>
-              </CardFooter>
-            </Card>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </div>
+            ) : (
+              <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4"></p>
+            )}
+            {/* Chart */}
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section10"
+                onClick={(e) => scrollToSection(e, "section10")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronDown className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section8"
+                onClick={(e) => scrollToSection(e, "section8")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+            </div>
           </div>
         </div>
-      </main>
-      <div className=" justify-center items-center">
-        <DataTable />
       </div>
-
-      <TiemRaspberry />
-
-      {/* <DataTable /> */}
-      <div className="flex justify-center items-center my-10"></div>
-    </>
+      {/* Section10 */}
+      <div
+        id="section10"
+        className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+      >
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <p className="mt-6 text-4xl lg:text-7xl md:text-4xl xl:text-7xl  font-bold ">
+                  {t("home.data.text1")}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="lg:-ml-12 -mt-12 lg:-mt-24 lg:p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+            {/* Table */}
+            <DataTable />
+            {/* Table */}
+            <div className="flex items-center space-x-4 mt-4">
+              <a
+                href="#section9"
+                onClick={(e) => scrollToSection(e, "section9")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleChevronUp className="ml-2 size-20" />
+              </a>
+              <a
+                href="#section1"
+                onClick={(e) => scrollToSection(e, "section1")}
+                className="flex items-center  font-semibold mt-4 hidden md:flex lg:flex xl:flex 2xl:flex"
+              >
+                <CircleFadingArrowUp className="ml-2 size-20" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

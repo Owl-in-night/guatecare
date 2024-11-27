@@ -29,8 +29,8 @@ import ScrollToTop from "../_partials/ScrollToTop";
 
 import Dashboard from "../../pages/Dashboard";
 // import System from "./System";
-
-
+import PrivacyPolicy from "@/pages/privacyp";
+import TermsyCondi from "@/pages/terminos";
 function Navigation() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
@@ -50,6 +50,8 @@ function Navigation() {
           <Route path="/Estadísticas" element={<DashboardI />} />
           <Route path="/Acceder" element={<SignIn />} />
           <Route path="/Registrese" element={<SignUp />} />
+          <Route path="/Privacidad" element={<PrivacyPolicy />} />
+          <Route path="/Terminos" element={<TermsyCondi />} />
           <Route
             path="/Panel/*"
             element={
