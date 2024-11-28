@@ -12,7 +12,6 @@ import { useState } from "react";
 function Home() {
   const [t, i18n] = useTranslation("global");
 
-
   const [key, setKey] = useState(Date.now()); // Usar un estado para forzar la actualización
 
   useEffect(() => {
@@ -43,7 +42,7 @@ function Home() {
         <div className="relative isolate overflow-hidden px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
           {/* Sección de texto principal con título y descripción */}
           <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-            {/* <h1 className="text-balance text-5xl xl:text-7xl lg:text-7xl font-semibold tracking-tight sm:text-4xl">
+            <h1 className="text-balance text-5xl xl:text-7xl lg:text-7xl font-semibold tracking-tight sm:text-4xl">
               {t("mainhome.work")}
               <span className="font-bold text-5xl xl:text-7xl lg:text-7xl">
                 G
@@ -58,8 +57,8 @@ function Home() {
                 are
               </span>
               {t("mainhome.work2")}
-            </h1> */}
-           <h1 className="text-balance text-5xl xl:text-7xl lg:text-7xl font-semibold tracking-tight sm:text-4xl">
+            </h1>
+            {/* <h1 className="text-balance text-5xl xl:text-7xl lg:text-7xl font-semibold tracking-tight sm:text-4xl">
       <Typewriter
         key={key} // Reinicia el componente cada vez que cambia el idioma
         onInit={(typewriter) => {
@@ -86,7 +85,7 @@ function Home() {
           delay: 75, // Velocidad de escritura
         }}
       />
-    </h1>
+    </h1> */}
 
             <p className="mt-6 text-pretty text-2xl lg:text-3xl font-light leading-relaxed text-center sm:text-left max-w-4xl mx-auto text-gray-700 dark:text-gray-300">
               {t("mainhome.workdesc")}
