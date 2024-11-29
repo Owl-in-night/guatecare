@@ -97,6 +97,33 @@ const colorPalette = [
   "var(--color-indigo)",
 ];
 
+
+// Función para normalizar la fecha
+const normalizeDate = (dateString) => {
+  try {
+    if (dateString.includes("/")) {
+      const parts = dateString.split(" ");
+      const dateParts = parts[0].split("/");
+
+      if (dateParts[0].length === 4) {
+        // Formato: "YYYY/MM/DD"
+        return new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]} ${parts[1]}`);
+      } else if (parseInt(dateParts[0]) > 12) {
+        // Formato: "DD/MM/YYYY"
+        return new Date(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]} ${parts[1]}`);
+      } else {
+        // Formato: "MM/DD/YYYY"
+        return new Date(`${dateParts[0]}/${dateParts[1]}/${dateParts[2]} ${parts[1]}`);
+      }
+    }
+    return new Date(Date.parse(dateString)); // Otras cadenas
+  } catch (error) {
+    console.error("Error al normalizar la fecha:", dateString, error);
+    return null;
+  }
+};
+
+
 export default function DashboardI() {
   const [t] = useTranslation("global");
   //Time
@@ -132,72 +159,66 @@ export default function DashboardI() {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "bebe"));
-        let maleCount = 0;
-        let femaleCount = 0;
+        let maleCountCurrent = 0;
+        let femaleCountCurrent = 0;
         let maleCountPrevMonth = 0;
         let femaleCountPrevMonth = 0;
 
-        // Obtener fecha actual y mes anterior
+        // Fecha actual y mes anterior
         const currentDate = new Date();
-        const currentMonth = currentDate.getMonth();
-        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth(); // Mes actual (0-11)
+        const currentYear = currentDate.getFullYear(); // Año actual
 
         const prevMonthDate = new Date(currentDate);
-        prevMonthDate.setMonth(currentMonth - 1); // Establece al mes anterior
-        const prevMonth = prevMonthDate.getMonth();
-        const prevYear = prevMonthDate.getFullYear();
+        prevMonthDate.setMonth(currentMonth - 1); // Mes anterior
+        const prevMonth = prevMonthDate.getMonth(); // Mes anterior (0-11)
+        const prevYear = prevMonthDate.getFullYear(); // Año correspondiente al mes anterior
 
-        // Recorre los documentos para contar los niños y niñas
+        // Recorremos los documentos
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           let fecha = null;
 
           if (data.createdAt) {
-            // Convertir createdAt a un objeto Date
-            fecha =
-              typeof data.createdAt === "string"
-                ? new Date(Date.parse(data.createdAt)) // Si es cadena, convertir a Date
-                : data.createdAt.toDate(); // Si es un Timestamp, convertir
+            fecha = normalizeDate(data.createdAt);
           }
 
           if (fecha) {
             const docMonth = fecha.getMonth();
             const docYear = fecha.getFullYear();
 
-            // Contar niños y niñas del mes actual
+            // Conteo para el mes actual
             if (docYear === currentYear && docMonth === currentMonth) {
               if (data.genero === true) {
-                maleCount += 1;
+                maleCountCurrent += 1; // Niños este mes
               } else if (data.genero === false) {
-                femaleCount += 1;
+                femaleCountCurrent += 1; // Niñas este mes
               }
             }
 
-            // Contar niños y niñas del mes anterior
+            // Conteo para el mes anterior
             if (docYear === prevYear && docMonth === prevMonth) {
               if (data.genero === true) {
-                maleCountPrevMonth += 1;
+                maleCountPrevMonth += 1; // Niños mes anterior
               } else if (data.genero === false) {
-                femaleCountPrevMonth += 1;
+                femaleCountPrevMonth += 1; // Niñas mes anterior
               }
             }
           }
         });
 
-        // Establecer los estados con los resultados
-        setMaleCountThisMonth(maleCount > 0 ? maleCount : 0); // Si no hay registros, poner 0
-        setFemaleCountThisMonth(femaleCount > 0 ? femaleCount : 0); // Si no hay registros, poner 0
-        setMaleCountLastMonth(maleCountPrevMonth > 0 ? maleCountPrevMonth : 0); // Lo mismo para el mes anterior
-        setFemaleCountLastMonth(
-          femaleCountPrevMonth > 0 ? femaleCountPrevMonth : 0
-        ); // Lo mismo para el mes anterior
+        // Actualizamos estados
+        setMaleCountThisMonth(maleCountCurrent);
+        setFemaleCountThisMonth(femaleCountCurrent);
+        setMaleCountLastMonth(maleCountPrevMonth); // Mantener la lógica original
+        setFemaleCountLastMonth(femaleCountPrevMonth); // Mantener la lógica original
       } catch (error) {
-        // console.error("Error al obtener los datos de Firebase:", error);
+        console.error("Error al obtener los datos de Firebase:", error);
       }
     };
 
     fetchData();
-  }, []); // Solo se ejecuta una vez al cargar el componente
+  }, []); // Solo una vez al montar
 
   const [measurementsCountThisMonth, setMeasurementsCountThisMonth] =
     useState(0);
@@ -206,6 +227,7 @@ export default function DashboardI() {
   const [avgLengthThisMonth, setAvgLengthThisMonth] = useState(0);
   const [avgLengthLastMonth, setAvgLengthLastMonth] = useState(0);
 
+  //
   useEffect(() => {
     const fetchData = async () => {
       try {

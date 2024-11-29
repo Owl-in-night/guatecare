@@ -26,17 +26,45 @@ import { parse } from "date-fns";
 import { es } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
 
+
+const normalizeDate = (dateString) => {
+  try {
+    // Detectar formato basado en la posición del separador y la longitud
+    if (dateString.includes("/")) {
+      const parts = dateString.split(" ");
+      const dateParts = parts[0].split("/");
+
+      if (dateParts[0].length === 4) {
+        // Formato: "YYYY/MM/DD"
+        return new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]} ${parts[1]}`);
+      } else if (parseInt(dateParts[0]) > 12) {
+        // Formato: "DD/MM/YYYY"
+        return new Date(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]} ${parts[1]}`);
+      } else {
+        // Formato: "MM/DD/YYYY"
+        return new Date(`${dateParts[0]}/${dateParts[1]}/${dateParts[2]} ${parts[1]}`);
+      }
+    }
+    return new Date(Date.parse(dateString)); // Otras cadenas
+  } catch (error) {
+    console.error("Error al normalizar la fecha:", dateString, error);
+    return null;
+  }
+};
+
 function Informes() {
   const { t } = useTranslation("global");
-  const [pieChartData, setPieChartData] = useState(null);
-  const [totalVisitors, setTotalVisitors] = useState(0);
-  const [monthYear, setMonthYear] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState(""); // Nuevo estado para el mes seleccionado
-  const [selectedYear, setSelectedYear] = useState("2024"); // Estado para el año seleccionado
+
 
   useEffect(() => {
     document.title = `${t("dashboard.navbar.informes")} | GuateCare`;
   }, [t]);
+
+  const [pieChartData, setPieChartData] = useState(null);
+  const [totalVisitors, setTotalVisitors] = useState(0);
+  const [monthYear, setMonthYear] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState(""); // Mes seleccionado
+  const [selectedYear, setSelectedYear] = useState("2024"); // Año seleccionado
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +78,6 @@ function Informes() {
         const currentMonth = currentDate.getMonth();
         const currentYear = currentDate.getFullYear();
 
-        // Usa el mes y año seleccionados (o los valores actuales si no están seleccionados)
         const selectedMonthIndex = selectedMonth
           ? new Date(`${selectedMonth} 1, 2024`).getMonth() // Convierte el mes seleccionado en un índice
           : currentMonth;
@@ -58,16 +85,14 @@ function Informes() {
         const selectedYearValue = selectedYear
           ? parseInt(selectedYear, 10)
           : currentYear;
-        // Filtra y cuenta niños y niñas del mes y año seleccionados
+
+        // Filtra y cuenta niños y niñas
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           let fecha = null;
 
           if (data.createdAt) {
-            fecha =
-              typeof data.createdAt === "string"
-                ? new Date(Date.parse(data.createdAt))
-                : data.createdAt.toDate();
+            fecha = normalizeDate(data.createdAt);
           }
 
           if (
@@ -82,38 +107,32 @@ function Informes() {
             }
           }
         });
+
         const total = totalNinos + totalNinas;
         setTotalVisitors(total);
+
         if (total > 0) {
           setPieChartData([
             { name: "Niños", value: totalNinos, fill: "#0066FF" },
             { name: "Niñas", value: totalNinas, fill: "#FFB6C1" },
           ]);
         } else {
-          // console.warn("No se encontraron registros de niños o niñas.");
           setPieChartData([]);
         }
+
         const monthNames = [
-          t("dashboard.informes.enero"),
-          t("dashboard.informes.febrero"),
-          t("dashboard.informes.marzo"),
-          t("dashboard.informes.abril"),
-          t("dashboard.informes.mayo"),
-          t("dashboard.informes.junio"),
-          t("dashboard.informes.julio"),
-          t("dashboard.informes.agosto"),
-          t("dashboard.informes.septiembre"),
-          t("dashboard.informes.octubre"),
-          t("dashboard.informes.noviembre"),
-          t("dashboard.informes.diciembre"),
+          "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         ];
+
         setMonthYear(`${monthNames[selectedMonthIndex]} ${selectedYearValue}`);
       } catch (error) {
         // console.error("Error al obtener los datos de Firebase:", error);
       }
     };
+
     fetchData();
-  }, [selectedMonth, selectedYear]); // Dependemos de los filtros de mes y año
+  }, [selectedMonth, selectedYear]);
 
   // Distribución por Comunidad Lingüística
   const [barChartData, setBarChartData] = useState([]);
