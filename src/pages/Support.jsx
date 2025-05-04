@@ -1,6 +1,4 @@
 import { useEffect } from "react";
-
-// import { buttonVariants } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
   BookType,
@@ -14,58 +12,9 @@ import {
   MapPinned,
   HandCoins,
 } from "lucide-react";
-
-//Navbar
-// import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-// import {
-//   NavigationMenu,
-//   NavigationMenuContent,
-//   NavigationMenuItem,
-//   NavigationMenuLink,
-//   NavigationMenuList,
-//   NavigationMenuTrigger,
-// } from "@/components/ui/navigation-menu";
-
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-
-// import { ModeToggle } from "../components/_partials/ModeToggle";
-// import { CircleHelp, BookUser, LogIn, Settings } from "lucide-react";
-//i18n
 //Language
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-
-//icon
-// import IconM from "../../public/icons/iconGuateCare";
-// import IconName from "../../public/icons/iconName";
-// import IconSupport from "../../public/icons/iconSoporte";
-//End navbar
-
-import // ChevronLeft,
-// ChevronRight,
-// Copy,
-// CreditCard,
-// File,
-// Home,
-// ListFilter,
-// MoreVertical,
-// Package,
-// Package2,
-// PanelLeft,
-// Search,
-// // Settings,
-// ShoppingCart,
-// Truck,
-// Users2,
-"lucide-react";
-
 import {
   Card,
   CardContent,
@@ -74,12 +23,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-
-
 //Navbar Support
 import NavbarSupport from "@/components/_partials/NavbarSupport";
-
 export default function Support() {
   //Time
 
@@ -98,9 +43,6 @@ export default function Support() {
       i18next.changeLanguage(savedLanguage);
     }
   }, []);
-
-
-
   return (
     <>
       {/* Navbar */}
